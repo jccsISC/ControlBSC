@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity"
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    android:gravity="center_horizontal"
+    android:padding="@dimen/padding_20"
+    >
+
+    <ImageView
+        android:layout_marginTop="@dimen/marginTop_imgLogin_60"
+        android:layout_width="@dimen/width_logoLogin_150"
+        android:layout_height="@dimen/width_logoLogin_150"
+        android:padding="@dimen/padding_10"
+        android:src="@drawable/descarga"
+        android:contentDescription="@string/img_description"
+        />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilUser"
+        android:layout_marginTop="@dimen/marginTop_imgLogin_60"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tieUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_10"
+            android:hint="@string/hint_email"
+            tools:text="Silva.jc@hotmail.com"
+            android:inputType="textEmailAddress"
+            android:textSize="@dimen/size_20"
+            android:drawableEnd="@drawable/ic_usuario"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilPassword"
+        android:layout_marginTop="@dimen/marginTop_20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tiePassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_10"
+            android:hint="@string/hint_email"
+            tools:text="Silva.jc@hotmail.com"
+            android:inputType="textPassword"
+            android:textSize="@dimen/size_20"
+            android:drawableEnd="@drawable/ic_bloqueado"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_marginTop="@dimen/marginTop_30"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:text="@string/btn_login"
+        android:background="@color/colorPrimary"
+        android:textColor="@android:color/white"
+        android:onClick="onClick"
+        />
+
+    <Button
+        android:id="@+id/btnSignIn"
+        android:layout_marginTop="@dimen/marginTop_20"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/height_btnSign_In"
+        android:background="?android:attr/selectableItemBackground"
+        android:text="@string/btn_Sign_In"
+        android:textSize="@dimen/size_12"
+        android:textColor="@color/colorSecondaryText"
+        android:shadowColor="@color/colorPrimaryDark"
+        android:shadowDx="8"
+        android:shadowDy="8"
+        android:shadowRadius="12"
+        android:onClick="onClick"
+        />
+
+</LinearLayout>
