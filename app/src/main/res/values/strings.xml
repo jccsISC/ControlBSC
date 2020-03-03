@@ -10,8 +10,6 @@
     <string name="img_description">Descripcion de la imagen sierra costa</string>
 
 
-
-
     <!--navigationDrawer-->
     <string name="title_activity_menu_principal">MenuPrincipalActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -28,4 +26,7 @@
     <string name="nav_camaras">Control de Camaras</string>
     <string name="nav_inventario">Inventario</string>
     <string name="nav_procesos">Procesos</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
 </resources>
