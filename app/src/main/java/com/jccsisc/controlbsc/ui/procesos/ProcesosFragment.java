@@ -1,4 +1,4 @@
-package com.jccsisc.controlbsc.ui.slideshow;
+package com.jccsisc.controlbsc.ui.procesos;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,21 +7,18 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.jccsisc.controlbsc.R;
 
-public class SlideshowFragment extends Fragment {
+public class ProcesosFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_slideshow, container, false);
-        final TextView textView = root.findViewById(R.id.text_slideshow);
-        textView.setText("Slide");
+        View root = inflater.inflate(R.layout.fragment_procesos, container, false);
+        final TextView textView = root.findViewById(R.id.text_procesos);
+        textView.setText("Procesos");
         return root;
     }
 }

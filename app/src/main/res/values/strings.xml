@@ -11,7 +11,6 @@
 
 
     <!--navigationDrawer-->
-    <string name="title_activity_menu_principal">MenuPrincipalActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -20,13 +19,19 @@
     <string name="action_settings">Settings</string>
 
     <string name="menu_home">Home</string>
-    <string name="nav_productos">Productos</string>
-    <string name="nav_historial">Historial de Entradas/Salidas</string>
-    <string name="nav_matanzas">Matanzas</string>
-    <string name="nav_camaras">Control de Camaras</string>
-    <string name="nav_inventario">Inventario</string>
-    <string name="nav_procesos">Procesos</string>
+    <string name="menu_productos">Productos</string>
+
     <string name="title_activity_main">MainActivity</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_procesos">Procesos</string>
+    <string name="entradas">ENTRADAS</string>
+    <string name="salidas">SALIDAS</string>
+    <string name="menu_matanzas">Matanzas</string>
+    <string name="menu_historial">Historial E/S</string>
+    <string name="menu_camaras">Control de Camaras</string>
+    <string name="menu_inventario">Inventario</string>
+    <string name="menu_contacto">Contactanos</string>
+    <string name="menu_cerrarsesion">Cerrar Sesión</string>
+    <string name="peso">Peso</string>
+    <string name="hint_register">Ingrese el nombre del producto</string>
+    <string name="hint_producto">Nombre del producto nuevo</string>
 </resources>

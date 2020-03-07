@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "577989311037",
+    "firebase_url": "https://controlbsc-899b5.firebaseio.com",
+    "project_id": "controlbsc-899b5",
+    "storage_bucket": "controlbsc-899b5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:577989311037:android:28b56a684ab0f2f62f8854",
+        "android_client_info": {
+          "package_name": "com.jccsisc.controlbsc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "577989311037-n7jvrlhunppur8pqfi55n5kddmm73ni7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jccsisc.controlbsc",
+            "certificate_hash": "c556db4c9db8d1edb2f049797c949ee85cd78400"
+          }
+        },
+        {
+          "client_id": "577989311037-pbgl7m4m1imfi0g5t71kujq5j1immcuh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZYHd-BnbXfDjWq8ox8_znR6ltGyAFPB0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "577989311037-pbgl7m4m1imfi0g5t71kujq5j1immcuh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

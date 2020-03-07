@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Registrarctivity"
+    android:orientation="vertical"
+    android:padding="@dimen/padding_20"
+    android:gravity="center"
+    android:weightSum="1"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:background="@color/colorSecondaryText"
+        android:layout_weight="0.5"
+        >
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilRegistrarP"
+            android:layout_marginTop="@dimen/marginTop_imgLogin_60"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tieRegistrarP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_10"
+                android:hint="@string/hint_producto"
+                tools:text="Papada"
+                android:inputType="text"
+                android:textSize="@dimen/size_20"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:layout_marginTop="40dp"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="0.5"
+                android:gravity="center"
+                >
+                <Button
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="Pieza"
+                    android:onClick="onClick"
+                    android:background="@color/colorPrimary"
+                    android:textColor="@android:color/white"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="0.5"
+                android:gravity="center"
+                >
+                <Button
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="Cajas"
+                    android:background="@color/colorPrimary"
+                    android:textColor="@android:color/white"
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="0.7"
+        android:gravity="bottom|center"
+        >
+        <Button
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:text="Guardar"
+            android:background="@drawable/borde_card_entradas"
+            android:textColor="@android:color/black"
+            />
+    </LinearLayout>
+
+</LinearLayout>

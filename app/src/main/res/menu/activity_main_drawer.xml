@@ -6,15 +6,44 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_casas"
             android:title="@string/menu_home" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/menu_gallery" />
+            android:id="@+id/nav_productos"
+            android:icon="@drawable/ic_carne"
+            android:title="@string/menu_productos" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow" />
+            android:id="@+id/nav_matanzas"
+            android:icon="@drawable/ic_cerdo"
+            android:title="@string/menu_matanzas" />
+        <item
+            android:id="@+id/nav_procesos"
+            android:icon="@drawable/ic_carnicero"
+            android:title="@string/menu_procesos" />
+        <item
+            android:id="@+id/nav_historial"
+            android:icon="@drawable/ic_archivo"
+            android:title="@string/menu_historial" />
+        <item
+            android:id="@+id/nav_camaras"
+            android:icon="@drawable/ic_refrigerador"
+            android:title="@string/menu_camaras" />
+        <item
+            android:id="@+id/nav_inventario"
+            android:icon="@drawable/ic_inventario"
+            android:title="@string/menu_inventario" />
     </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_contactanos"
+                android:icon="@drawable/ic_servicio_al_cliente"
+                android:title="@string/menu_contacto" />
+            <item
+                android:id="@+id/nav_cerrarsesion"
+                android:icon="@drawable/ic_puerta"
+                android:title="@string/menu_cerrarsesion" />
+        </menu>
+    </item>
 </menu>

@@ -3,41 +3,57 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@id/nav_home">
 
     <fragment
         android:id="@+id/nav_home"
         android:name="com.jccsisc.controlbsc.ui.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home">
+        tools:layout="@layout/fragment_home"/>
 
-        <action
-            android:id="@+id/action_HomeFragment_to_HomeSecondFragment"
-            app:destination="@id/nav_home_second" />
-    </fragment>
-    <fragment
-        android:id="@+id/nav_home_second"
-        android:name="com.jccsisc.controlbsc.ui.home.HomeSecondFragment"
-        android:label="@string/home_second"
-        tools:layout="@layout/fragment_home_second">
-        <action
-            android:id="@+id/action_HomeSecondFragment_to_HomeFragment"
-            app:destination="@id/nav_home" />
-
-        <argument
-            android:name="myArg"
-            app:argType="string" />
-    </fragment>
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.jccsisc.controlbsc.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_productos"
+        android:name="com.jccsisc.controlbsc.ui.productos.ProductosFragment"
+        android:label="@string/menu_productos"
+        tools:layout="@layout/fragment_productos" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.jccsisc.controlbsc.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_matanzas"
+        android:name="com.jccsisc.controlbsc.ui.matanzas.MatanzasFragment"
+        android:label="@string/menu_matanzas"
+        tools:layout="@layout/fragment_matanzas" />
+
+    <fragment
+        android:id="@+id/nav_procesos"
+        android:name="com.jccsisc.controlbsc.ui.procesos.ProcesosFragment"
+        android:label="@string/menu_procesos"
+        tools:layout="@layout/fragment_procesos" />
+
+    <fragment
+        android:id="@+id/nav_historial"
+        android:name="com.jccsisc.controlbsc.ui.historial.HistorialFragment"
+        android:label="@string/menu_historial"
+        tools:layout="@layout/fragment_historial" />
+
+    <fragment
+        android:id="@+id/nav_camaras"
+        android:name="com.jccsisc.controlbsc.ui.camaras.CamarasFragment"
+        android:label="@string/menu_camaras"
+        tools:layout="@layout/fragment_camaras" />
+
+    <fragment
+        android:id="@+id/nav_inventario"
+        android:name="com.jccsisc.controlbsc.ui.inventario.InventarioFragment"
+        android:label="@string/menu_inventario"
+        tools:layout="@layout/fragment_inventario" />
+
+    <fragment
+        android:id="@+id/nav_contactanos"
+        android:name="com.jccsisc.controlbsc.ui.contactanos.ContactanosFragment"
+        android:label="@string/menu_contacto"
+        tools:layout="@layout/fragment_contactanos" />
+
+
+
 </navigation>
