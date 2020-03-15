@@ -31,6 +31,12 @@
         tools:layout="@layout/fragment_procesos" />
 
     <fragment
+        android:id="@+id/nav_pedidos"
+        android:name="com.jccsisc.controlbsc.ui.pedidos.PedidosFragment"
+        android:label="@string/menu_pedidos"
+        tools:layout="@layout/fragment_pedidos" />
+
+    <fragment
         android:id="@+id/nav_historial"
         android:name="com.jccsisc.controlbsc.ui.historial.HistorialFragment"
         android:label="@string/menu_historial"
@@ -53,7 +59,6 @@
         android:name="com.jccsisc.controlbsc.ui.contactanos.ContactanosFragment"
         android:label="@string/menu_contacto"
         tools:layout="@layout/fragment_contactanos" />
-
 
 
 </navigation>

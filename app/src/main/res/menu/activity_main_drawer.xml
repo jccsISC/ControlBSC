@@ -21,6 +21,10 @@
             android:icon="@drawable/ic_carnicero"
             android:title="@string/menu_procesos" />
         <item
+            android:id="@+id/nav_pedidos"
+            android:icon="@drawable/common_google_signin_btn_icon_dark"
+            android:title="@string/menu_pedidos"/>
+        <item
             android:id="@+id/nav_historial"
             android:icon="@drawable/ic_archivo"
             android:title="@string/menu_historial" />

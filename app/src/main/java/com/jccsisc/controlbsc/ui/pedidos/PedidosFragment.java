@@ -1,4 +1,4 @@
-package com.jccsisc.controlbsc.ui.procesos;
+package com.jccsisc.controlbsc.ui.pedidos;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,14 +11,14 @@ import androidx.fragment.app.Fragment;
 
 import com.jccsisc.controlbsc.R;
 
-public class ProcesosFragment extends Fragment {
+public class PedidosFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_procesos, container, false);
+        View root = inflater.inflate(R.layout.fragment_pedidos, container, false);
         final TextView textView = root.findViewById(R.id.text_pedidos);
-        textView.setText("Procesos");
+        textView.setText("Pedidos");
         return root;
     }
 }
