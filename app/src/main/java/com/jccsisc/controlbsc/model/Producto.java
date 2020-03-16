@@ -1,19 +1,21 @@
 package com.jccsisc.controlbsc.model;
 
 public class Producto {
-    private String name, unit, status, camara;
-    private int weight, quantity;
-    private String idKey;
+    String name, unit, status, camara, idKey, dateEntrada, dateSalida;
+    int weight, quantity;
+
     public Producto() {}
 
-    public Producto(String name, String unit, int weight, int quantity, String status, String camara, String idKey) {
-        this.name = name;
-        this.unit = unit;
-        this.weight = weight;
-        this.quantity = quantity;
-        this.status = status;
-        this.camara = camara;
-        this.idKey = idKey;
+    public Producto(String name, String unit, int weight, int quantity, String status, String camara, String idKey, String dateEntrada, String dateSalida) {
+        this.name        = name;
+        this.unit        = unit;
+        this.weight      = weight;
+        this.quantity    = quantity;
+        this.status      = status;
+        this.camara      = camara;
+        this.idKey       = idKey;
+        this.dateEntrada = dateEntrada;
+        this.dateSalida  = dateSalida;
     }
 
     public String getIdKey() {
@@ -71,4 +73,37 @@ public class Producto {
     public void setCamara(String camara) {
         this.camara = camara;
     }
+
+    public String getDateEntrada() {
+        return dateEntrada;
+    }
+
+    public void setDateEntrada(String dateEntrada) {
+        this.dateEntrada = dateEntrada;
+    }
+
+    public String getDateSalida() {
+        return dateSalida;
+    }
+
+    public void setDateSalida(String dateSalida) {
+        this.dateSalida = dateSalida;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Producto {" +
+                "name='" + name + '\'' +
+                ", unit='" + unit + '\'' +
+                ", status='" + status + '\'' +
+                ", camara='" + camara + '\'' +
+                ", sdKey='" + idKey + '\'' +
+                ", dateEntrada='" + dateEntrada + '\'' +
+                ", dateSalida='" + dateSalida + '\'' +
+                ", weight='" + weight + '\'' +
+                ", quantity=" +quantity +
+                '}';
+    }
+
 }

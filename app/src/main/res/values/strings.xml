@@ -46,10 +46,11 @@
     <string name="registrate">Registrate ya!!</string>
 
     <string name="salidas">SALIDAS</string>
+    <string name="save">Guardar</string>
 
     <string name="title_Registrar">Registrar nuevo Producto</string>
 
     <string name="unidad">Seleccione si es una Pieza o Caja</string>
-    <string name="save">Guardar</string>
+    <string name="kg">Kg</string>
 
 </resources>

@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -24,20 +25,25 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.jccsisc.controlbsc.model.Producto;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class RegistrarProductoActivity extends AppCompatActivity implements View.OnClickListener{
 
     private static final String PRODUCTO_NODE = "DB_Bodega1";
     private static final String DB_NODE = "DB_Productos";
+
     private DatabaseReference databaseReference, databaseReference2;
 
+    private Boolean miclick = false;
     private TextInputLayout tilProducto;
     private TextInputEditText tieRegistrarP;
-    private String unit, status, camara;
-    private Boolean miclick = false;
     private Button btnCaja, btnPieza, btnSave;
-    ValueEventListener valueEventListener;
+    private ValueEventListener valueEventListener;
+    private String unit, status, camara, dateEntrada, dateSalida = "";
+    public String id = FirebaseDatabase.getInstance().getReference().push().getKey();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,20 +141,52 @@ public class RegistrarProductoActivity extends AppCompatActivity implements View
     //crear productos
     private void createProduct(View v) {
         getProductos();
-//        String nameProducto = tieRegistrarP.getEditableText().toString();
-//
-//        if (isProductEmpty(nameProducto)) {
-//            if (miclick) {
-//                String titulo = FirebaseDatabase.getInstance().getReference().push().getKey();
-//                Producto producto = new Producto(nameProducto, unit, 0, 0, status, camara, titulo);
-//
-//                databaseReference.child(PRODUCTO_NODE).child("DB_Productos").child(titulo).setValue(producto); //se inserta el dato
-//                mtoast(getString(R.string.registrado));
-//                finish();
-//            }else {
-//                snackMessage(getString(R.string.unidad));
-//            }
-//        }
+        String nameProducto = tieRegistrarP.getEditableText().toString().toUpperCase();
+
+        if (isProductEmpty(nameProducto)) {
+            if (miclick) {
+                Producto producto       = new Producto(nameProducto, unit, 0, 0, status, camara, id, dateEntrada, dateSalida);
+                Producto productoVacioM = new Producto(nameProducto, unit,0, 0, status, camara, id, dateEntrada, dateSalida);
+                Producto productoVacioE = new Producto(nameProducto, unit, 0, 0, status, camara, id, dateEntrada, dateSalida);
+                Producto productoVacioS = new Producto(nameProducto, unit, 0, 0, status, camara, id, dateEntrada, dateSalida);
+
+                if(isOfMatanza(nameProducto)) {
+                    databaseReference.child(PRODUCTO_NODE).child("DB_Matanzas").child(id).setValue(productoVacioM);
+                    databaseReference.child(PRODUCTO_NODE).child("DB_Entradas").child(id).setValue(productoVacioE); //entradas
+                    databaseReference.child(PRODUCTO_NODE).child("DB_Salidas").child(id).setValue(productoVacioS); //salidas
+                    databaseReference.child(PRODUCTO_NODE).child("DB_Productos").child(id).setValue(producto); //se inserta el dato
+                }else {
+                    databaseReference.child(PRODUCTO_NODE).child("DB_Entradas").child(id).setValue(productoVacioE); //entradas
+                    databaseReference.child(PRODUCTO_NODE).child("DB_Salidas").child(id).setValue(productoVacioS); //salidas
+                    databaseReference.child(PRODUCTO_NODE).child("DB_Productos").child(id).setValue(producto); //se inserta el dato
+                }
+                mtoast(getString(R.string.registrado));
+                finish();
+            }else {
+                btnCaja.setBackground(getDrawable(R.drawable.btn_selecciona));
+                btnPieza.setBackground(getDrawable(R.drawable.btn_selecciona));
+                snackMessage(getString(R.string.unidad));
+            }
+        }
+    }
+
+    //validar si es pieza de la matanza
+    private boolean isOfMatanza(String pieza) {
+        String [] piezasMatanza = {"CAPOTES VENDIDOS", "CABEZA DE CERDO", "PIERNAS SIN HUESO", "ESPALDILLAS SIN HUESO",
+        "MANITAS", "LONJA", "HUNTOS", "HUESOS", "RIÑON", "CHAMORRO", "COSTILLA", "ESPINAZO CON LOMO COMPLETO", "ESPINAZO FRESCO",
+        "LOMO", "CABEZA DE LOMO", "CHULETA MARIPOSA", "DESPIQUE", "DENTROS"};
+
+        for (int i=0; i<piezasMatanza.length; i++) {
+            if(pieza.equals(piezasMatanza[i])) { return true; }
+        }
+        return false;
+    }
+
+    //obtener fecha
+    private void getDate() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        Date date = new Date();
+        dateEntrada = dateFormat.format(date);
     }
 
     private void getProductos() {
