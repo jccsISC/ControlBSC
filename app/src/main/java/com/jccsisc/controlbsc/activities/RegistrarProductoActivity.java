@@ -260,21 +260,28 @@ public class RegistrarProductoActivity extends AppCompatActivity implements View
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         Log.e("snapcompleto", dataSnapshot.toString());
-                       if(dataSnapshot != null)
-                       {
-                           for(DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
 
-                               String namecito2 = postSnapshot.child("name").getValue(String.class);
-                               Log.e("snap",namecito2);
-                               if(uid.equals(namecito2)){
-                                   myCallback.onCallbackTeacher(true);
-                               }else{
-                                   myCallback.onCallbackTeacher(false);
-                               }
-                           }
-                       }else {
-                           myCallback.onCallbackTeacher(false);
-                       }
+                        /*
+                        *Ya quedó solo tenias que agregar estas 3 lineas
+                        * esto sucede porque cuando el datasnapshot es == null
+                        * no exite realmente el datasnapshot
+                        * y eso se controla con una propiedad del datasnapshot
+                        * dataSnapshot.exitsts() - > devuelve true si ya existe
+                         */
+                        if(!dataSnapshot.exists()){
+                            myCallback.onCallbackTeacher(false);
+                            return;
+                        }
+                        for(DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+
+                            String namecito2 = postSnapshot.child("name").getValue(String.class);
+                            Log.e("snap",namecito2);
+                            if(uid.equals(namecito2)){
+                                myCallback.onCallbackTeacher(true);
+                            }else{
+                                myCallback.onCallbackTeacher(false);
+                            }
+                        }
                     }
 
                     @Override
