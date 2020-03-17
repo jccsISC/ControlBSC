@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -43,7 +44,7 @@ public class RegistrarProductoActivity extends AppCompatActivity implements View
     private TextInputLayout tilProducto;
     private EditText tieRegistrarP;
     private Button btnCaja, btnPieza, btnSave;
-    private ValueEventListener valueEventListener;
+
     private String unit, status, camara, dateEntrada, dateSalida = "";
     public String id = FirebaseDatabase.getInstance().getReference().push().getKey();
 
@@ -154,11 +155,21 @@ public class RegistrarProductoActivity extends AppCompatActivity implements View
                 }else{
                     if (isProductEmpty(nameProducto)) {
                         if (miclick) {
+                            /*
+                            *ESTAS REPITIENDO EL MISMO PRODUCTO 3 VECES
+                            * ESTAS METIENDO EL MISMO DATO UNA Y OTRA VEZ Y EN NINGUNO CAMBIAN LOS DATOS
+                            * MARCAME Y TE AYUDO
+                             */
                             Producto producto       = new Producto(nameProducto, unit, 0, 0, status, camara, id, dateEntrada, dateSalida);
                             Producto productoVacioM = new Producto(nameProducto, unit,0, 0, status, camara, id, dateEntrada, dateSalida);
                             Producto productoVacioE = new Producto(nameProducto, unit, 0, 0, status, camara, id, dateEntrada, dateSalida);
                             Producto productoVacioS = new Producto(nameProducto, unit, 0, 0, status, camara, id, dateEntrada, dateSalida);
 
+                            /*TENEMOS QUE HABLAR SOBRE ESTOS 7 INSERTS QUE ESTAS HACIENDO
+                            *QUE NO LO VEA KEVIN, ESTA FEO ESTE ASUNTO
+                            * NTP SE PUEDE SOLUCIONAR, SOLO QUIERO QUE ME EXPLIQUES TU PANORAMA O EN QUE PENSABAS
+                            * POR LO CUAL DECIDISTE HACER ESTOS 7 INSERTS
+                            */
                             if(isOfMatanza(nameProducto)) {
                                 databaseReference.child(PRODUCTO_NODE).child("DB_Matanzas").child(id).setValue(productoVacioM);
                                 databaseReference.child(PRODUCTO_NODE).child("DB_Entradas").child(id).setValue(productoVacioE); //entradas
@@ -167,10 +178,20 @@ public class RegistrarProductoActivity extends AppCompatActivity implements View
                             }else {
                                 databaseReference.child(PRODUCTO_NODE).child("DB_Entradas").child(id).setValue(productoVacioE); //entradas
                                 databaseReference.child(PRODUCTO_NODE).child("DB_Salidas").child(id).setValue(productoVacioS); //salidas
-                                databaseReference.child(PRODUCTO_NODE).child("DB_Productos").child(id).setValue(producto); //se inserta el dato
+                                databaseReference.child(PRODUCTO_NODE).child("DB_Productos").child(id).setValue(producto).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        /*
+                                        *Tuve que poner esto porque no dabas chance de completar las otras tareas y aun asi con este
+                                        * addOnSuccessListener no está del todo bien, pero mejoraras :)
+                                        * lee esto por fa, https://dominiotic.com/la-diferencia-entre-metodo-sincrono-y-asincrono/
+                                         */
+                                        mtoast(getString(R.string.registrado));
+                                        finish();
+                                    }
+                                }); //se inserta el dato
                             }
-                            mtoast(getString(R.string.registrado));
-                            finish();
+
                         }else {
                             btnCaja.setBackground(getDrawable(R.drawable.btn_selecciona));
                             btnPieza.setBackground(getDrawable(R.drawable.btn_selecciona));
