@@ -181,6 +181,7 @@ public class RegistrarProductoActivity extends AppCompatActivity implements View
                                 databaseReference.child(PRODUCTO_NODE).child("DB_Productos").child(id).setValue(producto).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
+
                                         /*
                                         *Tuve que poner esto porque no dabas chance de completar las otras tareas y aun asi con este
                                         * addOnSuccessListener no está del todo bien, pero mejoraras :)
