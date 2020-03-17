@@ -1,6 +1,7 @@
 package com.jccsisc.controlbsc.adapters;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +19,10 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.Prod
 
     private List<Producto> productos_model;
     private Activity activity;
-    private int resource;
 
-    public ProductosAdapter(List<Producto> productos_model, Activity activity, int cardview_producto) {
+    public ProductosAdapter(List<Producto> productos_model, Activity activity) {
         this.productos_model = productos_model;
         this.activity = activity;
-        this.resource = cardview_producto;
     }
 
     @NonNull
@@ -41,8 +40,8 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.Prod
 
         holder.textNameProduct.setText(producto.getName());
         holder.textUnit.setText(producto.getUnit());
-        holder.textCantidad.setText(producto.getQuantity());
-        holder.textKg.setText(producto.getWeight());
+        holder.textCantidad.setText(String.valueOf(producto.getQuantity()));
+        holder.textKg.setText(String.valueOf(producto.getWeight()));
     }
 
     @Override
@@ -51,7 +50,7 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.Prod
     }
 
     //creamos nuestra inner class
-    public static class ProductosViewHolder extends RecyclerView.ViewHolder {
+    public  class ProductosViewHolder extends RecyclerView.ViewHolder {
         TextView textNameProduct, textUnit, textCantidad, textKg;
 
         public ProductosViewHolder(@NonNull View itemView) {

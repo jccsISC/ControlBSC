@@ -1,4 +1,4 @@
-package com.jccsisc.controlbsc;
+package com.jccsisc.controlbsc.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,6 +26,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.jccsisc.controlbsc.R;
 import com.jccsisc.controlbsc.model.CrearUser;
 
 import java.util.Objects;

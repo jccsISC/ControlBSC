@@ -1,4 +1,4 @@
-package com.jccsisc.controlbsc;
+package com.jccsisc.controlbsc.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,13 +24,13 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.jccsisc.controlbsc.R;
 
 import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
     private FirebaseAuth mAuth; // para conectarnos con el usuario de la db
-
     private TextInputLayout tilUser, tilPassword;
     private EditText tieUser, tiePassword;
 

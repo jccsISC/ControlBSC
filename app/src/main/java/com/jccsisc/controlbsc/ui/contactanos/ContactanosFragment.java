@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.jccsisc.controlbsc.LoginActivity;
+import com.jccsisc.controlbsc.activities.LoginActivity;
 import com.jccsisc.controlbsc.R;
 
 public class ContactanosFragment extends Fragment implements View.OnClickListener {

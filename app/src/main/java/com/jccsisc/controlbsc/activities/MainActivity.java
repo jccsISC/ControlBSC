@@ -1,4 +1,4 @@
-package com.jccsisc.controlbsc;
+package com.jccsisc.controlbsc.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import android.view.Menu;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.jccsisc.controlbsc.R;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;

@@ -1,6 +1,7 @@
 package com.jccsisc.controlbsc.ui.productos;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +26,7 @@ import java.util.List;
 
 public class ProductosFragment extends Fragment {
 
-    DatabaseReference myRef;
+    DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("DB_Bodega1");
     FirebaseAuth mAuth;
 
     private RecyclerView rvProductos;
@@ -41,19 +42,22 @@ public class ProductosFragment extends Fragment {
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         rvProductos.setLayoutManager(linearLayoutManager);
 
-        productosAdapter = new ProductosAdapter(productoArrayList, getActivity(), R.layout.cardview_producto);
+        productoArrayList = new ArrayList<>();
+        productosAdapter = new ProductosAdapter(productoArrayList, getActivity());
+
+        rvProductos.setAdapter(productosAdapter);
 
 
         mAuth = FirebaseAuth.getInstance(); //obtenemos al usuario actual
         final  String uid = mAuth.getUid();
 
-        myRef = (DatabaseReference) FirebaseDatabase.getInstance().getReference("DB_Productos").addValueEventListener(new ValueEventListener() {
+        myRef.child("DB_Productos").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 productoArrayList.removeAll(productoArrayList);
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Producto producto = snapshot.getValue(Producto.class);
-//                    producto.add(producto);
+                    productoArrayList.add(producto);
                 }
 
                 productosAdapter.notifyDataSetChanged();

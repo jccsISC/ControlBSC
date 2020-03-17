@@ -2,11 +2,11 @@ package com.jccsisc.controlbsc.model;
 
 public class Producto {
     String name, unit, status, camara, idKey, dateEntrada, dateSalida;
-    int weight, quantity;
+    float weight, quantity;
 
     public Producto() {}
 
-    public Producto(String name, String unit, int weight, int quantity, String status, String camara, String idKey, String dateEntrada, String dateSalida) {
+    public Producto(String name, String unit, float weight, float quantity, String status, String camara, String idKey, String dateEntrada, String dateSalida) {
         this.name        = name;
         this.unit        = unit;
         this.weight      = weight;
@@ -42,19 +42,19 @@ public class Producto {
         this.unit = unit;
     }
 
-    public int getWeight() {
+    public float getWeight() {
         return weight;
     }
 
-    public void setWeight(int weight) {
+    public void setWeight(float weight) {
         this.weight = weight;
     }
 
-    public int getQuantity() {
+    public float getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(float quantity) {
         this.quantity = quantity;
     }
 
@@ -90,20 +90,20 @@ public class Producto {
         this.dateSalida = dateSalida;
     }
 
-
-    @Override
-    public String toString() {
-        return "Producto {" +
-                "name='" + name + '\'' +
-                ", unit='" + unit + '\'' +
-                ", status='" + status + '\'' +
-                ", camara='" + camara + '\'' +
-                ", sdKey='" + idKey + '\'' +
-                ", dateEntrada='" + dateEntrada + '\'' +
-                ", dateSalida='" + dateSalida + '\'' +
-                ", weight='" + weight + '\'' +
-                ", quantity=" +quantity +
-                '}';
-    }
+//
+//    @Override
+//    public String toString() {
+//        return "Producto {" +
+//                "name='" + name + '\'' +
+//                ", unit='" + unit + '\'' +
+//                ", status='" + status + '\'' +
+//                ", camara='" + camara + '\'' +
+//                ", sdKey='" + idKey + '\'' +
+//                ", dateEntrada='" + dateEntrada + '\'' +
+//                ", dateSalida='" + dateSalida + '\'' +
+//                ", weight='" + weight + '\'' +
+//                ", quantity=" +quantity +
+//                '}';
+//    }
 
 }

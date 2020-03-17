@@ -1,4 +1,4 @@
-package com.jccsisc.controlbsc;
+package com.jccsisc.controlbsc.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -23,6 +24,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.jccsisc.controlbsc.R;
 import com.jccsisc.controlbsc.model.Producto;
 
 import java.text.SimpleDateFormat;
@@ -39,7 +41,7 @@ public class RegistrarProductoActivity extends AppCompatActivity implements View
 
     private Boolean miclick = false;
     private TextInputLayout tilProducto;
-    private TextInputEditText tieRegistrarP;
+    private EditText tieRegistrarP;
     private Button btnCaja, btnPieza, btnSave;
     private ValueEventListener valueEventListener;
     private String unit, status, camara, dateEntrada, dateSalida = "";
@@ -59,13 +61,13 @@ public class RegistrarProductoActivity extends AppCompatActivity implements View
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         databaseReference = FirebaseDatabase.getInstance().getReference(); //obtenemos la db el nodo raiz controlbsc-899b5
-        databaseReference2 = FirebaseDatabase.getInstance().getReference(PRODUCTO_NODE + "/" + DB_NODE);
+        databaseReference2 = FirebaseDatabase.getInstance().getReference(PRODUCTO_NODE).child(DB_NODE);
 
         btnCaja     = findViewById(R.id.btnCaja);
         btnPieza    = findViewById(R.id.btnPieza);
         btnSave     = findViewById(R.id.btnSave);
-        tilProducto = findViewById(R.id.tilRegistrarP);
-        tieRegistrarP = findViewById(R.id.tieRegistrarP);
+        tilProducto = findViewById(R.id.tilRegistrarP); //Aqui tienes un error
+        tieRegistrarP = findViewById(R.id.tieRegistrarP);//a tecreasjaja
 
 
         tieRegistrarP.addTextChangedListener(new TextWatcher() {
@@ -140,34 +142,44 @@ public class RegistrarProductoActivity extends AppCompatActivity implements View
 
     //crear productos
     private void createProduct(View v) {
-        getProductos();
-        String nameProducto = tieRegistrarP.getEditableText().toString().toUpperCase();
+        final String nameProducto = tieRegistrarP.getText().toString().toUpperCase();
 
-        if (isProductEmpty(nameProducto)) {
-            if (miclick) {
-                Producto producto       = new Producto(nameProducto, unit, 0, 0, status, camara, id, dateEntrada, dateSalida);
-                Producto productoVacioM = new Producto(nameProducto, unit,0, 0, status, camara, id, dateEntrada, dateSalida);
-                Producto productoVacioE = new Producto(nameProducto, unit, 0, 0, status, camara, id, dateEntrada, dateSalida);
-                Producto productoVacioS = new Producto(nameProducto, unit, 0, 0, status, camara, id, dateEntrada, dateSalida);
+        getDatos(new CallbackDatos() {
 
-                if(isOfMatanza(nameProducto)) {
-                    databaseReference.child(PRODUCTO_NODE).child("DB_Matanzas").child(id).setValue(productoVacioM);
-                    databaseReference.child(PRODUCTO_NODE).child("DB_Entradas").child(id).setValue(productoVacioE); //entradas
-                    databaseReference.child(PRODUCTO_NODE).child("DB_Salidas").child(id).setValue(productoVacioS); //salidas
-                    databaseReference.child(PRODUCTO_NODE).child("DB_Productos").child(id).setValue(producto); //se inserta el dato
-                }else {
-                    databaseReference.child(PRODUCTO_NODE).child("DB_Entradas").child(id).setValue(productoVacioE); //entradas
-                    databaseReference.child(PRODUCTO_NODE).child("DB_Salidas").child(id).setValue(productoVacioS); //salidas
-                    databaseReference.child(PRODUCTO_NODE).child("DB_Productos").child(id).setValue(producto); //se inserta el dato
+            @Override
+            public void onCallbackTeacher(boolean name) {
+
+                if(name){
+                    mtoast("El nombre ya existe");
+                }else{
+                    if (isProductEmpty(nameProducto)) {
+                        if (miclick) {
+                            Producto producto       = new Producto(nameProducto, unit, 0, 0, status, camara, id, dateEntrada, dateSalida);
+                            Producto productoVacioM = new Producto(nameProducto, unit,0, 0, status, camara, id, dateEntrada, dateSalida);
+                            Producto productoVacioE = new Producto(nameProducto, unit, 0, 0, status, camara, id, dateEntrada, dateSalida);
+                            Producto productoVacioS = new Producto(nameProducto, unit, 0, 0, status, camara, id, dateEntrada, dateSalida);
+
+                            if(isOfMatanza(nameProducto)) {
+                                databaseReference.child(PRODUCTO_NODE).child("DB_Matanzas").child(id).setValue(productoVacioM);
+                                databaseReference.child(PRODUCTO_NODE).child("DB_Entradas").child(id).setValue(productoVacioE); //entradas
+                                databaseReference.child(PRODUCTO_NODE).child("DB_Salidas").child(id).setValue(productoVacioS); //salidas
+                                databaseReference.child(PRODUCTO_NODE).child("DB_Productos").child(id).setValue(producto); //se inserta el dato
+                            }else {
+                                databaseReference.child(PRODUCTO_NODE).child("DB_Entradas").child(id).setValue(productoVacioE); //entradas
+                                databaseReference.child(PRODUCTO_NODE).child("DB_Salidas").child(id).setValue(productoVacioS); //salidas
+                                databaseReference.child(PRODUCTO_NODE).child("DB_Productos").child(id).setValue(producto); //se inserta el dato
+                            }
+                            mtoast(getString(R.string.registrado));
+                            finish();
+                        }else {
+                            btnCaja.setBackground(getDrawable(R.drawable.btn_selecciona));
+                            btnPieza.setBackground(getDrawable(R.drawable.btn_selecciona));
+                            snackMessage(getString(R.string.unidad));
+                        }
+                    }
                 }
-                mtoast(getString(R.string.registrado));
-                finish();
-            }else {
-                btnCaja.setBackground(getDrawable(R.drawable.btn_selecciona));
-                btnPieza.setBackground(getDrawable(R.drawable.btn_selecciona));
-                snackMessage(getString(R.string.unidad));
             }
-        }
+        }, nameProducto);
     }
 
     //validar si es pieza de la matanza
@@ -189,31 +201,66 @@ public class RegistrarProductoActivity extends AppCompatActivity implements View
         dateEntrada = dateFormat.format(date);
     }
 
-    private void getProductos() {
-        ArrayList<Producto> productitos = new ArrayList<>();
+//    private void getProductos() {
+//        ArrayList<Producto> productitos = new ArrayList<>();
+//
+//        final int iterador = 0;
+//        productitos.clear();
+//        databaseReference2.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//
+//                for(DataSnapshot dt : dataSnapshot.getChildren()){
+//                    Log.e("elemento", dt.getValue(Producto.class).getName());
+//                    if(iterador == dataSnapshot.getChildrenCount()){
+//                        mtoast("final");
+//                    }
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
+//    }
 
 
-        final int iterador = 0;
-        productitos.clear();
-        databaseReference2.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                for(DataSnapshot dt : dataSnapshot.getChildren()){
-                    Log.e("elemento", dt.getValue(Producto.class).getName());
-                    if(iterador == dataSnapshot.getChildrenCount()){
-                        mtoast("final");
-                    }
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+    public interface CallbackDatos {
+        void onCallbackTeacher(boolean name);
     }
+
+    private void getDatos(final CallbackDatos myCallback, final String uid) {
+        databaseReference2
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Log.e("snapcompleto", dataSnapshot.toString());
+                       if(dataSnapshot != null)
+                       {
+                           for(DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+
+                               String namecito2 = postSnapshot.child("name").getValue(String.class);
+                               Log.e("snap",namecito2);
+                               if(uid.equals(namecito2)){
+                                   myCallback.onCallbackTeacher(true);
+                               }else{
+                                   myCallback.onCallbackTeacher(false);
+                               }
+                           }
+                       }else {
+                           myCallback.onCallbackTeacher(false);
+                       }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {}
+                });
+    }
+
+
 
     private boolean isProductEmpty(CharSequence producto) {
         if(TextUtils.isEmpty(producto)) {
