@@ -16,6 +16,8 @@
         <activity
             android:name=".activities.RegistrarProductoActivity"
             android:parentActivityName=".activities.MainActivity" />
+        <activity android:name=".activities.RegistrarE_SActivity"
+            android:parentActivityName=".activities.MainActivity"/>
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/title_activity_main"

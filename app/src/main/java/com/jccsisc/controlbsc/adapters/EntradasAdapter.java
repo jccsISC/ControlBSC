@@ -1,26 +1,32 @@
 package com.jccsisc.controlbsc.adapters;
 
 import android.app.Activity;
-import android.util.Log;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jccsisc.controlbsc.R;
+import com.jccsisc.controlbsc.VariablesGLobales;
+import com.jccsisc.controlbsc.activities.CrearUsuarioActivity;
+import com.jccsisc.controlbsc.activities.RegistrarE_SActivity;
 import com.jccsisc.controlbsc.model.Producto;
 
 import java.util.List;
 
-public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.ProductosViewHolder>{
+public class EntradasAdapter extends RecyclerView.Adapter<EntradasAdapter.ProductosViewHolder>{
 
     private List<Producto> productos_model;
     private Activity activity;
 
-    public ProductosAdapter(List<Producto> productos_model, Activity activity) {
+    public EntradasAdapter(List<Producto> productos_model, Activity activity) {
         this.productos_model = productos_model;
         this.activity = activity;
     }
@@ -36,13 +42,24 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.Prod
     @Override //aqui el damos los valores
     public void onBindViewHolder(@NonNull ProductosViewHolder holder, int position) {
         //obtenemos la posicion de la lista
-        Producto producto = productos_model.get(position);
-        String unit;
+        final Producto producto = productos_model.get(position);
 
         holder.textNameProduct.setText(producto.getName());
         holder.textUnit.setText(producto.getUnit());
         holder.textCantidad.setText(String.valueOf(producto.getQuantity()));
         holder.textKg.setText(String.valueOf(producto.getWeight()));
+
+        holder.cardViewProducto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                VariablesGLobales.idKeyProducto  = producto.getIdKey();
+                VariablesGLobales.nombreProducto = producto.getName();
+
+                Intent intent = new Intent(activity, RegistrarE_SActivity.class);
+                activity.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -53,6 +70,7 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.Prod
     //creamos nuestra inner class
     public  class ProductosViewHolder extends RecyclerView.ViewHolder {
         TextView textNameProduct, textUnit, textCantidad, textKg;
+        CardView cardViewProducto;
 
         public ProductosViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -60,6 +78,7 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.Prod
             textCantidad    = itemView.findViewById(R.id.textCantidad);
             textUnit        = itemView.findViewById(R.id.textUnit);
             textKg          = itemView.findViewById(R.id.textKg);
+            cardViewProducto= itemView.findViewById(R.id.cardViewProducto);
         }
     }
 }

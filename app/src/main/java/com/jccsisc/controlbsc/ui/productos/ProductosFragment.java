@@ -36,7 +36,6 @@ public class ProductosFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_productos, container, false);
-
         rvProductos = v.findViewById(R.id.recyclerProductos);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
@@ -46,7 +45,6 @@ public class ProductosFragment extends Fragment {
         productosAdapter = new ProductosAdapter(productoArrayList, getActivity());
 
         rvProductos.setAdapter(productosAdapter);
-
 
         mAuth = FirebaseAuth.getInstance(); //obtenemos al usuario actual
         final  String uid = mAuth.getUid();

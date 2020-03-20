@@ -1,9 +1,10 @@
 package com.jccsisc.controlbsc.activities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -13,12 +14,10 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,7 +28,6 @@ import com.jccsisc.controlbsc.R;
 import com.jccsisc.controlbsc.model.Producto;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
@@ -38,7 +36,7 @@ public class RegistrarProductoActivity extends AppCompatActivity implements View
     private static final String PRODUCTO_NODE = "DB_Bodega1";
     private static final String DB_NODE = "DB_Productos";
 
-    private DatabaseReference databaseReference, databaseReference2;
+    private DatabaseReference myRef, databaseReference2;
 
     private Boolean miclick = false;
     private TextInputLayout tilProducto;
@@ -46,7 +44,10 @@ public class RegistrarProductoActivity extends AppCompatActivity implements View
     private Button btnCaja, btnPieza, btnSave;
 
     private String unit, status, camara, dateEntrada, dateSalida = "";
-    public String id = FirebaseDatabase.getInstance().getReference().push().getKey();
+    public  static String id = FirebaseDatabase.getInstance().getReference().push().getKey(); //le asignamos un id por defecto
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +62,7 @@ public class RegistrarProductoActivity extends AppCompatActivity implements View
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//el boton de regresar
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference(); //obtenemos la db el nodo raiz controlbsc-899b5
+        myRef = FirebaseDatabase.getInstance().getReference(); //obtenemos la db el nodo raiz controlbsc-899b5
         databaseReference2 = FirebaseDatabase.getInstance().getReference(PRODUCTO_NODE).child(DB_NODE);
 
         btnCaja     = findViewById(R.id.btnCaja);
@@ -149,7 +150,6 @@ public class RegistrarProductoActivity extends AppCompatActivity implements View
 
             @Override
             public void onCallbackTeacher(boolean name) {
-
                 if(name){
                     mtoast("El nombre ya existe");
                 }else{
@@ -171,14 +171,15 @@ public class RegistrarProductoActivity extends AppCompatActivity implements View
                             * POR LO CUAL DECIDISTE HACER ESTOS 7 INSERTS
                             */
                             if(isOfMatanza(nameProducto)) {
-                                databaseReference.child(PRODUCTO_NODE).child("DB_Matanzas").child(id).setValue(productoVacioM);
-                                databaseReference.child(PRODUCTO_NODE).child("DB_Entradas").child(id).setValue(productoVacioE); //entradas
-                                databaseReference.child(PRODUCTO_NODE).child("DB_Salidas").child(id).setValue(productoVacioS); //salidas
-                                databaseReference.child(PRODUCTO_NODE).child("DB_Productos").child(id).setValue(producto); //se inserta el dato
+                                myRef.child(PRODUCTO_NODE).child("DB_Matanzas").child(id).setValue(productoVacioM);
+                                myRef.child(PRODUCTO_NODE).child("DB_Entradas").child(id).setValue(productoVacioE); //entradas
+                                myRef.child(PRODUCTO_NODE).child("DB_Salidas").child(id).setValue(productoVacioS); //salidas
+                                myRef.child(PRODUCTO_NODE).child("DB_Productos").child(id).setValue(producto); //se inserta el dato
+                                finish();
                             }else {
-                                databaseReference.child(PRODUCTO_NODE).child("DB_Entradas").child(id).setValue(productoVacioE); //entradas
-                                databaseReference.child(PRODUCTO_NODE).child("DB_Salidas").child(id).setValue(productoVacioS); //salidas
-                                databaseReference.child(PRODUCTO_NODE).child("DB_Productos").child(id).setValue(producto).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                myRef.child(PRODUCTO_NODE).child("DB_Entradas").child(id).setValue(productoVacioE); //entradas
+                                myRef.child(PRODUCTO_NODE).child("DB_Salidas").child(id).setValue(productoVacioS); //salidas
+                                myRef.child(PRODUCTO_NODE).child("DB_Productos").child(id).setValue(producto).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
 
@@ -223,33 +224,6 @@ public class RegistrarProductoActivity extends AppCompatActivity implements View
         dateEntrada = dateFormat.format(date);
     }
 
-//    private void getProductos() {
-//        ArrayList<Producto> productitos = new ArrayList<>();
-//
-//        final int iterador = 0;
-//        productitos.clear();
-//        databaseReference2.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//
-//                for(DataSnapshot dt : dataSnapshot.getChildren()){
-//                    Log.e("elemento", dt.getValue(Producto.class).getName());
-//                    if(iterador == dataSnapshot.getChildrenCount()){
-//                        mtoast("final");
-//                    }
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-//    }
-
-
-
     public interface CallbackDatos {
         void onCallbackTeacher(boolean name);
     }
@@ -288,8 +262,6 @@ public class RegistrarProductoActivity extends AppCompatActivity implements View
                     public void onCancelled(DatabaseError databaseError) {}
                 });
     }
-
-
 
     private boolean isProductEmpty(CharSequence producto) {
         if(TextUtils.isEmpty(producto)) {
