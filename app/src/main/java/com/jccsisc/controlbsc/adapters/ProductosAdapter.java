@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jccsisc.controlbsc.R;
@@ -19,6 +20,11 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.Prod
 
     private List<Producto> productos_model;
     private Activity activity;
+    private OnClickListener onClickListener = null;
+
+    public void setOnClickListener(OnClickListener onClickListener) {
+        this.onClickListener = onClickListener;
+    }
 
     public ProductosAdapter(List<Producto> productos_model, Activity activity) {
         this.productos_model = productos_model;
@@ -34,15 +40,20 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.Prod
     }
 
     @Override //aqui el damos los valores
-    public void onBindViewHolder(@NonNull ProductosViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ProductosViewHolder holder, final int position) {
         //obtenemos la posicion de la lista
-        Producto producto = productos_model.get(position);
-        String unit;
+        final Producto producto = productos_model.get(position);
 
         holder.textNameProduct.setText(producto.getName());
         holder.textUnit.setText(producto.getUnit());
-        holder.textCantidad.setText(String.valueOf(producto.getQuantity()));
-        holder.textKg.setText(String.valueOf(producto.getWeight()));
+
+        holder.cardViewProducto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onClickListener == null) return;
+                onClickListener.onItemClick( position);
+            }
+        });
     }
 
     @Override
@@ -53,13 +64,21 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.Prod
     //creamos nuestra inner class
     public  class ProductosViewHolder extends RecyclerView.ViewHolder {
         TextView textNameProduct, textUnit, textCantidad, textKg;
+        CardView cardViewProducto;
 
         public ProductosViewHolder(@NonNull View itemView) {
             super(itemView);
+            cardViewProducto = itemView.findViewById(R.id.cardViewProducto);
             textNameProduct = itemView.findViewById(R.id.textNameProducto);
             textCantidad    = itemView.findViewById(R.id.textCantidad);
             textUnit        = itemView.findViewById(R.id.textUnit);
             textKg          = itemView.findViewById(R.id.textKg);
         }
+
+
     }
+    public interface OnClickListener {
+        void onItemClick( int pos);
+    }
+
 }

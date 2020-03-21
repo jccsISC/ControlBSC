@@ -19,6 +19,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.jccsisc.controlbsc.R;
 import com.jccsisc.controlbsc.adapters.ProductosAdapter;
+import com.jccsisc.controlbsc.model.Detalle;
+import com.jccsisc.controlbsc.model.Movimiento;
 import com.jccsisc.controlbsc.model.Producto;
 
 import java.util.ArrayList;
@@ -52,9 +54,23 @@ public class ProductosFragment extends Fragment {
         myRef.child("DB_Productos").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                productoArrayList.removeAll(productoArrayList);
+                Log.e("LOG",dataSnapshot.toString());
+//                productoArrayList.removeAll(productoArrayList);
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Producto producto = snapshot.getValue(Producto.class);
+
+//                    for(DataSnapshot childrens : dataSnapshot.child("movimientos").getChildren()) {
+//                        Movimiento uidMovimiento = childrens.getValue(Movimiento.class);
+//
+//                        for(DataSnapshot det : childrens.child("detalles").getChildren()){
+//
+//                            Detalle detalle = det.getValue(Detalle.class);
+//                            uidMovimiento.addDetalles(detalle);
+//
+//                        }
+//                        producto.addMovimiento(uidMovimiento);
+//                    }
+
                     productoArrayList.add(producto);
                 }
 

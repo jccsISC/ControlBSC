@@ -1,10 +1,8 @@
 package com.jccsisc.controlbsc.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -16,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
@@ -26,7 +25,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.jccsisc.controlbsc.R;
 import com.jccsisc.controlbsc.model.Producto;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -42,12 +40,9 @@ public class RegistrarProductoActivity extends AppCompatActivity implements View
     private TextInputLayout tilProducto;
     private EditText tieRegistrarP;
     private Button btnCaja, btnPieza, btnSave;
-
-    private String unit, status, camara, dateEntrada, dateSalida = "";
-    public  static String id = FirebaseDatabase.getInstance().getReference().push().getKey(); //le asignamos un id por defecto
-
-
-
+    private String unit, camara, dateEntrada;
+    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+    Date date = new Date();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +65,8 @@ public class RegistrarProductoActivity extends AppCompatActivity implements View
         btnSave     = findViewById(R.id.btnSave);
         tilProducto = findViewById(R.id.tilRegistrarP); //Aqui tienes un error
         tieRegistrarP = findViewById(R.id.tieRegistrarP);//a tecreasjaja
+
+
 
 
         tieRegistrarP.addTextChangedListener(new TextWatcher() {
@@ -110,7 +107,17 @@ public class RegistrarProductoActivity extends AppCompatActivity implements View
                     }
                 break;
             case R.id.btnSave:
-                    createProduct(v);
+                final String nameProducto = tieRegistrarP.getText().toString().toUpperCase();
+                if (isProductEmpty(nameProducto)) {
+                        if (miclick) {
+                            createProduct(nameProducto);
+                        }
+                }else {
+                    btnCaja.setBackground(getDrawable(R.drawable.btn_selecciona));
+                            btnPieza.setBackground(getDrawable(R.drawable.btn_selecciona));
+                            snackMessage(getString(R.string.unidad));
+                }
+
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + v.getId());
@@ -143,67 +150,38 @@ public class RegistrarProductoActivity extends AppCompatActivity implements View
     }
 
     //crear productos
-    private void createProduct(View v) {
-        final String nameProducto = tieRegistrarP.getText().toString().toUpperCase();
+    private void createProduct(final String nameProducto) {
 
         getDatos(new CallbackDatos() {
-
             @Override
             public void onCallbackTeacher(boolean name) {
+
                 if(name){
-                    mtoast("El nombre ya existe");
-                }else{
-                    if (isProductEmpty(nameProducto)) {
-                        if (miclick) {
-                            /*
-                            *ESTAS REPITIENDO EL MISMO PRODUCTO 3 VECES
-                            * ESTAS METIENDO EL MISMO DATO UNA Y OTRA VEZ Y EN NINGUNO CAMBIAN LOS DATOS
-                            * MARCAME Y TE AYUDO
-                             */
-                            Producto producto       = new Producto(nameProducto, unit, 0, 0, status, camara, id, dateEntrada, dateSalida);
-                            Producto productoVacioM = new Producto(nameProducto, unit,0, 0, status, camara, id, dateEntrada, dateSalida);
-                            Producto productoVacioE = new Producto(nameProducto, unit, 0, 0, status, camara, id, dateEntrada, dateSalida);
-                            Producto productoVacioS = new Producto(nameProducto, unit, 0, 0, status, camara, id, dateEntrada, dateSalida);
+                    mtoast("EXISTE");
+                }else {
 
-                            /*TENEMOS QUE HABLAR SOBRE ESTOS 7 INSERTS QUE ESTAS HACIENDO
-                            *QUE NO LO VEA KEVIN, ESTA FEO ESTE ASUNTO
-                            * NTP SE PUEDE SOLUCIONAR, SOLO QUIERO QUE ME EXPLIQUES TU PANORAMA O EN QUE PENSABAS
-                            * POR LO CUAL DECIDISTE HACER ESTOS 7 INSERTS
-                            */
-                            if(isOfMatanza(nameProducto)) {
-                                myRef.child(PRODUCTO_NODE).child("DB_Matanzas").child(id).setValue(productoVacioM);
-                                myRef.child(PRODUCTO_NODE).child("DB_Entradas").child(id).setValue(productoVacioE); //entradas
-                                myRef.child(PRODUCTO_NODE).child("DB_Salidas").child(id).setValue(productoVacioS); //salidas
-                                myRef.child(PRODUCTO_NODE).child("DB_Productos").child(id).setValue(producto); //se inserta el dato
-                                finish();
-                            }else {
-                                myRef.child(PRODUCTO_NODE).child("DB_Entradas").child(id).setValue(productoVacioE); //entradas
-                                myRef.child(PRODUCTO_NODE).child("DB_Salidas").child(id).setValue(productoVacioS); //salidas
-                                myRef.child(PRODUCTO_NODE).child("DB_Productos").child(id).setValue(producto).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
+                    String id = FirebaseDatabase.getInstance().getReference().push().getKey();
+                    dateEntrada = dateFormat.format(date);
+                    Producto producto = new Producto(nameProducto, unit, id);
 
-                                        /*
-                                        *Tuve que poner esto porque no dabas chance de completar las otras tareas y aun asi con este
-                                        * addOnSuccessListener no está del todo bien, pero mejoraras :)
-                                        * lee esto por fa, https://dominiotic.com/la-diferencia-entre-metodo-sincrono-y-asincrono/
-                                         */
-                                        mtoast(getString(R.string.registrado));
-                                        finish();
-                                    }
-                                }); //se inserta el dato
-                            }
-
-                        }else {
-                            btnCaja.setBackground(getDrawable(R.drawable.btn_selecciona));
-                            btnPieza.setBackground(getDrawable(R.drawable.btn_selecciona));
-                            snackMessage(getString(R.string.unidad));
+                    myRef.child(PRODUCTO_NODE).child("DB_Productos").child(id).setValue(producto).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            mtoast(getString(R.string.registrado));
+                            finish();
                         }
-                    }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            mtoast("Error");
+                        }
+                    });
                 }
+
             }
         }, nameProducto);
-    }
+
+    }//fin createProduct
 
     //validar si es pieza de la matanza
     private boolean isOfMatanza(String pieza) {
@@ -217,11 +195,21 @@ public class RegistrarProductoActivity extends AppCompatActivity implements View
         return false;
     }
 
-    //obtener fecha
-    private void getDate() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        Date date = new Date();
-        dateEntrada = dateFormat.format(date);
+    //validar si es producto de la matanza
+    private boolean isProcesoChuleta(String pieza) {
+        String [] piezaProcesoCh = {"CHULETA DE MARIPOZA","CABEZA DE LOMO","ESPINACITO"};
+        for(int i=0; i<piezaProcesoCh.length; i++) {
+            if(pieza.equals(piezaProcesoCh[i])) { return true;}
+        }
+        return false;
+    }
+
+    private boolean isProcesoEspinazo(String pieza) {
+        String [] piezaProcesoE = {"ESPINAZO","CABEZA DE LOMO", "LOMOS"};
+        for(int i=0; i<piezaProcesoE.length; i++) {
+            if(pieza.equals(piezaProcesoE[i])) { return true;}
+        }
+        return false;
     }
 
     public interface CallbackDatos {
@@ -229,33 +217,33 @@ public class RegistrarProductoActivity extends AppCompatActivity implements View
     }
 
     private void getDatos(final CallbackDatos myCallback, final String uid) {
-        databaseReference2
-                .addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference2.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         Log.e("snapcompleto", dataSnapshot.toString());
 
-                        /*
-                        *Ya quedó solo tenias que agregar estas 3 lineas
-                        * esto sucede porque cuando el datasnapshot es == null
-                        * no exite realmente el datasnapshot
-                        * y eso se controla con una propiedad del datasnapshot
-                        * dataSnapshot.exitsts() - > devuelve true si ya existe
-                         */
                         if(!dataSnapshot.exists()){
-                            myCallback.onCallbackTeacher(false);
-                            return;
-                        }
-                        for(DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
 
-                            String namecito2 = postSnapshot.child("name").getValue(String.class);
-                            Log.e("snap",namecito2);
+                            myCallback.onCallbackTeacher(false);
+//                            return;
+                        }else{
+                            String namecito2 = null;
+                            for(DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+
+
+                                if(postSnapshot.child("name").getValue(String.class).equals(uid)){
+                                    namecito2 = postSnapshot.child("name").getValue(String.class);
+                                }
+
+                            }
+
                             if(uid.equals(namecito2)){
                                 myCallback.onCallbackTeacher(true);
                             }else{
                                 myCallback.onCallbackTeacher(false);
                             }
                         }
+
                     }
 
                     @Override

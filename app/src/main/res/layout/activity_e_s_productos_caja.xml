@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.RegistrarE_SActivity"
+    android:orientation="vertical"
+    android:weightSum="1"
+    >
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <TextView
+        android:id="@+id/txtNameProductoR"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        tools:text="CABEZA DE CERDO"
+        android:textSize="27dp"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"/>
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="250dp"
+       android:orientation="horizontal"
+       android:weightSum="1">
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           tools:background="@color/colorPrimaryLight"
+           android:layout_weight="0.5"
+           android:orientation="vertical">
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               android:gravity="center">
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="Cajas:"
+                   android:textStyle="bold"/>
+               <TextView
+                   android:id="@+id/txtCT"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   tools:text="50"
+                   android:paddingStart="3dp"
+                   android:paddingEnd="10dp"/>
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="Peso Total:"
+                   android:textStyle="bold"/>
+               <TextView
+                   android:id="@+id/txtPesoT"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   tools:text="135.6"
+                   android:paddingStart="3dp"
+                   android:paddingEnd="5dp"/>
+           </LinearLayout>
+
+           <androidx.recyclerview.widget.RecyclerView
+               android:id="@+id/recyclerPesadasC"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:layout_marginTop="10dp"/>
+
+       </LinearLayout>
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:layout_weight="0.5">
+
+       </LinearLayout>
+
+   </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ingrese el peso de la caja"
+                android:textSize="20sp"
+                android:textAlignment="center"
+                android:layout_marginTop="20dp"
+                android:padding="5dp"/>
+
+            <TextView
+                android:id="@+id/txtPesoC"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginEnd="100dp"
+                android:layout_marginStart="100dp"
+                android:background="@drawable/borde_card"
+                android:hint="0.0"
+                android:textSize="28sp"
+                android:gravity="center"/>
+
+
+            <Button
+                android:id="@+id/btnSumar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+"
+                android:textSize="@dimen/size_24"
+                android:background="@drawable/borde_card_entradas"
+                android:layout_gravity="center"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="20dp"/>
+
+
+
+            <Button
+                android:id="@+id/btnCargar"
+                android:layout_width="@dimen/width_btn_250"
+                android:layout_height="wrap_content"
+                android:text="Cargar"
+                android:textSize="@dimen/size_24"
+                android:background="@drawable/borde_card_entradas"
+                android:layout_gravity="center"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="20dp"/>
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

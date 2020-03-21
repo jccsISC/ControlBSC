@@ -42,8 +42,6 @@ public class SalidasdasAdapter extends RecyclerView.Adapter<SalidasdasAdapter.Pr
 
         holder.textNameProduct.setText(producto.getName());
         holder.textUnit.setText(producto.getUnit());
-        holder.textCantidad.setText(String.valueOf(producto.getQuantity()));
-        holder.textKg.setText(String.valueOf(producto.getWeight()));
 
         holder.cardViewProducto.setOnClickListener(new View.OnClickListener() {
             @Override
