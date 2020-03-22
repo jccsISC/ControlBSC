@@ -23,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.jccsisc.controlbsc.R;
 import com.jccsisc.controlbsc.activities.RegistrarE_SActivity;
+import com.jccsisc.controlbsc.activities.RegistrarE_S_C_Activity;
 import com.jccsisc.controlbsc.adapters.EntradasAdapter;
 import com.jccsisc.controlbsc.adapters.ProductosAdapter;
 import com.jccsisc.controlbsc.model.Detalle;
@@ -101,14 +102,18 @@ public class EntradasFragment extends Fragment {
             }
         });
 
-
         entradasAdapter.setOnClickListener(new ProductosAdapter.OnClickListener() {
             @Override
             public void onItemClick( int pos) {
-                mtoast(productoArrayList.get(pos).getName());
-                Intent i = new Intent(getContext(), RegistrarE_SActivity.class);
-//                i.putExtra("")
-                startActivity(i);
+
+                if(productoArrayList.get(pos).getUnit().equals("Caja")){
+                    Intent i = new Intent(getContext(), RegistrarE_S_C_Activity.class);
+                    startActivity(i);
+                }else if(productoArrayList.get(pos).getUnit().equals("Pieza")){
+                    Intent i = new Intent(getContext(), RegistrarE_SActivity.class);
+                    startActivity(i);
+                }
+
             }
         });
 
