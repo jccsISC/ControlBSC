@@ -18,6 +18,8 @@
             android:parentActivityName=".activities.MainActivity" />
         <activity android:name=".activities.RegistrarE_SActivity"
             android:parentActivityName=".activities.MainActivity"/>
+        <activity android:name=".activities.RegistrarE_S_C_Activity"
+            android:parentActivityName=".activities.MainActivity"/>
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/title_activity_main"
