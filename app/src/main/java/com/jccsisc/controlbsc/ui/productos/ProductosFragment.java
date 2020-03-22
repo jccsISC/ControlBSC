@@ -55,21 +55,10 @@ public class ProductosFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Log.e("LOG",dataSnapshot.toString());
-//                productoArrayList.removeAll(productoArrayList);
+                productoArrayList.removeAll(productoArrayList);
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Producto producto = snapshot.getValue(Producto.class);
-
-//                    for(DataSnapshot childrens : dataSnapshot.child("movimientos").getChildren()) {
-//                        Movimiento uidMovimiento = childrens.getValue(Movimiento.class);
-//
-//                        for(DataSnapshot det : childrens.child("detalles").getChildren()){
-//
-//                            Detalle detalle = det.getValue(Detalle.class);
-//                            uidMovimiento.addDetalles(detalle);
-//
-//                        }
-//                        producto.addMovimiento(uidMovimiento);
-//                    }
+                    Producto producto = new Producto(snapshot.child("name").getValue(String.class),
+                            snapshot.child("unit").getValue(String.class),snapshot.child("idKey").getValue(String.class));
 
                     productoArrayList.add(producto);
                 }

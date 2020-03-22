@@ -9,6 +9,8 @@ public class Producto {
     public String idKey;
     public ArrayList<Movimiento> movimientos = new ArrayList<>();
 
+    public Producto() {
+    }
 
     public Producto(String name, String unit, String idKey) {
         this.name        = name;
