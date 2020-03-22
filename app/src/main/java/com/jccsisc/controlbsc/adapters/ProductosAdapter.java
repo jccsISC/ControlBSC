@@ -15,6 +15,7 @@ import com.google.android.gms.common.api.Api;
 import com.jccsisc.controlbsc.R;
 import com.jccsisc.controlbsc.model.Movimiento;
 import com.jccsisc.controlbsc.model.Producto;
+import com.jccsisc.controlbsc.utilidades.Aritmetica;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,33 +59,12 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.Prod
             }
         });
 
-        holder.textKg.setText(String.valueOf(sumaMovimiento(producto.getMovimientos())));
-        holder.textCantidad.setText(String.valueOf(sumaCaja(producto.getMovimientos())));
+        holder.textKg.setText(String.valueOf(Aritmetica.sumaMovimiento(producto.getMovimientos())));
+        holder.textCantidad.setText(String.valueOf(Aritmetica.sumaCaja(producto.getMovimientos())));
     }
 
 
-    double sumaMovimiento(ArrayList<Movimiento> recibido){
-        double total = 0;
 
-
-        for(Movimiento nuevo : recibido){
-            total = total + (nuevo.getWeight());
-
-        }
-
-        return total;
-    }
-
-    int sumaCaja(ArrayList<Movimiento> recibido){
-        int total = 0;
-
-        for(Movimiento nuevo : recibido){
-            total = total + (nuevo.getQuantity());
-
-        }
-
-        return total;
-    }
 
     @Override
     public int getItemCount() {
