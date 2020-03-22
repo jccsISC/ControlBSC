@@ -11,13 +11,13 @@ public class Movimiento {
     public String status;
     public String idKey;
     public double weight;
-    public double quantity;
+    public int quantity;
     public ArrayList<Detalle> detalles = new ArrayList<>();
 
     public Movimiento() {
     }
 
-    public Movimiento(String date, String type, String hour, String destiny, String status, String idKey, double weight, double quantity) {
+    public Movimiento(String date, String type, String hour, String destiny, String status, String idKey, double weight, int quantity) {
         this.date = date;
         this.type = type;
         this.hour = hour;
@@ -92,11 +92,11 @@ public class Movimiento {
         this.weight = weight;
     }
 
-    public double getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(double quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 }

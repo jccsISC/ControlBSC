@@ -53,7 +53,6 @@ public class EntradasFragment extends Fragment {
         rvEntradas.setAdapter(entradasAdapter);
 
         mAuth = FirebaseAuth.getInstance(); //obtenemos al usuario actual
-        final  String uid = mAuth.getUid();
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -61,8 +60,10 @@ public class EntradasFragment extends Fragment {
                 Log.e("LOG",dataSnapshot.toString());
                 productoArrayList.removeAll(productoArrayList);
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Producto producto = new Producto(snapshot.child("name").getValue(String.class),
-                            snapshot.child("unit").getValue(String.class),snapshot.child("idKey").getValue(String.class));
+                    Producto producto = new Producto(
+                            snapshot.child("name").getValue(String.class),
+                            snapshot.child("unit").getValue(String.class),
+                            snapshot.child("idKey").getValue(String.class));
 
                     productoArrayList.add(producto);
                 }
