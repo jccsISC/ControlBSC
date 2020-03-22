@@ -110,7 +110,7 @@ public class RegistrarProductoActivity extends AppCompatActivity implements View
                 final String nameProducto = tieRegistrarP.getText().toString().toUpperCase();
                 if (isProductEmpty(nameProducto)) {
                         if (miclick) {
-                            createProduct(nameProducto);
+                            createProduct(nameProducto, unit);
                         }
                 }else {
                     btnCaja.setBackground(getDrawable(R.drawable.btn_selecciona));
@@ -150,7 +150,7 @@ public class RegistrarProductoActivity extends AppCompatActivity implements View
     }
 
     //crear productos
-    private void createProduct(final String nameProducto) {
+    private void createProduct(final String nameProducto, String unidad) {
 
         getDatos(new CallbackDatos() {
             @Override
@@ -179,7 +179,7 @@ public class RegistrarProductoActivity extends AppCompatActivity implements View
                 }
 
             }
-        }, nameProducto);
+        }, nameProducto, unidad );
 
     }//fin createProduct
 
@@ -216,7 +216,7 @@ public class RegistrarProductoActivity extends AppCompatActivity implements View
         void onCallbackTeacher(boolean name);
     }
 
-    private void getDatos(final CallbackDatos myCallback, final String uid) {
+    private void getDatos(final CallbackDatos myCallback, final String uid, final String unidad) {
         databaseReference2.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -228,11 +228,13 @@ public class RegistrarProductoActivity extends AppCompatActivity implements View
 //                            return;
                         }else{
                             String namecito2 = null;
+                            String unit = null;
                             for(DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-
 
                                 if(postSnapshot.child("name").getValue(String.class).equals(uid)){
                                     namecito2 = postSnapshot.child("name").getValue(String.class);
+                                    unit = postSnapshot.child("unit").getValue(String.class);
+                                    Log.e("snapcompleto", unit);
                                 }
 
                             }
