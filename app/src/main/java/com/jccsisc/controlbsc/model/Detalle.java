@@ -2,12 +2,14 @@ package com.jccsisc.controlbsc.model;
 
 public class Detalle {
 
-    public double peso;
-    public String idKey;
 
-    public Detalle(double peso, String idKey) {
-        this.peso = peso;
+    public String idKey;
+    public double peso;
+
+    public Detalle( String idKey, double peso) {
         this.idKey = idKey;
+        this.peso = peso;
+
     }
 
     public double getPeso() {

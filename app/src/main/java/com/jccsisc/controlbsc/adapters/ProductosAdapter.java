@@ -11,14 +11,17 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.common.api.Api;
 import com.jccsisc.controlbsc.R;
+import com.jccsisc.controlbsc.model.Movimiento;
 import com.jccsisc.controlbsc.model.Producto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.ProductosViewHolder>{
 
-    private List<Producto> productos_model;
+    private ArrayList<Producto> productos_model;
     private Activity activity;
     private OnClickListener onClickListener = null;
 
@@ -26,7 +29,7 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.Prod
         this.onClickListener = onClickListener;
     }
 
-    public ProductosAdapter(List<Producto> productos_model, Activity activity) {
+    public ProductosAdapter(ArrayList<Producto> productos_model, Activity activity) {
         this.productos_model = productos_model;
         this.activity = activity;
     }
@@ -54,6 +57,33 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.Prod
                 onClickListener.onItemClick( position);
             }
         });
+
+        holder.textKg.setText(String.valueOf(sumaMovimiento(producto.getMovimientos())));
+        holder.textCantidad.setText(String.valueOf(sumaCaja(producto.getMovimientos())));
+    }
+
+
+    double sumaMovimiento(ArrayList<Movimiento> recibido){
+        double total = 0;
+
+
+        for(Movimiento nuevo : recibido){
+            total = total + (nuevo.getWeight());
+
+        }
+
+        return total;
+    }
+
+    int sumaCaja(ArrayList<Movimiento> recibido){
+        int total = 0;
+
+        for(Movimiento nuevo : recibido){
+            total = total + (nuevo.getQuantity());
+
+        }
+
+        return total;
     }
 
     @Override

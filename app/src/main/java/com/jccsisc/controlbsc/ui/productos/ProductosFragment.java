@@ -49,7 +49,6 @@ public class ProductosFragment extends Fragment {
         rvProductos.setAdapter(productosAdapter);
 
         mAuth = FirebaseAuth.getInstance(); //obtenemos al usuario actual
-        final  String uid = mAuth.getUid();
 
         myRef.child("DB_Productos").addValueEventListener(new ValueEventListener() {
             @Override
@@ -57,8 +56,34 @@ public class ProductosFragment extends Fragment {
                 Log.e("LOG",dataSnapshot.toString());
                 productoArrayList.removeAll(productoArrayList);
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Producto producto = new Producto(snapshot.child("name").getValue(String.class),
-                            snapshot.child("unit").getValue(String.class),snapshot.child("idKey").getValue(String.class));
+                    Producto producto = new Producto(
+                            snapshot.child("name").getValue(String.class),
+                            snapshot.child("unit").getValue(String.class),
+                            snapshot.child("idKey").getValue(String.class));
+
+                    for(DataSnapshot movimiento : snapshot.child("movimientos").getChildren()){
+
+                        Movimiento movimiento1 = new Movimiento(
+                                movimiento.child("date").getValue(String.class),
+                                movimiento.child("type").getValue(String.class),
+                                movimiento.child("hour").getValue(String.class),
+                                movimiento.child("destiny").getValue(String.class),
+                                movimiento.child("status").getValue(String.class),
+                                movimiento.child("idKey").getValue(String.class),
+                                movimiento.child("weight").getValue(Double.class),
+                                movimiento.child("quantity").getValue(Integer.class));
+
+                        for(DataSnapshot detalles : movimiento.child("detalles").getChildren()){
+
+                            Detalle detalle = new Detalle(
+                                    detalles.child("idKey").getValue(String.class),
+                                    detalles.child("peso").getValue(Double.class));
+                            movimiento1.addDetalles(detalle);
+
+                        }
+
+                        producto.addMovimiento(movimiento1);
+                    }
 
                     productoArrayList.add(producto);
                 }

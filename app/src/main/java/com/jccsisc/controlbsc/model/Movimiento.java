@@ -17,7 +17,14 @@ public class Movimiento {
     public Movimiento() {
     }
 
-    public Movimiento(String date, String type, String hour, String destiny, String status, String idKey, double weight, int quantity) {
+    public Movimiento(String date,
+                      String type,
+                      String hour,
+                      String destiny,
+                      String status,
+                      String idKey,
+                      double weight,
+                      int quantity) {
         this.date = date;
         this.type = type;
         this.hour = hour;
@@ -36,30 +43,6 @@ public class Movimiento {
         this.detalles = movimientos;
     }
 
-    public String getHour() {
-        return hour;
-    }
-
-    public void setHour(String hour) {
-        this.hour = hour;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getDestiny() {
-        return destiny;
-    }
-
-    public void setDestiny(String destiny) {
-        this.destiny = destiny;
-    }
-
     public String getDate() {
         return date;
     }
@@ -74,6 +57,30 @@ public class Movimiento {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getHour() {
+        return hour;
+    }
+
+    public void setHour(String hour) {
+        this.hour = hour;
+    }
+
+    public String getDestiny() {
+        return destiny;
+    }
+
+    public void setDestiny(String destiny) {
+        this.destiny = destiny;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getIdKey() {
