@@ -123,12 +123,6 @@ public class RegistrarE_S_C_Activity extends AppCompatActivity {
 
                 movimiento.setDetalles(detallesArrayList);
 
-//                    for(int i = 0; i< detallesArrayList.size(); i++){
-//
-//                        movimiento.addDetalles(detallesArrayList.get(i));
-//
-//                    }
-
                     myRef.child(idKey).child("movimientos").child(id).setValue(movimiento).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
