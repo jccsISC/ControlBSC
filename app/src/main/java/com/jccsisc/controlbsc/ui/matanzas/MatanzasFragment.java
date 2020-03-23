@@ -40,7 +40,7 @@ public class MatanzasFragment extends Fragment {
         rvMatanzas.setLayoutManager(linearLayoutManager);
 
         productoArrayList = new ArrayList<>();
-        productosAdapter = new ProductosAdapter(productoArrayList, getActivity());
+        productosAdapter = new ProductosAdapter(productoArrayList, getActivity(), "Producto");
 
         rvMatanzas.setAdapter(productosAdapter);
 

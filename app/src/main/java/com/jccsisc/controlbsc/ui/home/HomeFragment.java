@@ -1,6 +1,8 @@
 package com.jccsisc.controlbsc.ui.home;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +37,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
         cardViewEntrada.setOnClickListener(this);
         cardViewSalidas.setOnClickListener(this);
+
         return root;
     }
 

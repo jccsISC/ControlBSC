@@ -1,6 +1,8 @@
 package com.jccsisc.controlbsc.ui.productos;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,7 +46,7 @@ public class ProductosFragment extends Fragment {
         rvProductos.setLayoutManager(linearLayoutManager);
 
         productoArrayList = new ArrayList<>();
-        productosAdapter = new ProductosAdapter(productoArrayList, getActivity());
+        productosAdapter = new ProductosAdapter(productoArrayList, getActivity(), "Producto");
 
         rvProductos.setAdapter(productosAdapter);
 

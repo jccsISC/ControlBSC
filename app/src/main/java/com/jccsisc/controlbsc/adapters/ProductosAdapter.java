@@ -1,7 +1,6 @@
 package com.jccsisc.controlbsc.adapters;
 
 import android.app.Activity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,28 +10,27 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.common.api.Api;
 import com.jccsisc.controlbsc.R;
-import com.jccsisc.controlbsc.model.Movimiento;
 import com.jccsisc.controlbsc.model.Producto;
 import com.jccsisc.controlbsc.utilidades.Aritmetica;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.ProductosViewHolder>{
 
     private ArrayList<Producto> productos_model;
     private Activity activity;
     private OnClickListener onClickListener = null;
+    private String vista;
 
     public void setOnClickListener(OnClickListener onClickListener) {
         this.onClickListener = onClickListener;
     }
 
-    public ProductosAdapter(ArrayList<Producto> productos_model, Activity activity) {
+    public ProductosAdapter(ArrayList<Producto> productos_model, Activity activity, String vista) {
         this.productos_model = productos_model;
         this.activity = activity;
+        this.vista = vista;
     }
 
     @NonNull
@@ -49,6 +47,12 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.Prod
         final Producto producto = productos_model.get(position);
 
         holder.textNameProduct.setText(producto.getName());
+        if(producto.getUnit().equals("Caja")) {
+            holder.textUnit.setTextColor(activity.getResources().getColor(R.color.colorPrimary));
+        }else {
+            holder.textUnit.setTextColor(activity.getResources().getColor(R.color.colorPieza));
+        }
+
         holder.textUnit.setText(producto.getUnit());
 
         holder.cardViewProducto.setOnClickListener(new View.OnClickListener() {
@@ -60,7 +64,14 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.Prod
         });
 
         holder.textKg.setText(String.valueOf(Aritmetica.sumaMovimiento(producto.getMovimientos())));
-        holder.textCantidad.setText(String.valueOf(Aritmetica.sumaCaja(producto.getMovimientos())));
+        if(vista.equals("Entrada")) {
+            holder.textCantidad.setText(String.valueOf(Aritmetica.sumaCajaFecha(producto.getMovimientos())));
+            holder.textKg.setText(String.valueOf(Aritmetica.sumaMovimientoFecha(producto.getMovimientos())));
+        }else {
+            holder.textCantidad.setText(String.valueOf(Aritmetica.sumaCaja(producto.getMovimientos())));
+            holder.textKg.setText(String.valueOf(Aritmetica.sumaMovimiento(producto.getMovimientos())));
+        }
+
     }
 
 

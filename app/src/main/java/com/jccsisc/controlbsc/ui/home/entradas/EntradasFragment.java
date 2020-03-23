@@ -2,11 +2,14 @@ package com.jccsisc.controlbsc.ui.home.entradas;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -35,19 +38,26 @@ public class EntradasFragment extends Fragment {
     FirebaseAuth mAuth;
 
     private RecyclerView rvEntradas;
-    private ArrayList<Producto> productoArrayList;
-    private ProductosAdapter entradasAdapter;
+    private ArrayList<Producto> productoArrayList, productoArrayList2;
+    private ProductosAdapter entradasAdapter, entradasAdapter2;
+    private EditText edtBuscador;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_entradas, container, false);
+        edtBuscador = v.findViewById(R.id.txtBuscador);
         rvEntradas = v.findViewById(R.id.recyclerViewEntradas);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         rvEntradas.setLayoutManager(linearLayoutManager);
 
         productoArrayList = new ArrayList<>();
-        entradasAdapter = new ProductosAdapter(productoArrayList, getActivity());
+        entradasAdapter = new ProductosAdapter(productoArrayList, getActivity(), "Entrada");
+
+
+        productoArrayList2 = new ArrayList<>();
+        entradasAdapter2 = new ProductosAdapter(productoArrayList2, getActivity(), "Entrada");
+
 
         rvEntradas.setAdapter(entradasAdapter);
 
@@ -116,6 +126,32 @@ public class EntradasFragment extends Fragment {
 
             }
         });
+
+
+        edtBuscador.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(!s.equals("")){
+                    productoArrayList2.clear();
+                    for (int i = 0; i<productoArrayList.size(); i++) {
+                        if (productoArrayList.get(i).getName().contains(s.toString().toUpperCase())) {
+                            productoArrayList2.add(productoArrayList.get(i));
+                        }
+                    }
+                    rvEntradas.setAdapter(entradasAdapter2);
+                }else {
+                   rvEntradas.setAdapter(entradasAdapter);
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
 
         return v;
     }

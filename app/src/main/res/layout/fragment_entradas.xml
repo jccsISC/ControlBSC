@@ -10,20 +10,16 @@
     android:weightSum="1"
     >
 
-    <TextView
+    <EditText
+        android:id="@+id/txtBuscador"
+        android:layout_margin="5dp"
+        android:drawableStart="@drawable/ic_search"
+        android:hint="@string/nombre_del_expositor"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="0.9"
-        android:background="@color/colorPrimary"
-        android:gravity="center"
-        android:textAlignment="center"
-        android:text="@string/entradas"
-        android:textSize="25sp"
-        android:textColor="@android:color/white"
-        android:shadowColor="@android:color/black"
-        android:shadowDx="10"
-        android:shadowDy="10"
-        android:shadowRadius="12"
+        android:padding="5dp"
+        android:textSize="14sp"
+        android:background="@drawable/border_search"
+        android:layout_height="wrap_content"/>
         />
 
     <androidx.recyclerview.widget.RecyclerView

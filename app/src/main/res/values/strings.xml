@@ -52,5 +52,6 @@
 
     <string name="unidad">Seleccione si es una Pieza o Caja</string>
     <string name="kg">Kg</string>
+    <string name="nombre_del_expositor">Buscar producto</string>
 
 </resources>
