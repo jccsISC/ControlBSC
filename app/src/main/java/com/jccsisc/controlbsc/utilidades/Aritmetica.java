@@ -11,7 +11,6 @@ public class Aritmetica {
 
         for(Movimiento nuevo : recibido){
             total = total + (nuevo.getWeight());
-
         }
 
         return total;

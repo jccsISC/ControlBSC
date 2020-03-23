@@ -56,6 +56,12 @@ public class RegistrarProductoActivity extends AppCompatActivity implements View
         getSupportActionBar().setTitle(getString(R.string.title_Registrar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//el boton de regresar
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         myRef = FirebaseDatabase.getInstance().getReference(); //obtenemos la db el nodo raiz controlbsc-899b5
         databaseReference2 = FirebaseDatabase.getInstance().getReference(PRODUCTO_NODE).child(DB_NODE);

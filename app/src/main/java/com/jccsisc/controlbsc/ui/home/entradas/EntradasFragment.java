@@ -1,7 +1,6 @@
 package com.jccsisc.controlbsc.ui.home.entradas;
 
 import android.content.Intent;
-import android.media.midi.MidiOutputPort;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -24,7 +23,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.jccsisc.controlbsc.R;
 import com.jccsisc.controlbsc.activities.RegistrarE_SActivity;
 import com.jccsisc.controlbsc.activities.RegistrarE_S_C_Activity;
-import com.jccsisc.controlbsc.adapters.EntradasAdapter;
 import com.jccsisc.controlbsc.adapters.ProductosAdapter;
 import com.jccsisc.controlbsc.model.Detalle;
 import com.jccsisc.controlbsc.model.Movimiento;
@@ -108,6 +106,8 @@ public class EntradasFragment extends Fragment {
 
                 if(productoArrayList.get(pos).getUnit().equals("Caja")){
                     Intent i = new Intent(getContext(), RegistrarE_S_C_Activity.class);
+                    i.putExtra("nameProducto", productoArrayList.get(pos).getName());
+                    i.putExtra("idKey", productoArrayList.get(pos).getIdKey());
                     startActivity(i);
                 }else if(productoArrayList.get(pos).getUnit().equals("Pieza")){
                     Intent i = new Intent(getContext(), RegistrarE_SActivity.class);

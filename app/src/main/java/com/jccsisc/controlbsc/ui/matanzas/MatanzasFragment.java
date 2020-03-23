@@ -17,7 +17,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.jccsisc.controlbsc.R;
-import com.jccsisc.controlbsc.adapters.EntradasAdapter;
+import com.jccsisc.controlbsc.adapters.ProductosAdapter;
 import com.jccsisc.controlbsc.model.Producto;
 
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ public class MatanzasFragment extends Fragment {
 
     private RecyclerView rvMatanzas;
     private ArrayList<Producto> productoArrayList;
-    private EntradasAdapter productosAdapter;
+    private ProductosAdapter productosAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -40,7 +40,7 @@ public class MatanzasFragment extends Fragment {
         rvMatanzas.setLayoutManager(linearLayoutManager);
 
         productoArrayList = new ArrayList<>();
-        productosAdapter = new EntradasAdapter(productoArrayList, getActivity());
+        productosAdapter = new ProductosAdapter(productoArrayList, getActivity());
 
         rvMatanzas.setAdapter(productosAdapter);
 

@@ -1,5 +1,6 @@
 package com.jccsisc.controlbsc.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -17,7 +18,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.jccsisc.controlbsc.R;
-import com.jccsisc.controlbsc.VariablesGLobales;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -33,13 +33,15 @@ public class RegistrarE_SActivity extends AppCompatActivity {
     private TextView nameProducto, pesoTSin;
     private EditText  cajaTres, cajaDosCuatro, cajaDos, cajaUnoSeis, cajaUnoCuatro, cantPiezas, pesoTCon;
 
-    private String dateEntrada, dateSalida = "", idKey;
-
+    private String dateEntrada, dateSalida = "", idKey, name;
+    Intent extras;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_e_s_matanza);
-
+        extras = getIntent();
+        name  = extras.getStringExtra("nameProducto");
+        idKey = extras.getStringExtra("idKey");
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(getString(R.string.entradas));
@@ -49,7 +51,12 @@ public class RegistrarE_SActivity extends AppCompatActivity {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         Date date = new Date();
         dateEntrada = dateFormat.format(date);
-
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
 
         nameProducto = findViewById(R.id.txtNameProductoR);
@@ -63,8 +70,7 @@ public class RegistrarE_SActivity extends AppCompatActivity {
         pesoTCon     = findViewById(R.id.edtPesoTCajas);
         pesoTSin     = findViewById(R.id.txtPesoTSinC);
 
-        nameProducto.setText(VariablesGLobales.nombreProducto);
-        idKey = VariablesGLobales.idKeyProducto;
+        nameProducto.setText(name);
 
         btnCargar.setOnClickListener(new View.OnClickListener() {
             @Override
