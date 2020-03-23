@@ -101,7 +101,13 @@ public class EntradasFragment extends Fragment {
                     productoArrayList.add(producto);
                 }
 
-                entradasAdapter.notifyDataSetChanged();
+
+                if(!edtBuscador.getText().toString().toUpperCase().equals("")){
+                    metodoBuscar(edtBuscador.getText().toString().toUpperCase());
+                }else{
+                    entradasAdapter.notifyDataSetChanged();
+                }
+
             }
 
             @Override
@@ -127,6 +133,22 @@ public class EntradasFragment extends Fragment {
             }
         });
 
+        entradasAdapter2.setOnClickListener(new ProductosAdapter.OnClickListener() {
+            @Override
+            public void onItemClick( int pos) {
+
+                if(productoArrayList2.get(pos).getUnit().equals("Caja")){
+                    Intent i = new Intent(getContext(), RegistrarE_S_C_Activity.class);
+                    i.putExtra("nameProducto", productoArrayList2.get(pos).getName());
+                    i.putExtra("idKey", productoArrayList2.get(pos).getIdKey());
+                    startActivity(i);
+                }else if(productoArrayList2.get(pos).getUnit().equals("Pieza")){
+                    Intent i = new Intent(getContext(), RegistrarE_SActivity.class);
+                    startActivity(i);
+                }
+
+            }
+        });
 
         edtBuscador.addTextChangedListener(new TextWatcher() {
             @Override
@@ -135,16 +157,11 @@ public class EntradasFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(!s.equals("")){
-                    productoArrayList2.clear();
-                    for (int i = 0; i<productoArrayList.size(); i++) {
-                        if (productoArrayList.get(i).getName().contains(s.toString().toUpperCase())) {
-                            productoArrayList2.add(productoArrayList.get(i));
-                        }
-                    }
+                    metodoBuscar(s);
+                }else{
                     rvEntradas.setAdapter(entradasAdapter2);
-                }else {
-                   rvEntradas.setAdapter(entradasAdapter);
                 }
+
             }
             @Override
             public void afterTextChanged(Editable s) {
@@ -154,6 +171,17 @@ public class EntradasFragment extends Fragment {
 
 
         return v;
+    }
+
+
+    private void metodoBuscar(CharSequence s){
+        productoArrayList2.clear();
+        for (int i = 0; i<productoArrayList.size(); i++) {
+            if (productoArrayList.get(i).getName().contains(s.toString().toUpperCase())) {
+                productoArrayList2.add(productoArrayList.get(i));
+            }
+        }
+        rvEntradas.setAdapter(entradasAdapter2);
     }
 
     public void mtoast(String msj) {
