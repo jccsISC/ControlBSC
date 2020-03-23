@@ -32,6 +32,7 @@ import com.jccsisc.controlbsc.adapters.ProductosAdapter;
 import com.jccsisc.controlbsc.model.Detalle;
 import com.jccsisc.controlbsc.model.Movimiento;
 import com.jccsisc.controlbsc.model.Producto;
+import com.mikelau.views.shimmer.ShimmerRecyclerViewX;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +42,7 @@ public class ProductosFragment extends Fragment {
     DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("DB_Bodega1");
     FirebaseAuth mAuth;
 
-    private RecyclerView rvProductos;
+    private ShimmerRecyclerViewX rvProductos;
     private ArrayList<Producto> productoArrayList;
     private ProductosAdapter productosAdapter;
 
@@ -59,10 +60,12 @@ public class ProductosFragment extends Fragment {
         rvProductos.setAdapter(productosAdapter);
 
         mAuth = FirebaseAuth.getInstance(); //obtenemos al usuario actual
+        rvProductos.showShimmerAdapter();
 
         myRef.child("DB_Productos").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                rvProductos.hideShimmerAdapter();
                 Log.e("LOG",dataSnapshot.toString());
                 productoArrayList.removeAll(productoArrayList);
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {

@@ -9,4 +9,5 @@
     <color name="colorPieza">#E91E63</color>
     <color name="light_grey">#DCDCDC</color>
     <color name="search_grey">#DCDCDC</color>
+    <color name="demo_dark_transparent">#24000000</color>
 </resources>

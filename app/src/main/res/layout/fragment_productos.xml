@@ -6,9 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".ui.productos.ProductosFragment">
 
-   <androidx.recyclerview.widget.RecyclerView
+   <com.mikelau.views.shimmer.ShimmerRecyclerViewX
        android:id="@+id/recyclerProductos"
        android:layout_width="match_parent"
        android:layout_height="match_parent"
-       />
+       app:shimmer_demo_layout="@layout/layout_demo_grid" />
 </androidx.constraintlayout.widget.ConstraintLayout>

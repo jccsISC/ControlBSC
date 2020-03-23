@@ -20,9 +20,9 @@
         android:background="@drawable/border_search"
         android:layout_height="wrap_content"/>
 
-    <androidx.recyclerview.widget.RecyclerView
+    <com.mikelau.views.shimmer.ShimmerRecyclerViewX
         android:id="@+id/recyclerViewEntradas"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
+        app:shimmer_demo_layout="@layout/layout_demo_grid" />
 </LinearLayout>
