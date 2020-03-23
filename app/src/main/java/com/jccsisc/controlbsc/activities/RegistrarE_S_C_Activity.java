@@ -94,7 +94,8 @@ public class RegistrarE_S_C_Activity extends AppCompatActivity {
                 if(edtPesoC.getText().toString().trim().equals("")){
                     mtoast("Ingrese una cantidad");
                 }else{
-                    double peso = Double.parseDouble(edtPesoC.getText().toString());
+
+                    double peso = Double.parseDouble(edtPesoC.getText().toString().trim());
                     sumatotal += peso;
                     String id =  FirebaseDatabase.getInstance().getReference().push().getKey();
                     Detalle modelitoDetalle =  new Detalle(id, peso);
