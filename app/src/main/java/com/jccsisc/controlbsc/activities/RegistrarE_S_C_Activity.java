@@ -1,16 +1,19 @@
 package com.jccsisc.controlbsc.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.midi.MidiOutputPort;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,7 +27,6 @@ import com.jccsisc.controlbsc.adapters.CajasAdapter;
 import com.jccsisc.controlbsc.adapters.ProductosAdapter;
 import com.jccsisc.controlbsc.model.Detalle;
 import com.jccsisc.controlbsc.model.Movimiento;
-import com.jccsisc.controlbsc.model.Producto;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,15 +37,17 @@ public class RegistrarE_S_C_Activity extends AppCompatActivity {
 
     private DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("DB_Bodega1").child("DB_Productos");
     private static final String DB_NODE = "DB_Entradas";
-    private Button btnCargar, btnSumar;
+    private Button btnCargar, btnSumar, btnAceptar, btnCancel;
     private TextView nameProducto, txtCT, txtPesoT;
-    private EditText edtPesoC;
+    private EditText edtPesoC, edtEditarPeso;
     private String dateEntrada, dateSalida = "", idKey, name;
     Intent extras;
     double sumatotal = 0.0;
     private ArrayList<Detalle> detallesArrayList = new ArrayList<>();
     private CajasAdapter cajasAdapter;
     RecyclerView recyclerPesadasC;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +61,6 @@ public class RegistrarE_S_C_Activity extends AppCompatActivity {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         Date date = new Date();
         dateEntrada = dateFormat.format(date);
-
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         recyclerPesadasC = findViewById(R.id.recyclerPesadasC);
@@ -136,43 +139,60 @@ public class RegistrarE_S_C_Activity extends AppCompatActivity {
                         }
                     });
                 }
-
             }
+        });
+
+
+        cajasAdapter.setOnClickListener(new CajasAdapter.OnClickListener() {
+            @Override
+            public void onItemClick(final int pos) {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(RegistrarE_S_C_Activity.this);
+                alertDialog.setTitle("MODIFICAR");
+                alertDialog.setMessage(String.valueOf(detallesArrayList.get(pos).getPeso()));
+
+                final EditText input = new EditText(RegistrarE_S_C_Activity.this);
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.MATCH_PARENT);
+                input.setLayoutParams(lp);
+                alertDialog.setView(input);
+
+                alertDialog.setPositiveButton("Guardar",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                String idKey = detallesArrayList.get(pos).getIdKey();
+                                Detalle detalle = new Detalle(idKey, Double.parseDouble(input.getText().toString().trim()));
+                                detallesArrayList.remove(pos);
+                                detallesArrayList.add(pos, detalle);
+                                cajasAdapter.notifyItemChanged(pos);
+                                sumatotal = 0.0;
+                                for(int x = 0; x < detallesArrayList.size(); x++){
+
+                                    sumatotal += detallesArrayList.get(x).getPeso();
+                                    txtPesoT.setText(String.valueOf(sumatotal));
+                                }
+
+                            }
+                        });
+
+                alertDialog.setNegativeButton("Cancelar",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+
+                alertDialog.show();
+            }
+
         });
 
     }//onCreate
 
-
-    //registrar las entradas de piezas
-    private void registrarEntradasCaja() {
-
-    }
-
-//    private boolean isProductEmpty(CharSequence producto) {
-//        if(TextUtils.isEmpty(producto)) {
-//            productoMessage(getString(R.string.empty_field));
-//            return false;
-//        }
-//        productoMessage();
-//        return true;
-//    }
-
-//    public void snackMessage(String message) {
-//        Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT).show();
-//    }
-//
     public void mtoast(String msj) {
         Toast toast = Toast.makeText(this, msj, Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER | Gravity.CENTER, 0, 0);
         toast.show();
     }
-
-//    void productoMessage() {
-//        edtPesoC.setError(null);
-//    }
-//
-//    void productoMessage(String message) {
-//        edtPesoC.setError(message);
-//    }
 
 }
