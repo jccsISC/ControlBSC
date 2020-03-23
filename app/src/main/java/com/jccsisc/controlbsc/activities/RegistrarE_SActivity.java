@@ -77,6 +77,7 @@ public class RegistrarE_SActivity extends AppCompatActivity {
             public void onClick(View v) {
 //                mtoast("estamos trabajando en esta vista");
                 registrarEntradasPieza();
+                finish();
             }
         });
     }

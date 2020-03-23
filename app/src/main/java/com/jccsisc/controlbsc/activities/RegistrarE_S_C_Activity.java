@@ -136,6 +136,7 @@ public class RegistrarE_S_C_Activity extends AppCompatActivity {
                             sumatotal = 0.0;
                             txtPesoT.setText("");
                             txtCT.setText("");
+                            finish();
                         }
                     });
                 }

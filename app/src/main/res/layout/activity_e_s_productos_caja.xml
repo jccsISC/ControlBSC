@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.RegistrarE_SActivity"
+    tools:context=".activities.RegistrarE_S_C_Activity"
     android:orientation="vertical"
     android:weightSum="1"
     >
@@ -44,7 +44,7 @@
            android:layout_width="match_parent"
            android:layout_height="match_parent"
            tools:background="@color/colorPrimaryLight"
-           android:layout_weight="0.5"
+           android:layout_weight="0.3"
            android:orientation="vertical">
            <LinearLayout
                android:layout_width="match_parent"
@@ -55,32 +55,36 @@
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:text="Cajas:"
-                   android:textStyle="bold"/>
+                   android:textStyle="bold"
+                   android:textSize="@dimen/size_20"/>
                <TextView
                    android:id="@+id/txtCT"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    tools:text="50"
                    android:paddingStart="3dp"
-                   android:paddingEnd="10dp"/>
+                   android:paddingEnd="10dp"
+                   android:textSize="@dimen/size_20"/>
                <TextView
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:text="Peso Total:"
-                   android:textStyle="bold"/>
+                   android:textStyle="bold"
+                   android:textSize="@dimen/size_20"/>
                <TextView
                    android:id="@+id/txtPesoT"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    tools:text="135.6"
                    android:paddingStart="3dp"
-                   android:paddingEnd="5dp"/>
+                   android:paddingEnd="5dp"
+                   android:textSize="@dimen/size_20"/>
            </LinearLayout>
 
            <androidx.recyclerview.widget.RecyclerView
                android:id="@+id/recyclerPesadasC"
                android:scrollbars="vertical"
-               android:layout_width="match_parent"
+               android:layout_width="200dp"
                android:layout_height="match_parent"
                android:layout_marginTop="10dp"/>
 
@@ -89,7 +93,7 @@
        <LinearLayout
            android:layout_width="match_parent"
            android:layout_height="match_parent"
-           android:layout_weight="0.5">
+           android:layout_weight="0.7">
 
        </LinearLayout>
 
