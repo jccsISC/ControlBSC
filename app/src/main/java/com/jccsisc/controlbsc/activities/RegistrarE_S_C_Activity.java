@@ -121,13 +121,13 @@ public class RegistrarE_S_C_Activity extends AppCompatActivity {
                     Movimiento movimiento = new Movimiento(dateEntrada,"positive","15:15:00", "Congelacion",
                             "normal",id,sumatotal,detallesArrayList.size());
 
-//                movimiento.setDetalles(detallesArrayList);
+                movimiento.setDetalles(detallesArrayList);
 
-                    for(int i = 0; i< detallesArrayList.size(); i++){
-
-                        movimiento.addDetalles(detallesArrayList.get(i));
-
-                    }
+//                    for(int i = 0; i< detallesArrayList.size(); i++){
+//
+//                        movimiento.addDetalles(detallesArrayList.get(i));
+//
+//                    }
 
                     myRef.child(idKey).child("movimientos").child(id).setValue(movimiento).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
