@@ -117,33 +117,14 @@ public class EntradasFragment extends Fragment {
         entradasAdapter.setOnClickListener(new ProductosAdapter.OnClickListener() {
             @Override
             public void onItemClick( int pos) {
-
-                if(productoArrayList.get(pos).getUnit().equals("Caja")) {
-                    Intent i = new Intent(getContext(), RegistrarE_S_C_Activity.class);
-                    i.putExtra("nameProducto", productoArrayList.get(pos).getName());
-                    i.putExtra("idKey", productoArrayList.get(pos).getIdKey());
-                    startActivity(i);
-                }else if(productoArrayList.get(pos).getUnit().equals("Pieza")){
-                    Intent i = new Intent(getContext(), RegistrarE_SActivity.class);
-                    startActivity(i);
-                }
-
+                mostrar(pos, productoArrayList);
             }
         });
 
         entradasAdapter2.setOnClickListener(new ProductosAdapter.OnClickListener() {
             @Override
             public void onItemClick( int pos) {
-
-                if(productoArrayList2.get(pos).getUnit().equals("Caja")){
-                    Intent i = new Intent(getContext(), RegistrarE_S_C_Activity.class);
-                    i.putExtra("nameProducto", productoArrayList2.get(pos).getName());
-                    i.putExtra("idKey", productoArrayList2.get(pos).getIdKey());
-                    startActivity(i);
-                }else if(productoArrayList2.get(pos).getUnit().equals("Pieza")){
-                    Intent i = new Intent(getContext(), RegistrarE_SActivity.class);
-                    startActivity(i);
-                }
+                mostrar(pos, productoArrayList2);
             }
         });
 
@@ -158,7 +139,6 @@ public class EntradasFragment extends Fragment {
                 }else{
                     rvEntradas.setAdapter(entradasAdapter2);
                 }
-
             }
             @Override
             public void afterTextChanged(Editable s) {
@@ -166,10 +146,21 @@ public class EntradasFragment extends Fragment {
             }
         });
 
-
         return v;
     }
 
+
+    private void mostrar(int pos, ArrayList<Producto> arrayList) {
+        if(arrayList.get(pos).getUnit().equals("Caja")) {
+            Intent i = new Intent(getContext(), RegistrarE_S_C_Activity.class);
+            i.putExtra("nameProducto", arrayList.get(pos).getName());
+            i.putExtra("idKey", arrayList.get(pos).getIdKey());
+            startActivity(i);
+        }else if(arrayList.get(pos).getUnit().equals("Pieza")){
+            Intent i = new Intent(getContext(), RegistrarE_SActivity.class);
+            startActivity(i);
+        }
+    }
 
     private void metodoBuscar(CharSequence s){
         productoArrayList2.clear();
