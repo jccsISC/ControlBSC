@@ -1,22 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <dimen name="corner_radius_10">10dp</dimen>
+
     <dimen name="height_btnSign_In">20dp</dimen>
+    <dimen name="height_40">40dp</dimen>
     <dimen name="height_75">75dp</dimen>
     <dimen name="height_card_p_80">80dp</dimen>
+    <dimen name="height_170">170dp</dimen>
 
     <dimen name="marginTop_20">20dp</dimen>
     <dimen name="marginTop_30">30dp</dimen>
+    <dimen name="margin_30">30dp</dimen>
     <dimen name="marginTop_imgLogin_60">60dp</dimen>
 
     <dimen name="padding_10">10dp</dimen>
     <dimen name="padding_20">20dp</dimen>
 
+    <dimen name="size_8">8sp</dimen>
+    <dimen name="size_12">12sp</dimen>
     <dimen name="size_15">15sp</dimen>
     <dimen name="size_20">20sp</dimen>
     <dimen name="size_24">24sp</dimen>
-
-    <dimen name="width_logoLogin_150">150dp</dimen>
+    <dimen name="size_25">25sp</dimen>
+    <dimen name="size_45">45sp</dimen>
 
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
@@ -24,10 +31,9 @@
     <dimen name="nav_header_vertical_spacing">8dp</dimen>
     <dimen name="nav_header_height">176dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="size_45">45sp</dimen>
 
+    <dimen name="width_logoLogin_150">150dp</dimen>
     <dimen name="width_btn_150">150dp</dimen>
     <dimen name="width_btn_250">250dp</dimen>
-
 
 </resources>

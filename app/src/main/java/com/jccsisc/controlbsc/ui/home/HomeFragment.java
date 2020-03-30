@@ -31,14 +31,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
-        cardViewEntrada = root.findViewById(R.id.cardViewEntrada);
-        cardViewSalidas = root.findViewById(R.id.cardViewSalida);
+        View v = inflater.inflate(R.layout.fragment_home, container, false);
+        cardViewEntrada = v.findViewById(R.id.cardViewEntrada);
+        cardViewSalidas = v.findViewById(R.id.cardViewSalida);
 
         cardViewEntrada.setOnClickListener(this);
         cardViewSalidas.setOnClickListener(this);
 
-        return root;
+        return v;
     }
 
     @Override
@@ -49,8 +49,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
                 transaction.replace(R.id.nav_host_fragment, nuevoFragmento);
                 transaction.addToBackStack(null);
-
-                // Commit a la transacción
                 transaction.commit();
                 break;
             case R.id.cardViewSalida:
@@ -61,10 +59,5 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 transaction1.commit();
                 break;
         }
-    }
-
-
-    public void snackMessage(String message) {
-        Snackbar.make(getView(), message, Snackbar.LENGTH_SHORT).show();
     }
 }

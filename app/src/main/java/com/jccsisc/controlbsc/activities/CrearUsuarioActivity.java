@@ -53,7 +53,7 @@ public class CrearUsuarioActivity extends AppCompatActivity  implements View.OnC
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         mAuth = FirebaseAuth.getInstance();
-        myRef = FirebaseDatabase.getInstance().getReference("DB_Users");
+        myRef = FirebaseDatabase.getInstance().getReference(getResources().getString(R.string.db_User));
 
         tilUser       = findViewById(R.id.tilUser);
         tietUser      = findViewById(R.id.tieUser);
@@ -115,7 +115,6 @@ public class CrearUsuarioActivity extends AppCompatActivity  implements View.OnC
     //detecta si ya inicio sesion
     private void updateUI(FirebaseUser currentUser) {
         if (currentUser !=null) {
-
             String id = mAuth.getUid();
             String user = tietUser.getEditableText().toString();
             CrearUser crearUser = new CrearUser(id, user);
@@ -127,8 +126,6 @@ public class CrearUsuarioActivity extends AppCompatActivity  implements View.OnC
             finish();
         }
     }
-
-
 
 
     boolean isConnected() {
@@ -188,7 +185,6 @@ public class CrearUsuarioActivity extends AppCompatActivity  implements View.OnC
         return true;
     }
 
-
     //Validar Contraseña segura
     public Matcher validarContraSegura(String password)
     {
@@ -197,7 +193,6 @@ public class CrearUsuarioActivity extends AppCompatActivity  implements View.OnC
         Matcher matcherPassword = patternClave.matcher(password);
         return matcherPassword;
     }
-
 
     public void snackMessage(String message) {
         Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT).show();

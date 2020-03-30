@@ -1,14 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.productos.ProductosFragment">
+    tools:context=".ui.productos.ProductosFragment"
+    android:orientation="vertical">
+
+   <EditText
+       android:id="@+id/txtBuscador"
+       android:layout_margin="5dp"
+       android:drawableStart="@drawable/ic_search"
+       android:hint="@string/nombre_del_expositor"
+       android:layout_width="match_parent"
+       android:padding="5dp"
+       android:textSize="14sp"
+       android:background="@drawable/border_search"
+       android:layout_height="wrap_content"/>
 
    <com.mikelau.views.shimmer.ShimmerRecyclerViewX
        android:id="@+id/recyclerProductos"
        android:layout_width="match_parent"
        android:layout_height="match_parent"
        app:shimmer_demo_layout="@layout/layout_demo_grid" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

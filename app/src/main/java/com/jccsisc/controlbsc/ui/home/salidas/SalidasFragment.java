@@ -18,7 +18,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.jccsisc.controlbsc.R;
 import com.jccsisc.controlbsc.adapters.ProductosAdapter;
-import com.jccsisc.controlbsc.adapters.SalidasdasAdapter;
 import com.jccsisc.controlbsc.model.Producto;
 
 import java.util.ArrayList;
@@ -30,7 +29,7 @@ public class SalidasFragment extends Fragment {
 
     private RecyclerView rvSalidas;
     private ArrayList<Producto> productoArrayList;
-    private SalidasdasAdapter salidasAdapter;
+    private ProductosAdapter salidasAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -41,7 +40,7 @@ public class SalidasFragment extends Fragment {
         rvSalidas.setLayoutManager(linearLayoutManager);
 
         productoArrayList = new ArrayList<>();
-        salidasAdapter = new SalidasdasAdapter(productoArrayList, getActivity());
+        salidasAdapter = new ProductosAdapter(productoArrayList, getActivity(), "Salida");
 
         rvSalidas.setAdapter(salidasAdapter);
 

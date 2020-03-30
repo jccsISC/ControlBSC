@@ -55,14 +55,14 @@ public class EntradasFragment extends Fragment {
         productoArrayList = new ArrayList<>();
         entradasAdapter = new ProductosAdapter(productoArrayList, getActivity(), "Entrada");
 
-
-        productoArrayList2 = new ArrayList<>();
+        productoArrayList2 = new ArrayList<>(); //este lo ocupams para refrezcar el segundo adapter para el buscador
         entradasAdapter2 = new ProductosAdapter(productoArrayList2, getActivity(), "Entrada");
         rvEntradas.setAdapter(entradasAdapter);
 
-        mAuth = FirebaseAuth.getInstance(); //obtenemos al usuario actual
+//        mAuth = FirebaseAuth.getInstance(); //obtenemos al usuario actual
         rvEntradas.showShimmerAdapter();
-        myRef.addValueEventListener(new ValueEventListener() {
+
+        myRef.orderByChild("name").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 rvEntradas.hideShimmerAdapter();
@@ -91,13 +91,11 @@ public class EntradasFragment extends Fragment {
                             Detalle detalle = new Detalle(
                                     detalles.child("idKey").getValue(String.class),
                                     detalles.child("peso").getValue(Double.class));
+
                             movimiento1.addDetalles(detalle);
-
                         }
-
                         producto.addMovimiento(movimiento1);
                     }
-
                     productoArrayList.add(producto);
                 }
 
@@ -120,7 +118,7 @@ public class EntradasFragment extends Fragment {
             @Override
             public void onItemClick( int pos) {
 
-                if(productoArrayList.get(pos).getUnit().equals("Caja")){
+                if(productoArrayList.get(pos).getUnit().equals("Caja")) {
                     Intent i = new Intent(getContext(), RegistrarE_S_C_Activity.class);
                     i.putExtra("nameProducto", productoArrayList.get(pos).getName());
                     i.putExtra("idKey", productoArrayList.get(pos).getIdKey());
@@ -146,7 +144,6 @@ public class EntradasFragment extends Fragment {
                     Intent i = new Intent(getContext(), RegistrarE_SActivity.class);
                     startActivity(i);
                 }
-
             }
         });
 

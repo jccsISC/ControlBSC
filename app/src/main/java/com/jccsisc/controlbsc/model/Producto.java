@@ -13,9 +13,9 @@ public class Producto {
     }
 
     public Producto(String name, String unit, String idKey) {
-        this.name        = name;
-        this.unit        = unit;
-        this.idKey       = idKey;
+        this.name   = name;
+        this.unit   = unit;
+        this.idKey  = idKey;
     }
 
     public String getName() {

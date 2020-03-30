@@ -21,7 +21,7 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.Prod
     private ArrayList<Producto> productos_model;
     private Activity activity;
     private OnClickListener onClickListener = null;
-    private String vista;
+    private String vista; //para saber si es la entrada o la salida
 
     public void setOnClickListener(OnClickListener onClickListener) {
         this.onClickListener = onClickListener;

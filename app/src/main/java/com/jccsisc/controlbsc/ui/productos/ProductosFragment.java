@@ -1,6 +1,7 @@
 package com.jccsisc.controlbsc.ui.productos;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -9,6 +10,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -27,6 +29,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.jccsisc.controlbsc.R;
+import com.jccsisc.controlbsc.activities.RegistrarE_SActivity;
 import com.jccsisc.controlbsc.activities.RegistrarE_S_C_Activity;
 import com.jccsisc.controlbsc.adapters.ProductosAdapter;
 import com.jccsisc.controlbsc.model.Detalle;
@@ -43,12 +46,14 @@ public class ProductosFragment extends Fragment {
     FirebaseAuth mAuth;
 
     private ShimmerRecyclerViewX rvProductos;
-    private ArrayList<Producto> productoArrayList;
-    private ProductosAdapter productosAdapter;
+    private ArrayList<Producto> productoArrayList, productoArrayList2;
+    private ProductosAdapter productosAdapter, productosAdapter2;
+    private EditText edtBuscador;
 
     public View onCreateView(@NonNull final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_productos, container, false);
+        edtBuscador = v.findViewById(R.id.txtBuscador);
         rvProductos = v.findViewById(R.id.recyclerProductos);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
@@ -57,12 +62,17 @@ public class ProductosFragment extends Fragment {
         productoArrayList = new ArrayList<>();
         productosAdapter = new ProductosAdapter(productoArrayList, getActivity(), "Producto");
 
-        rvProductos.setAdapter(productosAdapter);
 
-        mAuth = FirebaseAuth.getInstance(); //obtenemos al usuario actual
+
+        //replicamos el arrayList para la hora de buscar
+        productoArrayList2 = new ArrayList<>();
+        productosAdapter2  = new ProductosAdapter(productoArrayList2, getActivity(), "Producto");
+//        mAuth = FirebaseAuth.getInstance(); //obtenemos al usuario actual
+
+        rvProductos.setAdapter(productosAdapter);
         rvProductos.showShimmerAdapter();
 
-        myRef.child("DB_Productos").addValueEventListener(new ValueEventListener() {
+        myRef.child("DB_Productos").orderByChild("name").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 rvProductos.hideShimmerAdapter();
@@ -101,7 +111,11 @@ public class ProductosFragment extends Fragment {
                     productoArrayList.add(producto);
                 }
 
-                productosAdapter.notifyDataSetChanged();
+                if(!edtBuscador.getText().toString().toUpperCase().equals("")){
+                    metodoBuscar(edtBuscador.getText().toString().toUpperCase());
+                }else{
+                    productosAdapter.notifyDataSetChanged();
+                }
             }
 
             @Override
@@ -110,12 +124,41 @@ public class ProductosFragment extends Fragment {
             }
         });
 
-        productosAdapter.setOnClickListener(new ProductosAdapter.OnClickListener() {
+
+        showOptions(productoArrayList, productosAdapter);
+        showOptions(productoArrayList2, productosAdapter2);
+
+
+        edtBuscador.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(!s.equals("")){
+                    metodoBuscar(s);
+                }else{
+                    rvProductos.setAdapter(productosAdapter);
+                }
+
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        return v;
+    }
+
+    private void showOptions(final ArrayList<Producto> arrayList, ProductosAdapter adapter) {
+        adapter.setOnClickListener(new ProductosAdapter.OnClickListener() {
             @Override
             public void onItemClick(final int pos) {
+
                 final AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
-                alertDialog.setTitle("MODIFICAR NOMBRE PRODUCTO");
-                alertDialog.setMessage(String.valueOf(productoArrayList.get(pos).getName()));
+                alertDialog.setTitle("MODIFICAR NOMBRE DEL PRODUCTO");
+                alertDialog.setMessage(String.valueOf(arrayList.get(pos).getName()));
 
                 final EditText input = new EditText(getActivity());
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
@@ -127,22 +170,23 @@ public class ProductosFragment extends Fragment {
                 alertDialog.setPositiveButton("Guardar",
                         new DialogInterface.OnClickListener() {
                             public void onClick(final DialogInterface dialog, int which) {
-                                String idKey = productoArrayList.get(pos).getIdKey();
-
-                                myRef.child("DB_Productos").child(idKey).child("name").setValue(input.getText().toString().toUpperCase()).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        mtoast("Modificado correctamente");
-                                        dialog.dismiss();
-                                    }
-                                });
+                                String idKey = arrayList.get(pos).getIdKey();
+                                modificarProducto(idKey, input, dialog);
                             }
                         });
 
                 alertDialog.setNegativeButton("Cancelar",
                         new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
+                            public void onClick(final DialogInterface dialog, int which) {
                                 dialog.cancel();
+                            }
+                        });
+
+                alertDialog.setNeutralButton("Eliminar",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                String idKey = arrayList.get(pos).getIdKey();
+                                eliminarProducto(idKey);
                             }
                         });
 
@@ -150,7 +194,30 @@ public class ProductosFragment extends Fragment {
             }
         });
 
-        return v;
+
+    }
+
+    private void modificarProducto(String idKey, EditText input, final DialogInterface alert) {
+        myRef.child("DB_Productos").child(idKey).child("name")
+                .setValue(input.getText().toString().toUpperCase())
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        mtoast("Modificado correctamente");
+
+                        alert.dismiss();
+                    }
+                });
+    }
+
+    private void eliminarProducto(String idKey) {
+        myRef.child("DB_Productos").child(idKey).removeValue().addOnSuccessListener(new OnSuccessListener<Void>()
+        {
+            @Override
+            public void onSuccess(Void aVoid) {
+                mtoast("Se eliminó correctamente");
+            }
+        });
     }
 
 
@@ -158,5 +225,15 @@ public class ProductosFragment extends Fragment {
         Toast toast = Toast.makeText(getContext(), msj, Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER | Gravity.CENTER, 0, 0);
         toast.show();
+    }
+
+    private void metodoBuscar(CharSequence s){
+        productoArrayList2.clear();
+        for (int i = 0; i<productoArrayList.size(); i++) {
+            if (productoArrayList.get(i).getName().contains(s.toString().toUpperCase())) {
+                productoArrayList2.add(productoArrayList.get(i));
+            }
+        }
+        rvProductos.setAdapter(productosAdapter2);
     }
 }

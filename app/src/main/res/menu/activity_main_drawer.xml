@@ -41,6 +41,10 @@
     <item android:title="Communicate">
         <menu>
             <item
+                android:id="@+id/nav_proveedores"
+                android:icon="@drawable/ic_usuario"
+                android:title="@string/menu_proveedores"/>
+            <item
                 android:id="@+id/nav_contactanos"
                 android:icon="@drawable/ic_servicio_al_cliente"
                 android:title="@string/menu_contacto" />

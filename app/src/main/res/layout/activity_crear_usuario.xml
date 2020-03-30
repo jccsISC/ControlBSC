@@ -25,8 +25,6 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -49,7 +47,6 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/padding_10"
                 android:hint="@string/hint_email"
-                tools:text="Silva.jc@hotmail.com"
                 android:inputType="textEmailAddress"
                 android:textSize="@dimen/size_20"
                 android:drawableEnd="@drawable/ic_usuario"
@@ -71,7 +68,6 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/padding_10"
                 android:hint="@string/hint_password"
-                tools:text="12345678"
                 android:inputType="textPassword"
                 android:textSize="@dimen/size_20"
                 />
@@ -93,7 +89,6 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/padding_10"
                 android:hint="@string/hint_verifyPsw"
-                tools:text="12345678"
                 android:inputType="textPassword"
                 android:textSize="@dimen/size_20"
                 />

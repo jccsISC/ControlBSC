@@ -55,6 +55,12 @@
         tools:layout="@layout/fragment_inventario" />
 
     <fragment
+        android:id="@+id/nav_proveedores"
+        android:name="com.jccsisc.controlbsc.ui.proveedores.ProveedoresFragment"
+        android:label="@string/menu_proveedores"
+        tools:layout="@layout/fragment_proveedores" />
+
+    <fragment
         android:id="@+id/nav_contactanos"
         android:name="com.jccsisc.controlbsc.ui.contactanos.ContactanosFragment"
         android:label="@string/menu_contacto"

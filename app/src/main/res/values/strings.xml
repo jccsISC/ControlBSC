@@ -6,6 +6,8 @@
 
     <string name="caja">Caja</string>
 
+    <string name="db_User">DB_Users</string>
+
     <string name="empty_field">Campo Vacio</string>
     <string name="email_invalid">Correo Invalido</string>
     <string name="entradas">ENTRADAS</string>
@@ -16,6 +18,8 @@
     <string name="hint_verifyPsw">Verifica tu contraseña</string>
 
     <string name="img_description">Descripcion de la imagen sierra costa</string>
+
+    <string name="kg">Kg</string>
 
     <string name="title_activity_main">MainActivity</string>
     <string name="menu_home">Home</string>
@@ -28,6 +32,7 @@
     <string name="menu_contacto">Contactanos</string>
     <string name="menu_cerrarsesion">Cerrar Sesión</string>
     <string name="menu_pedidos">Pedidos</string>
+    <string name="menu_proveedores">Proveedores</string>
 
     <!--navigationDrawer-->
     <string name="nav_header_title">Android Studio</string>
@@ -36,11 +41,12 @@
     <string name="action_settings">Settings</string>
 
     <string name="noInternet">No tienes internet :/</string>
+    <string name="nombre_del_expositor">Buscar producto</string>
 
 
     <string name="pwd_length">Mínimo 6 caracteres</string>
-    <string name="pieza">Pieza</string>
     <string name="pwd_segura">Ingrese una Clave segura(Minimo: 1 mayus, 1 minu, 1 número, 8 caracteres mini-max 16)</string>
+    <string name="pieza">Pieza</string>
 
     <string name="registrado">Se registró correctamente</string>
     <string name="registrate">Registrate ya!!</string>
@@ -51,7 +57,7 @@
     <string name="title_Registrar">Registrar nuevo Producto</string>
 
     <string name="unidad">Seleccione si es una Pieza o Caja</string>
-    <string name="kg">Kg</string>
-    <string name="nombre_del_expositor">Buscar producto</string>
+    <string name="entradas_salidas">Registre las Entradas o Salidas</string>
+
 
 </resources>

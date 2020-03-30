@@ -25,13 +25,13 @@ public class Movimiento {
                       String idKey,
                       double weight,
                       int quantity) {
-        this.date = date;
-        this.type = type;
-        this.hour = hour;
-        this.destiny = destiny;
-        this.status = status;
-        this.idKey = idKey;
-        this.weight = weight;
+        this.date     = date;
+        this.type     = type;
+        this.hour     = hour;
+        this.destiny  = destiny;
+        this.status   = status;
+        this.idKey    = idKey;
+        this.weight   = weight;
         this.quantity = quantity;
     }
 

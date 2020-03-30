@@ -28,10 +28,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:text="PAPADA"
-                android:textSize="25dp"
+                android:textSize="@dimen/size_25"
                 android:textStyle="bold"
                 android:gravity="center"
-                />
+                android:autoSizeTextType="uniform"
+                android:autoSizeMaxTextSize="@dimen/size_25"
+                android:autoSizeMinTextSize="@dimen/size_12"/>
         </LinearLayout>
 
         <LinearLayout
@@ -67,7 +69,10 @@
                         android:layout_height="match_parent"
                         tools:text="5"
                         android:textSize="@dimen/size_24"
-                        android:gravity="center"/>
+                        android:gravity="center"
+                        android:autoSizeTextType="uniform"
+                        android:autoSizeMaxTextSize="@dimen/size_25"
+                        android:autoSizeMinTextSize="@dimen/size_8"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -90,7 +95,10 @@
                         android:layout_height="match_parent"
                         tools:text="80.6"
                         android:textSize="@dimen/size_24"
-                        android:gravity="center"/>
+                        android:gravity="center"
+                        android:autoSizeTextType="uniform"
+                        android:autoSizeMaxTextSize="@dimen/size_25"
+                        android:autoSizeMinTextSize="@dimen/size_8"/>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
