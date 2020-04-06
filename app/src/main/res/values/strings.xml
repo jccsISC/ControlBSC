@@ -14,7 +14,7 @@
 
     <string name="hint_email">Ingrese su Correo Electronico</string>
     <string name="hint_password">Ingrese su contraseña</string>
-    <string name="hint_producto">Nombre del producto nuevo</string>
+    <string name="hint_producto">Nombre del producto</string>
     <string name="hint_verifyPsw">Verifica tu contraseña</string>
 
     <string name="img_description">Descripcion de la imagen sierra costa</string>
@@ -58,6 +58,24 @@
 
     <string name="unidad">Seleccione si es una Pieza o Caja</string>
     <string name="entradas_salidas">Registre las Entradas o Salidas</string>
+    <string name="tres_kg">3.0 kg</string>
+    <string name="cero">0.0</string>
+    <string name="two_two">2.2 kg</string>
+    <string name="two">2.0 kg</string>
+    <string name="two_four">2.4 kg</string>
+    <string name="one_six">1.6 kg</string>
+    <string name="cantidad_piezas">Cantidad de Piezas</string>
+    <string name="peso_sin_caja">Resultado Peso total sin Caja</string>
+    <string name="peso_con_caja">Peso total con Caja</string>
+    <string name="cargar">Cargar</string>
+    <string name="one_four">1.4 kg</string>
+    <string name="peso_t">Peso Total</string>
+    <string name="ingrese_peso_caja">Ingrese el peso de la caja</string>
+    <string name="menu_tickets">Tickets</string>
+    <string name="hint_name">Ingresa tu nombre(s)</string>
+    <string name="hint_last_name">Ingresa tus apellidos</string>
+    <string name="insert_last_name">Ingrese su Apellido!!</string>
+    <string name="no_equals">Las contraseñas no coinciden</string>
 
 
 </resources>

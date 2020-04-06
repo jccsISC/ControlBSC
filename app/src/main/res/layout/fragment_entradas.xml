@@ -10,7 +10,7 @@
     >
 
     <EditText
-        android:id="@+id/txtBuscador"
+        android:id="@+id/edtBuscador"
         android:layout_margin="5dp"
         android:drawableStart="@drawable/ic_search"
         android:hint="@string/nombre_del_expositor"

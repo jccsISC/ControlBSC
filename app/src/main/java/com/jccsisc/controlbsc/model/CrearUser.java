@@ -1,13 +1,31 @@
 package com.jccsisc.controlbsc.model;
 
 public class CrearUser {
-    String idUser, user;
+    String idUser, name, lastName, email;
 
     public CrearUser() {}
 
-    public CrearUser(String idUser, String user) {
-        this.idUser = idUser;
-        this.user = user;
+    public CrearUser(String idUser, String name, String lastName, String email) {
+        this.idUser   = idUser;
+        this.name     = name;
+        this.lastName = lastName;
+        this.email    = email;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getIdUser() {
@@ -18,11 +36,11 @@ public class CrearUser {
         this.idUser = idUser;
     }
 
-    public String getUser() {
-        return user;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

@@ -22,12 +22,16 @@
             android:title="@string/menu_procesos" />
         <item
             android:id="@+id/nav_pedidos"
-            android:icon="@drawable/common_google_signin_btn_icon_dark"
+            android:icon="@drawable/ic_producto"
             android:title="@string/menu_pedidos"/>
         <item
             android:id="@+id/nav_historial"
             android:icon="@drawable/ic_archivo"
             android:title="@string/menu_historial" />
+        <item
+            android:id="@+id/nav_tickets"
+            android:icon="@drawable/ic_boleto"
+            android:title="@string/menu_tickets" />
         <item
             android:id="@+id/nav_camaras"
             android:icon="@drawable/ic_refrigerador"
@@ -42,7 +46,7 @@
         <menu>
             <item
                 android:id="@+id/nav_proveedores"
-                android:icon="@drawable/ic_usuario"
+                android:icon="@drawable/ic_proveedor"
                 android:title="@string/menu_proveedores"/>
             <item
                 android:id="@+id/nav_contactanos"

@@ -41,8 +41,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         mAuth = FirebaseAuth.getInstance();
 
-        tilUser     = findViewById(R.id.tilUser);
-        tieUser     = findViewById(R.id.tieUser);
+        tilUser     = findViewById(R.id.tilEmail);
+        tieUser     = findViewById(R.id.tieEmail);
         tilPassword = findViewById(R.id.tilPassword);
         tiePassword = findViewById(R.id.tiePassword);
 
@@ -108,7 +108,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void login_user() {
         String email = tieUser.getEditableText().toString().trim(); //trim para eliminar espacios al inicio o al final de la caja
         String password  = tiePassword.getEditableText().toString().trim();
-
 
         if(emailIsValid(email) & pwdIsValid(password) && isConnected()) {
             mAuth.signInWithEmailAndPassword(email, password)

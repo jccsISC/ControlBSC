@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
+import android.widget.EditText;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -22,6 +23,8 @@ import static com.jccsisc.controlbsc.R.id.nav_cerrarsesion;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+    public static EditText edtAppBarBuscador;
+    public String fragment = "Home";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        edtAppBarBuscador = findViewById(R.id.edtAppBarBuscador);
+
+        visivilitySearch(fragment);
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setItemIconTintList(null);
@@ -49,11 +56,6 @@ public class MainActivity extends AppCompatActivity {
                 .setDrawerLayout(drawer)
                 .build();
 
-//        if () {
-//            FirebaseAuth.getInstance().signOut();
-//            startActivity(new Intent(MainActivity.this, LoginActivity.class));
-//            finish();
-//        }
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
@@ -72,4 +74,21 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
+
+    public static void visivilitySearch(String fragment) {
+
+        switch (fragment) {
+            case "Entradas":
+            case "Salidas":
+            case "Productos":
+                edtAppBarBuscador.setVisibility(View.VISIBLE);
+                break;
+            default:
+                edtAppBarBuscador.setVisibility(View.INVISIBLE);
+                break;
+        }
+
+    }
+
 }

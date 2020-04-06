@@ -3,26 +3,36 @@
 
     <dimen name="corner_radius_10">10dp</dimen>
 
-    <dimen name="height_btnSign_In">20dp</dimen>
+    <dimen name="height_btnSign_In">40dp</dimen>
     <dimen name="height_40">40dp</dimen>
+    <dimen name="height_50">50dp</dimen>
+    <dimen name="height_60">60dp</dimen>
     <dimen name="height_75">75dp</dimen>
     <dimen name="height_card_p_80">80dp</dimen>
     <dimen name="height_170">170dp</dimen>
 
+    <dimen name="margin_5">5dp</dimen>
+    <dimen name="marginTop_10">10dp</dimen>
+    <dimen name="margin_Bottom_20">20dp</dimen>
     <dimen name="marginTop_20">20dp</dimen>
     <dimen name="marginTop_30">30dp</dimen>
     <dimen name="margin_30">30dp</dimen>
+    <dimen name="margin_Top_40">40dp</dimen>
     <dimen name="marginTop_imgLogin_60">60dp</dimen>
+    <dimen name="marginEnd_100">100dp</dimen>
 
+    <dimen name="padding_5">5dp</dimen>
     <dimen name="padding_10">10dp</dimen>
     <dimen name="padding_20">20dp</dimen>
 
     <dimen name="size_8">8sp</dimen>
     <dimen name="size_12">12sp</dimen>
     <dimen name="size_15">15sp</dimen>
+    <dimen name="size_16">16sp</dimen>
     <dimen name="size_20">20sp</dimen>
     <dimen name="size_24">24sp</dimen>
     <dimen name="size_25">25sp</dimen>
+    <dimen name="size_28">28sp</dimen>
     <dimen name="size_45">45sp</dimen>
 
     <!-- Default screen margins, per the Android Design guidelines. -->
@@ -35,5 +45,13 @@
     <dimen name="width_logoLogin_150">150dp</dimen>
     <dimen name="width_btn_150">150dp</dimen>
     <dimen name="width_btn_250">250dp</dimen>
+    <dimen name="height_250">250dp</dimen>
+    <dimen name="marginStart_40">40dp</dimen>
+    <dimen name="padding_3">3dp</dimen>
+    <dimen name="height_30">30dp</dimen>
+    <dimen name="elevation_4">4dp</dimen>
+    <dimen name="width_160">160dp</dimen>
+    <dimen name="marginEnd_22">22dp</dimen>
+    <dimen name="padding_15">15dp</dimen>
 
 </resources>

@@ -37,9 +37,8 @@ public class CrearUsuarioActivity extends AppCompatActivity  implements View.OnC
 
     private FirebaseAuth mAuth;
     private DatabaseReference myRef;
-
-    private TextInputLayout tilUser, tilPassword, tilVerifyPsw;
-    private TextInputEditText tietUser, tietPassword, tietVerifyPsw;
+    private TextInputLayout tilName, tilLastName, tilEmail, tilPassword, tilVerifyPsw;
+    private TextInputEditText tieName, tieLastName, tietEmail, tietPassword, tietVerifyPsw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,12 +54,72 @@ public class CrearUsuarioActivity extends AppCompatActivity  implements View.OnC
         mAuth = FirebaseAuth.getInstance();
         myRef = FirebaseDatabase.getInstance().getReference(getResources().getString(R.string.db_User));
 
-        tilUser       = findViewById(R.id.tilUser);
-        tietUser      = findViewById(R.id.tieUser);
+        tilName       = findViewById(R.id.tilName);
+        tieName       = findViewById(R.id.tieName);
+        tilLastName   = findViewById(R.id.tilLastName);
+        tieLastName   = findViewById(R.id.tieLastName);
+        tilEmail = findViewById(R.id.tilEmail);
+        tietEmail = findViewById(R.id.tieEmail);
         tilPassword   = findViewById(R.id.tilPassword);
         tietPassword  = findViewById(R.id.tiePassword);
         tilVerifyPsw  = findViewById(R.id.tilVerifyPsw);
         tietVerifyPsw = findViewById(R.id.tieVerifyPsw);
+
+        tieName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                nameValid(s);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        tieLastName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                lastNameValid(s);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        tietEmail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                emailIsValid(s);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        tietPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                pwdIsValid(s);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
 
         tietVerifyPsw.addTextChangedListener(new TextWatcher() {
             @Override
@@ -70,9 +129,9 @@ public class CrearUsuarioActivity extends AppCompatActivity  implements View.OnC
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 pwdIsValid2(s);
             }
+
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
     }
@@ -83,41 +142,42 @@ public class CrearUsuarioActivity extends AppCompatActivity  implements View.OnC
     }
 
     private void registrarNuevoUser() {
-        String user     = tietUser.getEditableText().toString();
+        String name      = tieName.getEditableText().toString();
+        String lastName  = tieLastName.getEditableText().toString();
+        String email     = tietEmail.getEditableText().toString();
         String password = tietPassword.getEditableText().toString();
         String verifyPsw= tietVerifyPsw.getEditableText().toString();
 
-        if(emailIsValid(user) & pwdIsValid(password) && isConnected()) {
-                if(password.equals(verifyPsw)) {
-                    mAuth.createUserWithEmailAndPassword(user, password)
-                            .addOnCompleteListener(CrearUsuarioActivity.this, new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if(task.isSuccessful()) {
-                                        Toast.makeText(getApplicationContext(),"Bienvenido",Toast.LENGTH_SHORT).show();
-                                        FirebaseUser user = mAuth.getCurrentUser();
-                                        updateUI(user);
-                                    }else {
-                                        Toast.makeText(CrearUsuarioActivity.this, "El usuario ya Existe!!", Toast.LENGTH_SHORT).show();
-                                        updateUI(null);
-                                    }
+        if(nameValid(name) & lastNameValid(lastName) & emailIsValid(email) & pwdIsValid(password) & pwdIsValid2(verifyPsw) && isConnected()) {
+            if(verifyPsw.equals(password)) {
+                mAuth.createUserWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(CrearUsuarioActivity.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if(task.isSuccessful()) {
+                                    Toast.makeText(getApplicationContext(),"Bienvenido",Toast.LENGTH_SHORT).show();
+                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    updateUI(user);
+                                }else {
+                                    Toast.makeText(CrearUsuarioActivity.this, "El usuario ya Existe!!", Toast.LENGTH_SHORT).show();
+                                    updateUI(null);
                                 }
-                            });
-
-                }else {
-                    pwdIsValid2(verifyPsw);
-//                    snackMessage("Las contraseñas no coinciden");
-                }
+                            }
+                        });
+            }else {
+                snackMessage("La contraseña no coincide");
+            }
         }
-
     }
 
     //detecta si ya inicio sesion
     private void updateUI(FirebaseUser currentUser) {
         if (currentUser !=null) {
             String id = mAuth.getUid();
-            String user = tietUser.getEditableText().toString();
-            CrearUser crearUser = new CrearUser(id, user);
+            String name      = tieName.getEditableText().toString();
+            String lastName  = tieLastName.getEditableText().toString();
+            String email = tietEmail.getEditableText().toString();
+            CrearUser crearUser = new CrearUser(id, name, lastName, email);
 
             myRef.child(id).setValue(crearUser);
 
@@ -142,6 +202,38 @@ public class CrearUsuarioActivity extends AppCompatActivity  implements View.OnC
         return wifiConnected || mobileConnected;
     }
 
+    private boolean nameValid(CharSequence name) {
+
+        if (TextUtils.isEmpty(name)) {
+            nameMessage(getString(R.string.empty_field));
+            return false;
+        }
+
+        if (name.length()<3) {
+            nameMessage(getString(R.string.hint_name));
+            return false;
+        }
+
+        nameMessage();
+        return true;
+    }
+
+    private boolean lastNameValid(CharSequence lastName) {
+
+        if (TextUtils.isEmpty(lastName)) {
+            lastNameMessage(getString(R.string.empty_field));
+            return false;
+        }
+
+        if (lastName.length()<3) {
+            lastNameMessage(getString(R.string.insert_last_name));
+            return false;
+        }
+
+        lastNameMessage();
+        return true;
+    }
+
     private boolean emailIsValid(CharSequence email) {
 
         if (TextUtils.isEmpty(email)) {
@@ -164,7 +256,14 @@ public class CrearUsuarioActivity extends AppCompatActivity  implements View.OnC
             pwdMessage(getString(R.string.empty_field));
             return false;
         }
-            String pass = tietPassword.getEditableText().toString();
+
+        if (pwd.length() < 6) {
+            pwdMessage(getString(R.string.pwd_length));
+            return false;
+        }
+
+
+        String pass = tietPassword.getEditableText().toString();
         if (validarContraSegura(pass).find()) {
             pwdMessage(getString(R.string.pwd_segura));
             return false;
@@ -174,10 +273,17 @@ public class CrearUsuarioActivity extends AppCompatActivity  implements View.OnC
         return true;
     }
 
-    private boolean pwdIsValid2(CharSequence pwss) {
+    private boolean pwdIsValid2(CharSequence pwssTwo) {
 
-        if (TextUtils.isEmpty(pwss)) {
+        String pwsOne = tietPassword.getEditableText().toString();
+
+        if (TextUtils.isEmpty(pwssTwo)) {
             pwdDMessage(getString(R.string.empty_field));
+            return false;
+        }
+
+        if(!pwssTwo.equals(pwsOne)) {
+            pwdDMessage(getString(R.string.no_equals));
             return false;
         }
 
@@ -198,12 +304,28 @@ public class CrearUsuarioActivity extends AppCompatActivity  implements View.OnC
         Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT).show();
     }
 
+    void nameMessage() {
+        tilName.setError(null);
+    }
+
+    void nameMessage(String message) {
+        tilName.setError(message);
+    }
+
+    void lastNameMessage() {
+        tilLastName.setError(null);
+    }
+
+    void lastNameMessage(String message) {
+        tilLastName.setError(message);
+    }
+
     void mailMessage() {
-        tilUser.setError(null);
+        tilEmail.setError(null);
     }
 
     void mailMessage(String message) {
-        tilUser.setError(message);
+        tilEmail.setError(message);
     }
 
     void pwdMessage() {

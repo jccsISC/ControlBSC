@@ -19,6 +19,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.jccsisc.controlbsc.R;
+import com.jccsisc.controlbsc.activities.MainActivity;
 import com.jccsisc.controlbsc.ui.historial.HistorialFragment;
 import com.jccsisc.controlbsc.ui.home.entradas.EntradasFragment;
 import com.jccsisc.controlbsc.ui.home.salidas.SalidasFragment;
@@ -35,6 +36,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         cardViewEntrada = v.findViewById(R.id.cardViewEntrada);
         cardViewSalidas = v.findViewById(R.id.cardViewSalida);
 
+        MainActivity.visivilitySearch("Home");
+
         cardViewEntrada.setOnClickListener(this);
         cardViewSalidas.setOnClickListener(this);
 
@@ -50,6 +53,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 transaction.replace(R.id.nav_host_fragment, nuevoFragmento);
                 transaction.addToBackStack(null);
                 transaction.commit();
+                MainActivity.visivilitySearch("Entradas");
                 break;
             case R.id.cardViewSalida:
                 Fragment nuevoFrament = new SalidasFragment();

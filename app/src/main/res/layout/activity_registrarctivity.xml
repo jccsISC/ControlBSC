@@ -45,7 +45,6 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/padding_10"
                 android:hint="@string/hint_producto"
-                tools:text="Papada"
                 android:inputType="text"
                 android:textSize="@dimen/size_24"
                 />
@@ -56,7 +55,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="1"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="@dimen/margin_Top_40"
             >
             <LinearLayout
                 android:layout_width="match_parent"

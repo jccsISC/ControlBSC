@@ -20,29 +20,24 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.jccsisc.controlbsc.R;
 import com.jccsisc.controlbsc.model.Producto;
+import com.jccsisc.controlbsc.utilidades.NodosFirebase;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
 public class RegistrarProductoActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private static final String PRODUCTO_NODE = "DB_Bodega1";
-    private static final String DB_NODE = "DB_Productos";
-
-    private DatabaseReference myRef, databaseReference2;
-
     private Boolean miclick = false;
     private TextInputLayout tilProducto;
     private EditText tieRegistrarP;
     private Button btnCaja, btnPieza, btnSave;
     private String unit, camara, dateEntrada;
-    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-    Date date = new Date();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,12 +45,11 @@ public class RegistrarProductoActivity extends AppCompatActivity implements View
         setContentView(R.layout.activity_registrarctivity);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
-
-
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(getString(R.string.title_Registrar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//el boton de regresar
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        //Redirigir a la vista anterior
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,16 +57,12 @@ public class RegistrarProductoActivity extends AppCompatActivity implements View
             }
         });
 
-        myRef = FirebaseDatabase.getInstance().getReference(); //obtenemos la db el nodo raiz controlbsc-899b5
-        databaseReference2 = FirebaseDatabase.getInstance().getReference(PRODUCTO_NODE).child(DB_NODE);
-
-        btnCaja     = findViewById(R.id.btnCaja);
-        btnPieza    = findViewById(R.id.btnPieza);
-        btnSave     = findViewById(R.id.btnSave);
-        tilProducto = findViewById(R.id.tilRegistrarP); //Aqui tienes un error
-        tieRegistrarP = findViewById(R.id.tieRegistrarP);//a tecreasjaja
-
-
+        //instanciamos nuestras views
+        btnCaja       = findViewById(R.id.btnCaja);
+        btnPieza      = findViewById(R.id.btnPieza);
+        btnSave       = findViewById(R.id.btnSave);
+        tilProducto   = findViewById(R.id.tilRegistrarP);
+        tieRegistrarP = findViewById(R.id.tieRegistrarP);
 
 
         tieRegistrarP.addTextChangedListener(new TextWatcher() {
@@ -81,7 +71,7 @@ public class RegistrarProductoActivity extends AppCompatActivity implements View
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                isProductEmpty(s);
+                emptyProduct(s);
             }
 
             @Override
@@ -98,32 +88,26 @@ public class RegistrarProductoActivity extends AppCompatActivity implements View
         switch (v.getId()) {
             case R.id.btnCaja:
                 unit    = "Caja";
-                miclick=true;
+                miclick = true;
                 btnSelected("caja");
-                if(unit.equals("Caja")) {
-                    camara = "Congelación";
-                }
                 break;
             case R.id.btnPieza:
                 unit    = "Pieza";
                 miclick = true;
                 btnSelected("pieza");
-                    if(unit.equals("Pieza")) {
-                        camara = "Conservación";
-                    }
                 break;
             case R.id.btnSave:
                 final String nameProducto = tieRegistrarP.getText().toString().toUpperCase();
-                if (isProductEmpty(nameProducto)) {
-                        if (miclick) {
-                            createProduct(nameProducto, unit);
-                        }
-                }else {
-                    btnCaja.setBackground(getDrawable(R.drawable.btn_selecciona));
-                            btnPieza.setBackground(getDrawable(R.drawable.btn_selecciona));
-                            snackMessage(getString(R.string.unidad));
-                }
 
+                if (emptyProduct(nameProducto) && miclick) {
+                    if (miclick) {
+                        createProduct(nameProducto, unit);
+                    }
+                }else {
+                    btnPieza.setBackground(getDrawable(R.drawable.btn_selecciona));
+                    btnCaja.setBackground(getDrawable(R.drawable.btn_selecciona));
+                    mtoast(getString(R.string.unidad));
+                }
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + v.getId());
@@ -132,26 +116,28 @@ public class RegistrarProductoActivity extends AppCompatActivity implements View
 
     //btnPulsado
     private void btnSelected( String boton) {
-        if(boton.equals("caja")){
-            btnCaja.setBackground(getDrawable(R.drawable.btnselected));
-            btnCaja.setWidth((int) getResources().getDimension(R.dimen.width_btn_250));
-            btnCaja.setHeight((int) getResources().getDimension(R.dimen.height_75));
-//            btnCaja.setShadowLayer(5,10,10, getResources().getColor(R.color.shadow));
 
-            btnPieza.setBackground(getDrawable(R.drawable.btn_no_selected));
-            btnPieza.setWidth((int) getResources().getDimension(R.dimen.width_btn_250));
-            btnPieza.setHeight((int) getResources().getDimension(R.dimen.height_75));
-//            btnPieza.setShadowLayer(5,10,10, getResources().getColor(R.color.shadow));
-        }else{
-            btnPieza.setBackground(getDrawable(R.drawable.btnselected));
-            btnPieza.setWidth((int) getResources().getDimension(R.dimen.width_btn_250));
-            btnPieza.setHeight((int) getResources().getDimension(R.dimen.height_75));
-//            btnPieza.setShadowLayer(5,10,10, getResources().getColor(R.color.shadow));
-
-            btnCaja.setBackground(getDrawable(R.drawable.btn_no_selected));
-            btnCaja.setWidth((int) getResources().getDimension(R.dimen.width_btn_250));
-            btnCaja.setHeight((int) getResources().getDimension(R.dimen.height_75));
-//            btnCaja.setShadowLayer(5,10,10, getResources().getColor(R.color.shadow));
+        switch (boton) {
+            case "caja":
+                //btn seleccionado
+                btnCaja.setBackground(getDrawable(R.drawable.btnselected));
+                btnCaja.setWidth((int) getResources().getDimension(R.dimen.width_btn_250));
+                btnCaja.setHeight((int) getResources().getDimension(R.dimen.height_75));
+                //btn no seleccionado
+                btnPieza.setBackground(getDrawable(R.drawable.btn_no_selected));
+                btnPieza.setWidth((int) getResources().getDimension(R.dimen.width_btn_250));
+                btnPieza.setHeight((int) getResources().getDimension(R.dimen.height_75));
+                break;
+            case "pieza":
+                //btn seleccionado
+                btnPieza.setBackground(getDrawable(R.drawable.btnselected));
+                btnPieza.setWidth((int) getResources().getDimension(R.dimen.width_btn_250));
+                btnPieza.setHeight((int) getResources().getDimension(R.dimen.height_75));
+                //btn no seleccionado
+                btnCaja.setBackground(getDrawable(R.drawable.btn_no_selected));
+                btnCaja.setWidth((int) getResources().getDimension(R.dimen.width_btn_250));
+                btnCaja.setHeight((int) getResources().getDimension(R.dimen.height_75));
+                break;
         }
     }
 
@@ -163,14 +149,12 @@ public class RegistrarProductoActivity extends AppCompatActivity implements View
             public void onCallbackTeacher(boolean name) {
 
                 if(name){
-                    mtoast("EXISTE");
+                    mtoast("YA EXISTE");
                 }else {
-
                     String id = FirebaseDatabase.getInstance().getReference().push().getKey();
-                    dateEntrada = dateFormat.format(date);
                     Producto producto = new Producto(nameProducto, unit, id);
 
-                    myRef.child(PRODUCTO_NODE).child("DB_Productos").child(id).setValue(producto).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    NodosFirebase.myRef.child(id).setValue(producto).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
                             mtoast(getString(R.string.registrado));
@@ -223,7 +207,7 @@ public class RegistrarProductoActivity extends AppCompatActivity implements View
     }
 
     private void getDatos(final CallbackDatos myCallback, final String uid, final String unidad) {
-        databaseReference2.addListenerForSingleValueEvent(new ValueEventListener() {
+        NodosFirebase.myRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         Log.e("snapcompleto", dataSnapshot.toString());
@@ -259,9 +243,10 @@ public class RegistrarProductoActivity extends AppCompatActivity implements View
                 });
     }
 
-    private boolean isProductEmpty(CharSequence producto) {
+    private boolean emptyProduct(CharSequence producto) {
         if(TextUtils.isEmpty(producto)) {
             productoMessage(getString(R.string.empty_field));
+            mtoast(getString(R.string.unidad));
             return false;
         }
         productoMessage();

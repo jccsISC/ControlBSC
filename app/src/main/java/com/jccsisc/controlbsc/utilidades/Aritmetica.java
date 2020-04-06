@@ -1,5 +1,8 @@
 package com.jccsisc.controlbsc.utilidades;
 
+import android.view.View;
+import android.widget.EditText;
+
 import com.jccsisc.controlbsc.model.Movimiento;
 
 import java.text.SimpleDateFormat;

@@ -4,11 +4,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +15,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,29 +24,33 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.jccsisc.controlbsc.R;
 import com.jccsisc.controlbsc.adapters.CajasAdapter;
-import com.jccsisc.controlbsc.adapters.ProductosAdapter;
 import com.jccsisc.controlbsc.model.Detalle;
 import com.jccsisc.controlbsc.model.Movimiento;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 public class RegistrarE_S_C_Activity extends AppCompatActivity {
 
     private DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("DB_Bodega1").child("DB_Productos");
-    private static final String DB_NODE = "DB_Entradas";
-    private Button btnCargar, btnSumar, btnAceptar, btnCancel;
+//    private static final String DB_NODE = "DB_Entradas";
+    private Button btnCargar;
+    private ImageButton  btnSumar;
     private TextView nameProducto, txtCT, txtPesoT;
-    private EditText edtPesoC, edtEditarPeso;
+    private EditText edtPesoC;
     private String dateEntrada, dateSalida = "", idKey, name;
-    Intent extras;
+    private int hora, minutos, segundos;
     double sumatotal = 0.0;
     private ArrayList<Detalle> detallesArrayList = new ArrayList<>();
     private CajasAdapter cajasAdapter;
     RecyclerView recyclerPesadasC;
-
+    Intent extras;
+    public static DecimalFormat df = new DecimalFormat("0.00");
 
 
     @Override
@@ -62,6 +66,12 @@ public class RegistrarE_S_C_Activity extends AppCompatActivity {
         Date date = new Date();
         dateEntrada = dateFormat.format(date);
 
+        Calendar calendario = new GregorianCalendar();
+        hora    = calendario.get(Calendar.HOUR_OF_DAY);
+        minutos = calendario.get(Calendar.MINUTE);
+        segundos= calendario.get(Calendar.SECOND);
+        final String horaE_S = hora + ":" + minutos + ":" + segundos;
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         recyclerPesadasC = findViewById(R.id.recyclerPesadasC);
         nameProducto = findViewById(R.id.txtNameProductoR);
@@ -71,7 +81,7 @@ public class RegistrarE_S_C_Activity extends AppCompatActivity {
         btnSumar     = findViewById(R.id.btnSumar);
         edtPesoC     = findViewById(R.id.edtPesoC);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        LinearLayoutManager linearLayoutManager = new GridLayoutManager(this, 3);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerPesadasC.setLayoutManager(linearLayoutManager);
 
@@ -97,16 +107,17 @@ public class RegistrarE_S_C_Activity extends AppCompatActivity {
                 if(edtPesoC.getText().toString().trim().equals("")){
                     mtoast("Ingrese una cantidad");
                 }else{
-
                     double peso = Double.parseDouble(edtPesoC.getText().toString().trim());
                     sumatotal += peso;
+                    sumatotal = Math.rint(sumatotal * 100)/100;
                     String id =  FirebaseDatabase.getInstance().getReference().push().getKey();
                     Detalle modelitoDetalle =  new Detalle(id, peso);
                     modelitoDetalle.setIdKey(id);
+
                     detallesArrayList.add(modelitoDetalle);
                     cajasAdapter.notifyDataSetChanged();
                     edtPesoC.setText("");
-                    txtPesoT.setText(String.valueOf(sumatotal));
+                    txtPesoT.setText(df.format(sumatotal));
                     txtCT.setText(String.valueOf(detallesArrayList.size()));
                 }
             }
@@ -122,7 +133,7 @@ public class RegistrarE_S_C_Activity extends AppCompatActivity {
                 }else{
                     String id = FirebaseDatabase.getInstance().getReference().push().getKey();
 
-                    Movimiento movimiento = new Movimiento(dateEntrada,"positive","15:15:00", "Congelacion",
+                    Movimiento movimiento = new Movimiento(dateEntrada,"positive",horaE_S, "Congelacion",
                             "normal",id,sumatotal,detallesArrayList.size());
 
                 movimiento.setDetalles(detallesArrayList);

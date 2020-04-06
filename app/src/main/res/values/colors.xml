@@ -10,4 +10,5 @@
     <color name="light_grey">#DCDCDC</color>
     <color name="search_grey">#DCDCDC</color>
     <color name="demo_dark_transparent">#24000000</color>
+    <color name="color_bg_light">#F4F4F4</color>
 </resources>

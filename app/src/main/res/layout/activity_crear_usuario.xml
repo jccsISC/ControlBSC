@@ -33,66 +33,113 @@
         android:gravity="center"
         android:padding="@dimen/padding_20"
         >
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilUser"
-            android:layout_marginTop="@dimen/marginTop_imgLogin_60"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tieUser"
+            android:layout_height="wrap_content">
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/padding_10"
-                android:hint="@string/hint_email"
-                android:inputType="textEmailAddress"
-                android:textSize="@dimen/size_20"
-                android:drawableEnd="@drawable/ic_usuario"
-                />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilName"
+                    android:layout_marginTop="@dimen/margin_Top_40"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilPassword"
-            android:layout_marginTop="@dimen/marginTop_20"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:passwordToggleEnabled="true"
-            app:passwordToggleTint="@android:color/holo_red_dark"
-            >
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tieName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/padding_10"
+                        android:hint="@string/hint_name"
+                        android:inputType="textPersonName"
+                        android:textSize="@dimen/size_20"
+                        android:drawableEnd="@drawable/ic_usuario"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tiePassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/padding_10"
-                android:hint="@string/hint_password"
-                android:inputType="textPassword"
-                android:textSize="@dimen/size_20"
-                />
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilLastName"
+                    android:layout_marginTop="@dimen/marginTop_20"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tieLastName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/padding_10"
+                        android:hint="@string/hint_last_name"
+                        android:inputType="textPersonName"
+                        android:textSize="@dimen/size_20"
+                        android:drawableEnd="@drawable/ic_usuario"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilEmail"
+                    android:layout_marginTop="@dimen/marginTop_20"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tieEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/padding_10"
+                        android:hint="@string/hint_email"
+                        android:inputType="textEmailAddress"
+                        android:textSize="@dimen/size_20"
+                        android:drawableEnd="@drawable/ic_gmail"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilPassword"
+                    android:layout_marginTop="@dimen/marginTop_20"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:passwordToggleEnabled="true"
+                    app:passwordToggleTint="@android:color/holo_red_dark"
+                    >
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tiePassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/padding_10"
+                        android:hint="@string/hint_password"
+                        android:inputType="textPassword"
+                        android:textSize="@dimen/size_20"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
 
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilVerifyPsw"
-            android:layout_marginTop="@dimen/marginTop_20"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:passwordToggleEnabled="true"
-            app:passwordToggleTint="@android:color/holo_red_dark"
-            >
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilVerifyPsw"
+                    android:layout_marginTop="@dimen/marginTop_20"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:passwordToggleEnabled="true"
+                    app:passwordToggleTint="@android:color/holo_red_dark"
+                    >
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tieVerifyPsw"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/padding_10"
-                android:hint="@string/hint_verifyPsw"
-                android:inputType="textPassword"
-                android:textSize="@dimen/size_20"
-                />
-        </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tieVerifyPsw"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/padding_10"
+                        android:hint="@string/hint_verifyPsw"
+                        android:inputType="textPassword"
+                        android:textSize="@dimen/size_20"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+        </ScrollView>
+
     </LinearLayout>
 
     <LinearLayout
@@ -109,7 +156,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/btn_login"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/borde_btn_sumar"
             android:textColor="@android:color/white"
             android:onClick="onClick"
             />

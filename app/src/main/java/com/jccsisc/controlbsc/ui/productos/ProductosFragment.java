@@ -1,7 +1,6 @@
 package com.jccsisc.controlbsc.ui.productos;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -10,7 +9,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -29,8 +27,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.jccsisc.controlbsc.R;
-import com.jccsisc.controlbsc.activities.RegistrarE_SActivity;
-import com.jccsisc.controlbsc.activities.RegistrarE_S_C_Activity;
+import com.jccsisc.controlbsc.activities.MainActivity;
 import com.jccsisc.controlbsc.adapters.ProductosAdapter;
 import com.jccsisc.controlbsc.model.Detalle;
 import com.jccsisc.controlbsc.model.Movimiento;
@@ -38,7 +35,6 @@ import com.jccsisc.controlbsc.model.Producto;
 import com.mikelau.views.shimmer.ShimmerRecyclerViewX;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ProductosFragment extends Fragment {
 
@@ -53,7 +49,7 @@ public class ProductosFragment extends Fragment {
     public View onCreateView(@NonNull final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_productos, container, false);
-        edtBuscador = v.findViewById(R.id.txtBuscador);
+        edtBuscador = v.findViewById(R.id.edtAppBarBuscador);
         rvProductos = v.findViewById(R.id.recyclerProductos);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
@@ -63,7 +59,6 @@ public class ProductosFragment extends Fragment {
         productosAdapter = new ProductosAdapter(productoArrayList, getActivity(), "Producto");
 
 
-
         //replicamos el arrayList para la hora de buscar
         productoArrayList2 = new ArrayList<>();
         productosAdapter2  = new ProductosAdapter(productoArrayList2, getActivity(), "Producto");
@@ -71,6 +66,8 @@ public class ProductosFragment extends Fragment {
 
         rvProductos.setAdapter(productosAdapter);
         rvProductos.showShimmerAdapter();
+
+        MainActivity.visivilitySearch("Productos");
 
         myRef.child("DB_Productos").orderByChild("name").addValueEventListener(new ValueEventListener() {
             @Override
@@ -110,12 +107,12 @@ public class ProductosFragment extends Fragment {
 
                     productoArrayList.add(producto);
                 }
-
-                if(!edtBuscador.getText().toString().toUpperCase().equals("")){
-                    metodoBuscar(edtBuscador.getText().toString().toUpperCase());
-                }else{
-                    productosAdapter.notifyDataSetChanged();
-                }
+//
+//                if(!edtBuscador.getText().toString().toUpperCase().equals("")){
+//                    metodoBuscar(edtBuscador.getText().toString().toUpperCase());
+//                }else{
+//                    productosAdapter.notifyDataSetChanged();
+//                }
             }
 
             @Override
@@ -129,24 +126,24 @@ public class ProductosFragment extends Fragment {
         showOptions(productoArrayList2, productosAdapter2);
 
 
-        edtBuscador.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(!s.equals("")){
-                    metodoBuscar(s);
-                }else{
-                    rvProductos.setAdapter(productosAdapter);
-                }
-
-            }
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+//        edtBuscador.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                if(!s.equals("")){
+//                    metodoBuscar(s);
+//                }else{
+//                    rvProductos.setAdapter(productosAdapter);
+//                }
+//
+//            }
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//
+//            }
+//        });
 
         return v;
     }

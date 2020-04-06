@@ -43,6 +43,12 @@
         tools:layout="@layout/fragment_historial" />
 
     <fragment
+        android:id="@+id/nav_tickets"
+        android:name="com.jccsisc.controlbsc.ui.tickets.TicketsFragment"
+        android:label="@string/menu_tickets"
+        tools:layout="@layout/fragment_tickets" />
+
+    <fragment
         android:id="@+id/nav_camaras"
         android:name="com.jccsisc.controlbsc.ui.camaras.CamarasFragment"
         android:label="@string/menu_camaras"
