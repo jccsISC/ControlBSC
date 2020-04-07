@@ -98,7 +98,6 @@ public class EntradasFragment extends Fragment {
                     productoArrayList.add(producto);
                 }
 
-
                 if(!edtBuscador.getText().toString().toUpperCase().equals("")){
                     metodoBuscar(edtBuscador.getText().toString().toUpperCase());
                 }else{
@@ -155,7 +154,7 @@ public class EntradasFragment extends Fragment {
             i.putExtra("nameProducto", arrayList.get(pos).getName());
             i.putExtra("idKey", arrayList.get(pos).getIdKey());
             startActivity(i);
-        }else if(arrayList.get(pos).getUnit().equals("Pieza")){
+        }else if(arrayList.get(pos).getUnit().equals("Pieza")) {
             Intent i = new Intent(getContext(), RegistrarE_SActivity.class);
             i.putExtra("nameProducto", arrayList.get(pos).getName());
             i.putExtra("idKey", arrayList.get(pos).getIdKey());

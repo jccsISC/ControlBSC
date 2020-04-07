@@ -23,7 +23,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilEmail"
-        android:layout_marginTop="@dimen/marginTop_imgLogin_60"
+        android:layout_marginTop="@dimen/margin_Top_40"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
@@ -62,29 +62,58 @@
 
     <Button
         android:id="@+id/btnLogin"
-        android:layout_marginTop="@dimen/margin_Top_40"
+        android:layout_marginTop="@dimen/margin_Top_30"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/btn_login"
         android:background="@drawable/borde_btn_sumar"
         android:textColor="@android:color/white"
-        android:onClick="onClick"
-        />
+        android:onClick="onClick" />
+
+    <Button
+        android:id="@+id/btnForget"
+        android:layout_marginTop="@dimen/marginTop_20"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/height_btnSign_In"
+        android:background="?android:attr/selectableItemBackground"
+        android:text="@string/btn_forget"
+        android:textSize="@dimen/size_15"
+        android:textColor="@color/colorSecondaryText"
+        android:onClick="onClick" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/marginTop_20"
+        android:gravity="center">
+        <View
+            android:layout_width="@dimen/width_100"
+            android:layout_height="@dimen/height_1"
+            android:background="@color/colorSecondaryText"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/or"
+            android:textSize="@dimen/size_15"
+            android:layout_marginEnd="@dimen/margin_10"
+            android:layout_marginStart="@dimen/margin_10"/>
+        <View
+            android:layout_width="@dimen/width_100"
+            android:layout_height="@dimen/height_1"
+            android:background="@color/colorSecondaryText"/>
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/btnSignIn"
-        android:layout_marginTop="@dimen/marginTop_20"
+        android:layout_marginTop="@dimen/marginTop_10"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/height_btnSign_In"
         android:background="?android:attr/selectableItemBackground"
         android:text="@string/btn_Sign_In"
         android:textSize="@dimen/size_15"
         android:textColor="@color/colorSecondaryText"
-        android:shadowColor="@color/colorPrimaryDark"
-        android:shadowDx="8"
-        android:shadowDy="8"
-        android:shadowRadius="12"
-        android:onClick="onClick"
-        />
+        android:onClick="onClick"/>
 
 </LinearLayout>

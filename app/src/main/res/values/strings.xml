@@ -76,6 +76,16 @@
     <string name="hint_last_name">Ingresa tus apellidos</string>
     <string name="insert_last_name">Ingrese su Apellido!!</string>
     <string name="no_equals">Las contraseñas no coinciden</string>
+    <string name="exist">El usuario ya Existe!!</string>
+    <string name="btn_forget">¿Olvidaste tu contraseña?</string>
+    <string name="or">Or</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="btn_enviar">Enviar</string>
+    <string name="restablecer">Restablecer Contraseña</string>
+    <string name="nota_dialog_forget">Te enviaremos un correo para que escrobas una nueva contraseña</string>
+    <string name="charging">Cargando...</string>
 
 
 </resources>

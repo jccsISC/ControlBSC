@@ -27,6 +27,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.jccsisc.controlbsc.R;
+import com.jccsisc.controlbsc.dialogs.ChargingFragment;
 import com.jccsisc.controlbsc.model.CrearUser;
 
 import java.util.Objects;
@@ -37,6 +38,7 @@ public class CrearUsuarioActivity extends AppCompatActivity  implements View.OnC
 
     private FirebaseAuth mAuth;
     private DatabaseReference myRef;
+    private ChargingFragment chargingFragment = new ChargingFragment();
     private TextInputLayout tilName, tilLastName, tilEmail, tilPassword, tilVerifyPsw;
     private TextInputEditText tieName, tieLastName, tietEmail, tietPassword, tietVerifyPsw;
 
@@ -142,7 +144,7 @@ public class CrearUsuarioActivity extends AppCompatActivity  implements View.OnC
     }
 
     private void registrarNuevoUser() {
-        String name      = tieName.getEditableText().toString();
+        final String name      = tieName.getEditableText().toString();
         String lastName  = tieLastName.getEditableText().toString();
         String email     = tietEmail.getEditableText().toString();
         String password = tietPassword.getEditableText().toString();
@@ -150,22 +152,24 @@ public class CrearUsuarioActivity extends AppCompatActivity  implements View.OnC
 
         if(nameValid(name) & lastNameValid(lastName) & emailIsValid(email) & pwdIsValid(password) & pwdIsValid2(verifyPsw) && isConnected()) {
             if(verifyPsw.equals(password)) {
+                chargingFragment.show(getSupportFragmentManager(), "dialogCharging");
                 mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(CrearUsuarioActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if(task.isSuccessful()) {
-                                    Toast.makeText(getApplicationContext(),"Bienvenido",Toast.LENGTH_SHORT).show();
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     updateUI(user);
+
+                                    Toast.makeText(getApplicationContext(),"Bienvenido " + name,Toast.LENGTH_SHORT).show();
                                 }else {
-                                    Toast.makeText(CrearUsuarioActivity.this, "El usuario ya Existe!!", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(CrearUsuarioActivity.this, getString(R.string.exist), Toast.LENGTH_SHORT).show();
                                     updateUI(null);
                                 }
                             }
                         });
             }else {
-                snackMessage("La contraseña no coincide");
+                snackMessage(getString(R.string.no_equals));
             }
         }
     }
@@ -282,10 +286,15 @@ public class CrearUsuarioActivity extends AppCompatActivity  implements View.OnC
             return false;
         }
 
-        if(!pwssTwo.equals(pwsOne)) {
+        if(pwssTwo.length() < pwsOne.length()) {
             pwdDMessage(getString(R.string.no_equals));
             return false;
         }
+
+//        if(!pwssTwo.equals(pwsOne)) {
+//            pwdDMessage(getString(R.string.no_equals));
+//            return false;
+//        }
 
         pwdDMessage();
         return true;

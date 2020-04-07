@@ -47,4 +47,6 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     implementation 'com.github.mike14u:shimmer-recyclerview-x:1.0.1'
+
+    implementation 'com.agrawalsuneet.androidlibs:dotsloader:1.4'
 }

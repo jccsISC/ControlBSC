@@ -25,14 +25,17 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.jccsisc.controlbsc.R;
+import com.jccsisc.controlbsc.dialogs.ChargingFragment;
+import com.jccsisc.controlbsc.dialogs.ForgetPasswordFragment;
 
 import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
     private FirebaseAuth mAuth; // para conectarnos con el usuario de la db
-    private TextInputLayout tilUser, tilPassword;
-    private EditText tieUser, tiePassword;
+    private TextInputLayout tilEmail, tilPassword;
+    private EditText tieEmail, tiePassword;
+    private ChargingFragment chargingFragment = new ChargingFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +44,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         mAuth = FirebaseAuth.getInstance();
 
-        tilUser     = findViewById(R.id.tilEmail);
-        tieUser     = findViewById(R.id.tieEmail);
+        tilEmail = findViewById(R.id.tilEmail);
+        tieEmail = findViewById(R.id.tieEmail);
         tilPassword = findViewById(R.id.tilPassword);
         tiePassword = findViewById(R.id.tiePassword);
 
-        tieUser.addTextChangedListener(new TextWatcher() {
+        tieEmail.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 
@@ -82,6 +85,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.btnLogin:
                 login_user();
                 break;
+            case R.id.btnForget:
+                ForgetPasswordFragment forgetPasswordFragment = new ForgetPasswordFragment();
+                forgetPasswordFragment.show(getSupportFragmentManager(), "dialogCharging");
+                break;
             case R.id.btnSignIn:
                 login_Create();
                 break;
@@ -106,10 +113,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void login_user() {
-        String email = tieUser.getEditableText().toString().trim(); //trim para eliminar espacios al inicio o al final de la caja
+        String email = tieEmail.getEditableText().toString().trim(); //trim para eliminar espacios al inicio o al final de la caja
         String password  = tiePassword.getEditableText().toString().trim();
-
         if(emailIsValid(email) & pwdIsValid(password) && isConnected()) {
+            chargingFragment.show(getSupportFragmentManager(), "dialogCharging");
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -121,11 +128,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             } else {
                                 Toast.makeText(LoginActivity.this, "Verifica tu internet o usuario", Toast.LENGTH_SHORT).show();
                                 updateUI(null);
+                                chargingFragment.dismiss();
                             }
                         }
                     });
         }else {
-            snackMessage("Algo sucedió");
+//            snackMessage("Algo sucedió");
         }
     }
 
@@ -185,11 +193,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     void mailMessage() {
-        tilUser.setError(null);
+        tilEmail.setError(null);
     }
 
     void mailMessage(String message) {
-        tilUser.setError(message);
+        tilEmail.setError(message);
     }
 
     void pwdMessage() {

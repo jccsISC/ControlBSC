@@ -132,10 +132,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/padding_10"
+                        android:layout_marginBottom="@dimen/margin_Bottom_20"
                         android:hint="@string/hint_verifyPsw"
                         android:inputType="textPassword"
-                        android:textSize="@dimen/size_20"
-                        />
+                        android:textSize="@dimen/size_20" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
         </ScrollView>
