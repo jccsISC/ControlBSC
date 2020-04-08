@@ -32,9 +32,6 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.jccsisc.controlbsc.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class ForgetPasswordFragment extends DialogFragment implements View.OnClickListener {
 
     private Activity activity;
@@ -69,6 +66,7 @@ public class ForgetPasswordFragment extends DialogFragment implements View.OnCli
 
         tashieLoader = v.findViewById(R.id.tashieLoader);
 
+        //mostrar la animacion de cargando
         TashieLoader tashie;
         tashie = new TashieLoader(
                 getActivity(), 5,
@@ -140,7 +138,7 @@ public class ForgetPasswordFragment extends DialogFragment implements View.OnCli
                 }else {
                     Toast.makeText(getContext(), "No se pudo enviar el correo para restablecer la contraseña", Toast.LENGTH_SHORT).show();
                 }
-                dismiss();
+                dismiss(); //cerramos el dialog
             }
         });
     }

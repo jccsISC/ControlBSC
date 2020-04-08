@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.R.id;
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -33,6 +35,8 @@ import java.util.Objects;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
     private FirebaseAuth mAuth; // para conectarnos con el usuario de la db
+    private int sonido;
+    private SoundPool sp;
     private TextInputLayout tilEmail, tilPassword;
     private EditText tieEmail, tiePassword;
     private ChargingFragment chargingFragment = new ChargingFragment();
@@ -43,6 +47,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
 
         mAuth = FirebaseAuth.getInstance();
+
+        sp = new SoundPool(1, AudioManager.STREAM_MUSIC, 1);
+        sonido = sp.load(this, R.raw.cuchillo_dos, 1);
 
         tilEmail = findViewById(R.id.tilEmail);
         tieEmail = findViewById(R.id.tieEmail);
@@ -117,6 +124,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String password  = tiePassword.getEditableText().toString().trim();
         if(emailIsValid(email) & pwdIsValid(password) && isConnected()) {
             chargingFragment.show(getSupportFragmentManager(), "dialogCharging");
+            sp.play(sonido, 3, 3, 1, 0, 0);
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -135,6 +143,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }else {
 //            snackMessage("Algo sucedió");
         }
+    }
+
+    private void audioSoundPool() {
+        sp.play(sonido, 1, 1, 1, 0, 0);
     }
 
     private void login_Create() {

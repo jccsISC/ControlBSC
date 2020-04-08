@@ -5,21 +5,14 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
-
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
-
 import com.agrawalsuneet.dotsloader.loaders.TashieLoader;
-import com.google.firebase.auth.FirebaseAuth;
 import com.jccsisc.controlbsc.R;
 
 public class ChargingFragment extends DialogFragment {
@@ -44,6 +37,7 @@ public class ChargingFragment extends DialogFragment {
 
         tashieLoader = v.findViewById(R.id.tashieLoader);
 
+        //mostramos la animacion TashieLoader mientras carga
         TashieLoader tashie;
         tashie = new TashieLoader(
                 getActivity(), 5,
