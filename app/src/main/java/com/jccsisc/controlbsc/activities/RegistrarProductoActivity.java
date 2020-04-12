@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
@@ -23,6 +24,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.jccsisc.controlbsc.R;
+import com.jccsisc.controlbsc.dialogs.ChargingFragment;
 import com.jccsisc.controlbsc.model.Producto;
 import com.jccsisc.controlbsc.utilidades.NodosFirebase;
 
@@ -37,6 +39,7 @@ public class RegistrarProductoActivity extends AppCompatActivity implements View
     private EditText tieRegistrarP;
     private Button btnCaja, btnPieza, btnSave;
     private String unit, camara, dateEntrada;
+    private ChargingFragment chargingFragment = new ChargingFragment();
 
 
     @Override
@@ -63,7 +66,6 @@ public class RegistrarProductoActivity extends AppCompatActivity implements View
         btnSave       = findViewById(R.id.btnSave);
         tilProducto   = findViewById(R.id.tilRegistrarP);
         tieRegistrarP = findViewById(R.id.tieRegistrarP);
-
 
         tieRegistrarP.addTextChangedListener(new TextWatcher() {
             @Override
@@ -99,14 +101,15 @@ public class RegistrarProductoActivity extends AppCompatActivity implements View
             case R.id.btnSave:
                 final String nameProducto = tieRegistrarP.getText().toString().toUpperCase();
 
-                if (emptyProduct(nameProducto) && miclick) {
+                if (emptyProduct(nameProducto)) {
                     if (miclick) {
+                        chargingFragment.show(getSupportFragmentManager(), "dialogCharging");
                         createProduct(nameProducto, unit);
+                    }else {
+                        btnPieza.setBackground(getDrawable(R.drawable.btn_selecciona));
+                        btnCaja.setBackground(getDrawable(R.drawable.btn_selecciona));
+                        mtoast(getString(R.string.unidad));
                     }
-                }else {
-                    btnPieza.setBackground(getDrawable(R.drawable.btn_selecciona));
-                    btnCaja.setBackground(getDrawable(R.drawable.btn_selecciona));
-                    mtoast(getString(R.string.unidad));
                 }
                 break;
             default:
@@ -147,9 +150,9 @@ public class RegistrarProductoActivity extends AppCompatActivity implements View
         getDatos(new CallbackDatos() {
             @Override
             public void onCallbackTeacher(boolean name) {
-
                 if(name){
                     mtoast("YA EXISTE");
+                    chargingFragment.dismiss();
                 }else {
                     String id = FirebaseDatabase.getInstance().getReference().push().getKey();
                     Producto producto = new Producto(nameProducto, unit, id);
@@ -167,40 +170,10 @@ public class RegistrarProductoActivity extends AppCompatActivity implements View
                         }
                     });
                 }
-
             }
         }, nameProducto, unidad );
 
     }//fin createProduct
-
-    //validar si es pieza de la matanza
-    private boolean isOfMatanza(String pieza) {
-        String [] piezasMatanza = {"CAPOTES VENDIDOS", "CABEZA DE CERDO", "PIERNAS SIN HUESO", "ESPALDILLAS SIN HUESO",
-        "MANITAS", "LONJA", "HUNTOS", "HUESOS", "RIÑON", "CHAMORRO", "COSTILLA", "ESPINAZO CON LOMO COMPLETO", "ESPINAZO FRESCO",
-        "LOMO", "CABEZA DE LOMO", "CHULETA MARIPOSA", "DESPIQUE", "DENTROS"};
-
-        for (int i=0; i<piezasMatanza.length; i++) {
-            if(pieza.equals(piezasMatanza[i])) { return true; }
-        }
-        return false;
-    }
-
-    //validar si es producto de la matanza
-    private boolean isProcesoChuleta(String pieza) {
-        String [] piezaProcesoCh = {"CHULETA DE MARIPOZA","CABEZA DE LOMO","ESPINACITO"};
-        for(int i=0; i<piezaProcesoCh.length; i++) {
-            if(pieza.equals(piezaProcesoCh[i])) { return true;}
-        }
-        return false;
-    }
-
-    private boolean isProcesoEspinazo(String pieza) {
-        String [] piezaProcesoE = {"ESPINAZO","CABEZA DE LOMO", "LOMOS"};
-        for(int i=0; i<piezaProcesoE.length; i++) {
-            if(pieza.equals(piezaProcesoE[i])) { return true;}
-        }
-        return false;
-    }
 
     public interface CallbackDatos {
         void onCallbackTeacher(boolean name);
@@ -211,31 +184,26 @@ public class RegistrarProductoActivity extends AppCompatActivity implements View
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         Log.e("snapcompleto", dataSnapshot.toString());
-
-                        if(!dataSnapshot.exists()){
-
+                        if(!dataSnapshot.exists()) {
                             myCallback.onCallbackTeacher(false);
 //                            return;
                         }else{
                             String namecito2 = null;
                             String unit = null;
                             for(DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-
-                                if(postSnapshot.child("name").getValue(String.class).equals(uid)){
+                                if(postSnapshot.child("name").getValue(String.class).equals(uid)) {
                                     namecito2 = postSnapshot.child("name").getValue(String.class);
                                     unit = postSnapshot.child("unit").getValue(String.class);
                                     Log.e("snapcompleto", unit);
                                 }
-
                             }
 
-                            if(uid.equals(namecito2)){
+                            if(uid.equals(namecito2)) {
                                 myCallback.onCallbackTeacher(true);
                             }else{
                                 myCallback.onCallbackTeacher(false);
                             }
                         }
-
                     }
 
                     @Override
@@ -246,15 +214,10 @@ public class RegistrarProductoActivity extends AppCompatActivity implements View
     private boolean emptyProduct(CharSequence producto) {
         if(TextUtils.isEmpty(producto)) {
             productoMessage(getString(R.string.empty_field));
-            mtoast(getString(R.string.unidad));
             return false;
         }
         productoMessage();
         return true;
-    }
-
-    public void snackMessage(String message) {
-        Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT).show();
     }
 
     public void mtoast(String msj) {

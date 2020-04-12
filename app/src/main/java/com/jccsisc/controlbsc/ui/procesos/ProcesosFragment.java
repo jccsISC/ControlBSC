@@ -10,8 +10,11 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.jccsisc.controlbsc.R;
+import com.jccsisc.controlbsc.activities.MainActivity;
 
 public class ProcesosFragment extends Fragment {
+
+    public String fragment_text = "Procesos";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -19,6 +22,9 @@ public class ProcesosFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_procesos, container, false);
         final TextView textView = root.findViewById(R.id.text_pedidos);
         textView.setText("Procesos");
+
+        MainActivity.visivilitySearch(fragment_text);
+
         return root;
     }
 }

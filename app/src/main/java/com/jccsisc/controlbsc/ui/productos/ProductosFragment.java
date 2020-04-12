@@ -1,6 +1,8 @@
 package com.jccsisc.controlbsc.ui.productos;
 
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -28,28 +30,28 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.jccsisc.controlbsc.R;
 import com.jccsisc.controlbsc.activities.MainActivity;
+import com.jccsisc.controlbsc.activities.RegistrarE_S_C_Activity;
 import com.jccsisc.controlbsc.adapters.ProductosAdapter;
+import com.jccsisc.controlbsc.dialogs.ModifyProductFragment;
 import com.jccsisc.controlbsc.model.Detalle;
 import com.jccsisc.controlbsc.model.Movimiento;
 import com.jccsisc.controlbsc.model.Producto;
+import com.jccsisc.controlbsc.utilidades.NodosFirebase;
 import com.mikelau.views.shimmer.ShimmerRecyclerViewX;
 
 import java.util.ArrayList;
 
 public class ProductosFragment extends Fragment {
 
-    DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("DB_Bodega1");
-    FirebaseAuth mAuth;
-
-    private ShimmerRecyclerViewX rvProductos;
-    private ArrayList<Producto> productoArrayList, productoArrayList2;
-    private ProductosAdapter productosAdapter, productosAdapter2;
-    private EditText edtBuscador;
+    private FirebaseAuth mAuth;
+    public static ShimmerRecyclerViewX rvProductos;
+    public static ArrayList<Producto> productoArrayList, productoArrayList2;
+    public static ProductosAdapter productosAdapter, productosAdapter2;
+    private ModifyProductFragment modifyProductFragment = new ModifyProductFragment();
 
     public View onCreateView(@NonNull final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_productos, container, false);
-        edtBuscador = v.findViewById(R.id.edtAppBarBuscador);
         rvProductos = v.findViewById(R.id.recyclerProductos);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
@@ -57,7 +59,6 @@ public class ProductosFragment extends Fragment {
 
         productoArrayList = new ArrayList<>();
         productosAdapter = new ProductosAdapter(productoArrayList, getActivity(), "Producto");
-
 
         //replicamos el arrayList para la hora de buscar
         productoArrayList2 = new ArrayList<>();
@@ -69,7 +70,7 @@ public class ProductosFragment extends Fragment {
 
         MainActivity.visivilitySearch("Productos");
 
-        myRef.child("DB_Productos").orderByChild("name").addValueEventListener(new ValueEventListener() {
+        NodosFirebase.myRef.orderByChild("name").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 rvProductos.hideShimmerAdapter();
@@ -125,26 +126,6 @@ public class ProductosFragment extends Fragment {
         showOptions(productoArrayList, productosAdapter);
         showOptions(productoArrayList2, productosAdapter2);
 
-
-//        edtBuscador.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                if(!s.equals("")){
-//                    metodoBuscar(s);
-//                }else{
-//                    rvProductos.setAdapter(productosAdapter);
-//                }
-//
-//            }
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//
-//            }
-//        });
-
         return v;
     }
 
@@ -153,41 +134,49 @@ public class ProductosFragment extends Fragment {
             @Override
             public void onItemClick(final int pos) {
 
-                final AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
-                alertDialog.setTitle("MODIFICAR NOMBRE DEL PRODUCTO");
-                alertDialog.setMessage(String.valueOf(arrayList.get(pos).getName()));
+                modifyProductFragment.show(getChildFragmentManager(), "dialogModificar");
+//                String idKey = arrayList.get(pos).getIdKey();
+//                String name = arrayList.get(pos).getName();
 
-                final EditText input = new EditText(getActivity());
-                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.MATCH_PARENT);
-                input.setLayoutParams(lp);
-                alertDialog.setView(input);
 
-                alertDialog.setPositiveButton("Guardar",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(final DialogInterface dialog, int which) {
-                                String idKey = arrayList.get(pos).getIdKey();
-                                modificarProducto(idKey, input, dialog);
-                            }
-                        });
 
-                alertDialog.setNegativeButton("Cancelar",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(final DialogInterface dialog, int which) {
-                                dialog.cancel();
-                            }
-                        });
 
-                alertDialog.setNeutralButton("Eliminar",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                String idKey = arrayList.get(pos).getIdKey();
-                                eliminarProducto(idKey);
-                            }
-                        });
-
-                alertDialog.show();
+//
+//                final AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+//                alertDialog.setTitle("MODIFICAR NOMBRE DEL PRODUCTO");
+//                alertDialog.setMessage(String.valueOf(arrayList.get(pos).getName()));
+//
+//                final EditText input = new EditText(getActivity());
+//                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+//                        LinearLayout.LayoutParams.MATCH_PARENT,
+//                        LinearLayout.LayoutParams.MATCH_PARENT);
+//                input.setLayoutParams(lp);
+//                alertDialog.setView(input);
+//
+//                alertDialog.setPositiveButton("Guardar",
+//                        new DialogInterface.OnClickListener() {
+//                            public void onClick(final DialogInterface dialog, int which) {
+//                                String idKey = arrayList.get(pos).getIdKey();
+//                                modificarProducto(idKey, input, dialog);
+//                            }
+//                        });
+//
+//                alertDialog.setNegativeButton("Cancelar",
+//                        new DialogInterface.OnClickListener() {
+//                            public void onClick(final DialogInterface dialog, int which) {
+//                                dialog.cancel();
+//                            }
+//                        });
+//
+//                alertDialog.setNeutralButton("Eliminar",
+//                        new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                String idKey = arrayList.get(pos).getIdKey();
+//                                eliminarProducto(idKey);
+//                            }
+//                        });
+//
+//                alertDialog.show();
             }
         });
 
@@ -195,20 +184,19 @@ public class ProductosFragment extends Fragment {
     }
 
     private void modificarProducto(String idKey, EditText input, final DialogInterface alert) {
-        myRef.child("DB_Productos").child(idKey).child("name")
+        NodosFirebase.myRef.child(idKey).child("name")
                 .setValue(input.getText().toString().toUpperCase())
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         mtoast("Modificado correctamente");
-
                         alert.dismiss();
                     }
                 });
     }
 
     private void eliminarProducto(String idKey) {
-        myRef.child("DB_Productos").child(idKey).removeValue().addOnSuccessListener(new OnSuccessListener<Void>()
+        NodosFirebase.myRef.child(idKey).removeValue().addOnSuccessListener(new OnSuccessListener<Void>()
         {
             @Override
             public void onSuccess(Void aVoid) {
@@ -224,7 +212,7 @@ public class ProductosFragment extends Fragment {
         toast.show();
     }
 
-    private void metodoBuscar(CharSequence s){
+    public static void metodoBuscar(CharSequence s){
         productoArrayList2.clear();
         for (int i = 0; i<productoArrayList.size(); i++) {
             if (productoArrayList.get(i).getName().contains(s.toString().toUpperCase())) {

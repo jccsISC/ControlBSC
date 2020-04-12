@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
@@ -35,11 +36,11 @@ import java.util.Objects;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
     private FirebaseAuth mAuth; // para conectarnos con el usuario de la db
-    private int sonido;
-    private SoundPool sp;
+    private int sonido; //valor paara el sonido
+    private SoundPool sp; //para reproducir el sonido
     private TextInputLayout tilEmail, tilPassword;
     private EditText tieEmail, tiePassword;
-    private ChargingFragment chargingFragment = new ChargingFragment();
+    private ChargingFragment chargingFragment = new ChargingFragment(); //para mostrar el alertDialog
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +94,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 login_user();
                 break;
             case R.id.btnForget:
+                //mostramos el dialog
                 ForgetPasswordFragment forgetPasswordFragment = new ForgetPasswordFragment();
                 forgetPasswordFragment.show(getSupportFragmentManager(), "dialogCharging");
                 break;
@@ -123,8 +125,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String email = tieEmail.getEditableText().toString().trim(); //trim para eliminar espacios al inicio o al final de la caja
         String password  = tiePassword.getEditableText().toString().trim();
         if(emailIsValid(email) & pwdIsValid(password) && isConnected()) {
-            chargingFragment.show(getSupportFragmentManager(), "dialogCharging");
-            sp.play(sonido, 3, 3, 1, 0, 0);
+            chargingFragment.show(getSupportFragmentManager(), "dialogCharging"); //cargamos el dialog
+            sp.play(sonido, 3, 3, 1, 0, 0); //reproducimos el sonido
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -145,12 +147,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    private void audioSoundPool() {
-        sp.play(sonido, 1, 1, 1, 0, 0);
-    }
-
     private void login_Create() {
         startActivity(new Intent(LoginActivity.this, CrearUsuarioActivity.class));
+        Animatoo.animateSlideRight(LoginActivity.this);
     }
 
     //para saber si esta conectado al wifi

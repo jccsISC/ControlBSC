@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Splash_ScreenActivity"
+    tools:context=".activities.Splash_ScreenActivity"
     android:background="@color/colorPrimary"
     android:orientation="vertical">
 
@@ -17,12 +17,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="ControlBSC"
+            android:padding="@dimen/padding_5"
             android:textColor="@android:color/white"
             android:textSize="@dimen/size_25"
             android:layout_gravity="bottom"
+            android:fontFamily="@font/roboto_regular"
             android:gravity="center"
             android:layout_marginBottom="@dimen/margin_Bottom_20"/>
 
+        <!--animacion a mostrar-->
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animation_view"
             android:layout_width="match_parent"

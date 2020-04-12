@@ -33,8 +33,6 @@ import java.util.Map;
 
 public class RegistrarE_SActivity extends AppCompatActivity {
 
-    private DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("DB_Bodega1").child("DB_Productos");
-//    private static final String DB_NODE = "DB_Entradas";
     private Button btnCargar;
     private TextView nameProducto, pesoTSin;
     private EditText cantPiezas, pesoTCon;

@@ -48,7 +48,9 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     implementation 'com.github.mike14u:shimmer-recyclerview-x:1.0.1'
 
-    implementation 'com.agrawalsuneet.androidlibs:dotsloader:1.4' //animaciones para mostrar mientrar carga
+    implementation 'com.agrawalsuneet.androidlibs:dotsloader:1.4'
+    //animaciones para mostrar mientrar carga
     implementation 'com.airbnb.android:lottie:3.4.0' //animaciones con lottie
-    implementation 'com.github.mohammadatif:Animatoo:master' //libreria para animacion de transiciones
+    implementation 'com.github.mohammadatif:Animatoo:master'
+    //libreria para animacion de transiciones
 }

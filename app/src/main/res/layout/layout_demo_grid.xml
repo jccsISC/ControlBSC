@@ -14,42 +14,88 @@ limitations under the License.
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="0dp"
-    android:background="@drawable/bg_sharp_card"
-    android:orientation="vertical">
+    android:layout_height="@dimen/height_card_p_80"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="@dimen/margin_10"
+    android:orientation="horizontal"
+    android:baselineAligned="false"
+    android:background="@drawable/borde_card"
+    android:weightSum="1">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:layout_gravity="center"
-        android:layout_margin="16dp"
-        android:background="@color/demo_dark_transparent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="0.5"
+            android:baselineAligned="false"
+            android:gravity="center">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="6dp"
-        android:layout_marginBottom="3dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:background="@color/demo_dark_transparent" />
+            <View
+                android:layout_width="150dp"
+                android:layout_height="@dimen/height_40"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/borde_shimmer"/>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="6dp"
-        android:layout_marginBottom="3dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="3dp"
-        android:background="@color/demo_dark_transparent" />
+        </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="6dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="3dp"
-        android:background="@color/demo_dark_transparent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="0.5"
+            android:baselineAligned="false">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                android:baselineAligned="false">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/borde_l"
+                    android:baselineAligned="false"
+                    android:gravity="center">
+                    <View
+                        android:layout_width="80dp"
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:background="@drawable/borde_shimmer"/>
 
+                    <View
+                        android:layout_width="80dp"
+                        android:layout_height="20dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:background="@drawable/borde_shimmer"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_weight="0.5">
+                    <View
+                        android:layout_width="80dp"
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:background="@drawable/borde_shimmer"/>
+
+                    <View
+                        android:layout_width="80dp"
+                        android:layout_height="20dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:background="@drawable/borde_shimmer"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
 </LinearLayout>

@@ -6,6 +6,8 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -16,6 +18,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
@@ -38,6 +41,8 @@ public class CrearUsuarioActivity extends AppCompatActivity  implements View.OnC
 
     private FirebaseAuth mAuth;
     private DatabaseReference myRef;
+    private int sonido; //valor paara el sonido
+    private SoundPool sp; //para reproducir el sonido
     private ChargingFragment chargingFragment = new ChargingFragment();
     private TextInputLayout tilName, tilLastName, tilEmail, tilPassword, tilVerifyPsw;
     private TextInputEditText tieName, tieLastName, tietEmail, tietPassword, tietVerifyPsw;
@@ -52,6 +57,9 @@ public class CrearUsuarioActivity extends AppCompatActivity  implements View.OnC
         getSupportActionBar().setTitle(getString(R.string.registrate));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//el boton de regresar
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        sp = new SoundPool(1, AudioManager.STREAM_MUSIC, 1);
+        sonido = sp.load(this, R.raw.cuchillo_dos, 1);
 
         mAuth = FirebaseAuth.getInstance();
         myRef = FirebaseDatabase.getInstance().getReference(getResources().getString(R.string.db_User));
@@ -153,6 +161,7 @@ public class CrearUsuarioActivity extends AppCompatActivity  implements View.OnC
         if(nameValid(name) & lastNameValid(lastName) & emailIsValid(email) & pwdIsValid(password) & pwdIsValid2(verifyPsw) && isConnected()) {
             if(verifyPsw.equals(password)) {
                 chargingFragment.show(getSupportFragmentManager(), "dialogCharging");
+                sp.play(sonido, 3, 3, 1, 0, 0); //reproducimos el sonido
                 mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(CrearUsuarioActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
@@ -178,8 +187,8 @@ public class CrearUsuarioActivity extends AppCompatActivity  implements View.OnC
     private void updateUI(FirebaseUser currentUser) {
         if (currentUser !=null) {
             String id = mAuth.getUid();
-            String name      = tieName.getEditableText().toString();
-            String lastName  = tieLastName.getEditableText().toString();
+            String name      = tieName.getEditableText().toString().toUpperCase();
+            String lastName  = tieLastName.getEditableText().toString().toUpperCase();
             String email = tietEmail.getEditableText().toString();
             CrearUser crearUser = new CrearUser(id, name, lastName, email);
 
@@ -187,6 +196,7 @@ public class CrearUsuarioActivity extends AppCompatActivity  implements View.OnC
 
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
+            Animatoo.animateZoom(CrearUsuarioActivity.this);
             finish();
         }
     }
@@ -229,7 +239,7 @@ public class CrearUsuarioActivity extends AppCompatActivity  implements View.OnC
             return false;
         }
 
-        if (lastName.length()<3) {
+        if (lastName.length()<5) {
             lastNameMessage(getString(R.string.insert_last_name));
             return false;
         }

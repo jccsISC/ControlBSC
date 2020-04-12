@@ -7,8 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".activities.RegistrarProductoActivity"
     android:orientation="vertical"
-    android:weightSum="1"
-    >
+    android:weightSum="1">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -31,14 +30,11 @@
         android:orientation="vertical"
         android:layout_weight="0.3"
         android:gravity="center"
-        android:padding="@dimen/size_20"
-        >
+        android:padding="@dimen/size_20">
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilRegistrarP"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
-
+            android:layout_height="wrap_content">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/tieRegistrarP"
                 android:layout_width="match_parent"
@@ -47,7 +43,7 @@
                 android:hint="@string/hint_producto"
                 android:inputType="text"
                 android:textSize="@dimen/size_24"
-                />
+                android:fontFamily="@font/roboto_regular"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
@@ -55,15 +51,13 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="1"
-            android:layout_marginTop="@dimen/margin_Top_40"
-            >
+            android:layout_marginTop="@dimen/margin_Top_40">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:layout_weight="0.5"
-                android:gravity="center"
-                >
+                android:gravity="center">
                 <Button
                     android:id="@+id/btnPieza"
                     android:layout_width="@dimen/width_btn_150"
@@ -73,7 +67,7 @@
                     android:background="@drawable/btn_no_selected"
                     android:textColor="@android:color/white"
                     android:layout_margin="@dimen/padding_10"
-                    />
+                    android:fontFamily="@font/roboto_regular"/>
 
             </LinearLayout>
 
@@ -82,8 +76,7 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:layout_weight="0.5"
-                android:gravity="center"
-                >
+                android:gravity="center">
                 <Button
                     android:id="@+id/btnCaja"
                     android:layout_width="@dimen/width_btn_150"
@@ -93,21 +86,17 @@
                     android:background="@drawable/btn_no_selected"
                     android:textColor="@android:color/white"
                     android:layout_margin="@dimen/padding_10"
-                    />
+                    android:fontFamily="@font/roboto_regular"/>
             </LinearLayout>
-
         </LinearLayout>
-
     </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_weight="0.7"
-        android:gravity="center"
-        >
+        android:gravity="center">
         <Button
             android:id="@+id/btnSave"
             android:layout_width="@dimen/width_btn_250"
@@ -115,7 +104,6 @@
             android:text="@string/save"
             android:textSize="@dimen/size_24"
             android:background="@drawable/borde_card_entradas"
-            />
+            android:fontFamily="@font/roboto_regular"/>
     </LinearLayout>
-
 </LinearLayout>

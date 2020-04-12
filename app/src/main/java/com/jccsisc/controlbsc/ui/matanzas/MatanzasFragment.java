@@ -17,6 +17,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.jccsisc.controlbsc.R;
+import com.jccsisc.controlbsc.activities.MainActivity;
 import com.jccsisc.controlbsc.adapters.ProductosAdapter;
 import com.jccsisc.controlbsc.model.Producto;
 
@@ -26,6 +27,7 @@ public class MatanzasFragment extends Fragment {
 
     DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("DB_Bodega1");
     FirebaseAuth mAuth;
+    public String fragment_text = "Matanzas";
 
     private RecyclerView rvMatanzas;
     private ArrayList<Producto> productoArrayList;
@@ -43,6 +45,8 @@ public class MatanzasFragment extends Fragment {
         productosAdapter = new ProductosAdapter(productoArrayList, getActivity(), "Producto");
 
         rvMatanzas.setAdapter(productosAdapter);
+
+        MainActivity.visivilitySearch(fragment_text);
 
         mAuth = FirebaseAuth.getInstance(); //obtenemos al usuario actual
         final  String uid = mAuth.getUid();
@@ -66,5 +70,35 @@ public class MatanzasFragment extends Fragment {
         });
 
         return v;
+    }
+
+
+    //validar si es pieza de la matanza
+    private boolean isOfMatanza(String pieza) {
+        String [] piezasMatanza = {"CAPOTES VENDIDOS", "CABEZA DE CERDO", "PIERNAS SIN HUESO", "ESPALDILLAS SIN HUESO",
+                "MANITAS", "LONJA", "HUNTOS", "HUESOS", "RIÑON", "CHAMORRO", "COSTILLA", "ESPINAZO CON LOMO COMPLETO", "ESPINAZO FRESCO",
+                "LOMO", "CABEZA DE LOMO", "CHULETA MARIPOSA", "DESPIQUE", "DENTROS"};
+
+        for (int i=0; i<piezasMatanza.length; i++) {
+            if(pieza.equals(piezasMatanza[i])) { return true; }
+        }
+        return false;
+    }
+
+    //validar si es producto de la matanza
+    private boolean isProcesoChuleta(String pieza) {
+        String [] piezaProcesoCh = {"CHULETA DE MARIPOZA","CABEZA DE LOMO","ESPINACITO"};
+        for(int i=0; i<piezaProcesoCh.length; i++) {
+            if(pieza.equals(piezaProcesoCh[i])) { return true;}
+        }
+        return false;
+    }
+
+    private boolean isProcesoEspinazo(String pieza) {
+        String [] piezaProcesoE = {"ESPINAZO","CABEZA DE LOMO", "LOMOS"};
+        for(int i=0; i<piezaProcesoE.length; i++) {
+            if(pieza.equals(piezaProcesoE[i])) { return true;}
+        }
+        return false;
     }
 }

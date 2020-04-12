@@ -24,6 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.jccsisc.controlbsc.R;
 import com.jccsisc.controlbsc.adapters.CajasAdapter;
+import com.jccsisc.controlbsc.dialogs.ForgetPasswordFragment;
 import com.jccsisc.controlbsc.model.Detalle;
 import com.jccsisc.controlbsc.model.Movimiento;
 
@@ -48,9 +49,9 @@ public class RegistrarE_S_C_Activity extends AppCompatActivity {
     double sumatotal = 0.0;
     private ArrayList<Detalle> detallesArrayList = new ArrayList<>();
     private CajasAdapter cajasAdapter;
+    private ForgetPasswordFragment forgetPasswordFragment = new ForgetPasswordFragment();
     RecyclerView recyclerPesadasC;
     Intent extras;
-    public static DecimalFormat df = new DecimalFormat("0.00");
 
 
     @Override
@@ -117,7 +118,6 @@ public class RegistrarE_S_C_Activity extends AppCompatActivity {
                     detallesArrayList.add(modelitoDetalle);
                     cajasAdapter.notifyDataSetChanged();
                     edtPesoC.setText("");
-                    txtPesoT.setText(df.format(sumatotal));
                     txtCT.setText(String.valueOf(detallesArrayList.size()));
                 }
             }
@@ -158,43 +158,45 @@ public class RegistrarE_S_C_Activity extends AppCompatActivity {
         cajasAdapter.setOnClickListener(new CajasAdapter.OnClickListener() {
             @Override
             public void onItemClick(final int pos) {
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(RegistrarE_S_C_Activity.this);
-                alertDialog.setTitle("MODIFICAR");
-                alertDialog.setMessage(String.valueOf(detallesArrayList.get(pos).getPeso()));
-
-                final EditText input = new EditText(RegistrarE_S_C_Activity.this);
-                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.MATCH_PARENT);
-                input.setLayoutParams(lp);
-                alertDialog.setView(input);
-
-                alertDialog.setPositiveButton("Guardar",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                String idKey = detallesArrayList.get(pos).getIdKey();
-                                Detalle detalle = new Detalle(idKey, Double.parseDouble(input.getText().toString().trim()));
-                                detallesArrayList.remove(pos);
-                                detallesArrayList.add(pos, detalle);
-                                cajasAdapter.notifyItemChanged(pos);
-                                sumatotal = 0.0;
-                                for(int x = 0; x < detallesArrayList.size(); x++){
-
-                                    sumatotal += detallesArrayList.get(x).getPeso();
-                                    txtPesoT.setText(String.valueOf(sumatotal));
-                                }
-
-                            }
-                        });
-
-                alertDialog.setNegativeButton("Cancelar",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.cancel();
-                            }
-                        });
-
-                alertDialog.show();
+                forgetPasswordFragment.show(getSupportFragmentManager(), "dialogForget");
+                
+//                AlertDialog.Builder alertDialog = new AlertDialog.Builder(RegistrarE_S_C_Activity.this);
+//                alertDialog.setTitle("MODIFICAR");
+//                alertDialog.setMessage(String.valueOf(detallesArrayList.get(pos).getPeso()));
+//
+//                final EditText input = new EditText(RegistrarE_S_C_Activity.this);
+//                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+//                        LinearLayout.LayoutParams.MATCH_PARENT,
+//                        LinearLayout.LayoutParams.MATCH_PARENT);
+//                input.setLayoutParams(lp);
+//                alertDialog.setView(input);
+//
+//                alertDialog.setPositiveButton("Guardar",
+//                        new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                String idKey = detallesArrayList.get(pos).getIdKey();
+//                                Detalle detalle = new Detalle(idKey, Double.parseDouble(input.getText().toString().trim()));
+//                                detallesArrayList.remove(pos);
+//                                detallesArrayList.add(pos, detalle);
+//                                cajasAdapter.notifyItemChanged(pos);
+//                                sumatotal = 0.0;
+//                                for(int x = 0; x < detallesArrayList.size(); x++){
+//
+//                                    sumatotal += detallesArrayList.get(x).getPeso();
+//                                    txtPesoT.setText(String.valueOf(sumatotal));
+//                                }
+//
+//                            }
+//                        });
+//
+//                alertDialog.setNegativeButton("Cancelar",
+//                        new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                dialog.cancel();
+//                            }
+//                        });
+//
+//                alertDialog.show();
             }
 
         });

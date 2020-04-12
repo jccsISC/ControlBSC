@@ -27,16 +27,16 @@ import com.jccsisc.controlbsc.ui.inventario.InventarioFragment;
 import com.jccsisc.controlbsc.ui.procesos.ProcesosFragment;
 
 public class HomeFragment extends Fragment implements View.OnClickListener{
+
     private CardView cardViewEntrada, cardViewSalidas;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_home, container, false);
         cardViewEntrada = v.findViewById(R.id.cardViewEntrada);
         cardViewSalidas = v.findViewById(R.id.cardViewSalida);
 
-        MainActivity.visivilitySearch("Home");
+        MainActivity.visivilitySearch("Home"); //para que el buscador no se visualice en este fragment en el toolbar
 
         cardViewEntrada.setOnClickListener(this);
         cardViewSalidas.setOnClickListener(this);

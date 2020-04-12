@@ -8,17 +8,6 @@
     tools:context=".ui.productos.ProductosFragment"
     android:orientation="vertical">
 
-<!--   <EditText-->
-<!--       android:id="@+id/edtBuscador"-->
-<!--       android:layout_margin="5dp"-->
-<!--       android:drawableStart="@drawable/ic_search"-->
-<!--       android:hint="@string/nombre_del_expositor"-->
-<!--       android:layout_width="match_parent"-->
-<!--       android:padding="5dp"-->
-<!--       android:textSize="14sp"-->
-<!--       android:background="@drawable/border_search"-->
-<!--       android:layout_height="wrap_content"/>-->
-
    <com.mikelau.views.shimmer.ShimmerRecyclerViewX
        android:id="@+id/recyclerProductos"
        android:layout_width="match_parent"

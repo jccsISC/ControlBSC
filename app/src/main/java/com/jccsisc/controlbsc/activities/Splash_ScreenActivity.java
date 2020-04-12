@@ -1,4 +1,4 @@
-package com.jccsisc.controlbsc;
+package com.jccsisc.controlbsc.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
-import com.jccsisc.controlbsc.activities.LoginActivity;
+import com.jccsisc.controlbsc.R;
 
 public class Splash_ScreenActivity extends AppCompatActivity {
 

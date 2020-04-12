@@ -29,19 +29,18 @@ import com.jccsisc.controlbsc.adapters.ProductosAdapter;
 import com.jccsisc.controlbsc.model.Detalle;
 import com.jccsisc.controlbsc.model.Movimiento;
 import com.jccsisc.controlbsc.model.Producto;
+import com.jccsisc.controlbsc.utilidades.NodosFirebase;
 import com.mikelau.views.shimmer.ShimmerRecyclerViewX;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class EntradasFragment extends Fragment {
-    DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("DB_Bodega1").child("DB_Productos");
 
     private ShimmerRecyclerViewX rvEntradas;
     private ArrayList<Producto> productoArrayList, productoArrayList2;
     private ProductosAdapter entradasAdapter, entradasAdapter2;
     private EditText edtBuscador;
-    public static DecimalFormat df = new DecimalFormat("0.00");
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -61,7 +60,7 @@ public class EntradasFragment extends Fragment {
 
         rvEntradas.showShimmerAdapter();
 
-        myRef.orderByChild("name").addValueEventListener(new ValueEventListener() {
+        NodosFirebase.myRef.orderByChild("name").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 rvEntradas.hideShimmerAdapter();

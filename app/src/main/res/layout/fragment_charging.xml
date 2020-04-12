@@ -8,19 +8,12 @@
     android:orientation="vertical"
     android:gravity="center">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/charging"
-        android:textSize="@dimen/size_25"
-        android:textAlignment="center"/>
 
     <com.agrawalsuneet.dotsloader.loaders.TashieLoader
         android:id="@+id/tashieLoader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/size_25"
-        android:layout_marginBottom="@dimen/margin_10"
+       android:layout_margin="@dimen/margin_30"
         app:tashieloader_animDelay="200"
         app:tashieloader_animDur="1000"
         app:tashieloader_dotsColor="@color/colorPrimary"

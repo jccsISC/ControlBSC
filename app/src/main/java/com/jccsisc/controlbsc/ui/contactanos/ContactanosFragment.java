@@ -14,10 +14,12 @@ import androidx.fragment.app.Fragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.jccsisc.controlbsc.activities.LoginActivity;
 import com.jccsisc.controlbsc.R;
+import com.jccsisc.controlbsc.activities.MainActivity;
 
 public class ContactanosFragment extends Fragment implements View.OnClickListener {
 
     Button btnSalir;
+    public String fragment_text = "Contactanos";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -25,6 +27,8 @@ public class ContactanosFragment extends Fragment implements View.OnClickListene
         View root = inflater.inflate(R.layout.fragment_contactanos, container, false);
         final TextView textView = root.findViewById(R.id.text_entradas);
         textView.setText("Contactanos");
+
+        MainActivity.visivilitySearch(fragment_text);
 
         btnSalir = root.findViewById(R.id.btnSignOut);
 

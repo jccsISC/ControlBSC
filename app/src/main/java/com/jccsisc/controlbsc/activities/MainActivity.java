@@ -2,14 +2,20 @@ package com.jccsisc.controlbsc.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.Menu;
 import android.widget.EditText;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.jccsisc.controlbsc.R;
+import com.jccsisc.controlbsc.model.Producto;
+import com.jccsisc.controlbsc.ui.productos.ProductosFragment;
 
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -19,12 +25,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import static com.jccsisc.controlbsc.R.id.nav_cerrarsesion;
+import static com.jccsisc.controlbsc.R.id.nav_controller_view_tag;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     public static EditText edtAppBarBuscador;
-    public String fragment = "Home";
+    public String fragment_text = "Home";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +48,29 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        edtAppBarBuscador = findViewById(R.id.edtAppBarBuscador);
+        edtAppBarBuscador = findViewById(R.id.edtAppBarBuscador); //instanciamos nuestro buscador
 
-        visivilitySearch(fragment);
+        edtAppBarBuscador.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(!s.equals("")){
+                    ProductosFragment.metodoBuscar(s); //le mandamos el texto a los adapter y recycler que mostraran la info
+                }else{
+                    ProductosFragment.rvProductos.setAdapter(ProductosFragment.productosAdapter);
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+
+
+        visivilitySearch(fragment_text); //para que no muestre el buscador en la vista home
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -55,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 R.id.nav_pedidos, R.id.nav_historial, R.id.nav_inventario, R.id.nav_contactanos, nav_cerrarsesion)
                 .setDrawerLayout(drawer)
                 .build();
+
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
@@ -75,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-
+    //para ocultar el buscador del toolbar segun el fragment en el que s encuentre
     public static void visivilitySearch(String fragment) {
 
         switch (fragment) {
@@ -88,7 +116,5 @@ public class MainActivity extends AppCompatActivity {
                 edtAppBarBuscador.setVisibility(View.INVISIBLE);
                 break;
         }
-
     }
-
 }

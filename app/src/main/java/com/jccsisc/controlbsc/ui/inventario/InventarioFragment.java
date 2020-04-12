@@ -10,9 +10,11 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.jccsisc.controlbsc.R;
+import com.jccsisc.controlbsc.activities.MainActivity;
 
 public class InventarioFragment extends Fragment {
 
+    public String fragment_text = "Inventario";
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -21,6 +23,9 @@ public class InventarioFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_inventario, container, false);
         final TextView textView = root.findViewById(R.id.text_entradas);
         textView.setText("Inventario");
+
+        MainActivity.visivilitySearch(fragment_text);
+
         return root;
     }
 }

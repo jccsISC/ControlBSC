@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -21,7 +22,7 @@ import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.agrawalsuneet.dotsloader.loaders.TashieLoader;
@@ -32,18 +33,22 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.jccsisc.controlbsc.R;
 
-public class ForgetPasswordFragment extends DialogFragment implements View.OnClickListener {
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class ModifyProductFragment extends DialogFragment implements View.OnClickListener {
 
     private Activity activity;
     private ImageButton btnExit;
-    private Button btnSend;
-    private TextInputLayout tilEmail;
-    private TextInputEditText tieEmail;
+    private Button btnModificar, btnEliminar;
+    private TextInputLayout tilName;
+    private TextInputEditText tieName;
     private FirebaseAuth mAuth;
-    private String email;
+    private String name, idKey;
+    private TextView txtNameModify;
     private TashieLoader tashieLoader;
 
-    public ForgetPasswordFragment() { }
+    public ModifyProductFragment() { }
 
     @NonNull
     @Override
@@ -54,13 +59,18 @@ public class ForgetPasswordFragment extends DialogFragment implements View.OnCli
     private AlertDialog dialogForget() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View v = inflater.inflate(R.layout.fragment_forget_password, null);
+        View v = inflater.inflate(R.layout.fragment_modify_product, null);
         builder.setView(v);
 
         btnExit  = v.findViewById(R.id.btnExit);
-        tilEmail = v.findViewById(R.id.tilEmail);
-        tieEmail = v.findViewById(R.id.tieEmail);
-        btnSend  = v.findViewById(R.id.btnSend);
+        tilName = v.findViewById(R.id.tilNameProduct);
+        tieName = v.findViewById(R.id.tieNameProduct);
+        txtNameModify = v.findViewById(R.id.txtNameProductoModificar);
+        btnModificar = v.findViewById(R.id.btnModify);
+        btnEliminar  = v.findViewById(R.id.btnEliminar);
+        name = "papada";
+
+        txtNameModify.setText(name);
 
         mAuth    = FirebaseAuth.getInstance();
 
@@ -79,7 +89,7 @@ public class ForgetPasswordFragment extends DialogFragment implements View.OnCli
 
         tashieLoader.addView(tashie);
 
-        tieEmail.addTextChangedListener(new TextWatcher() {
+        tieName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -87,7 +97,7 @@ public class ForgetPasswordFragment extends DialogFragment implements View.OnCli
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                emailIsValid(s);
+                nameIsValid(s);
             }
 
             @Override
@@ -97,7 +107,8 @@ public class ForgetPasswordFragment extends DialogFragment implements View.OnCli
         });
 
         btnExit.setOnClickListener(this);
-        btnSend.setOnClickListener(this);
+        btnModificar.setOnClickListener(this);
+        btnEliminar.setOnClickListener(this);
 
         return builder.create();
     }
@@ -118,9 +129,9 @@ public class ForgetPasswordFragment extends DialogFragment implements View.OnCli
             case R.id.btnExit:
                 dismiss();
                 break;
-            case R.id.btnSend:
-                email = tieEmail.getEditableText().toString();
-                if(emailIsValid(email)) {
+            case R.id.btnModify:
+                name = tieName.getEditableText().toString();
+                if(nameIsValid(name)) {
                     tashieLoader.setVisibility(View.VISIBLE);
                     resetPassword();
                 }
@@ -130,7 +141,7 @@ public class ForgetPasswordFragment extends DialogFragment implements View.OnCli
 
     private void resetPassword() {
         mAuth.setLanguageCode("es");//idioma en que recibira el correo
-        mAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+        mAuth.sendPasswordResetEmail(name).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()) {
@@ -143,7 +154,7 @@ public class ForgetPasswordFragment extends DialogFragment implements View.OnCli
         });
     }
 
-    private boolean emailIsValid(CharSequence email) {
+    private boolean nameIsValid(CharSequence email) {
 
         if (TextUtils.isEmpty(email)) {
             mailMessage(getString(R.string.empty_field));
@@ -160,10 +171,10 @@ public class ForgetPasswordFragment extends DialogFragment implements View.OnCli
     }
 
     void mailMessage() {
-        tilEmail.setError(null);
+        tilName.setError(null);
     }
 
     void mailMessage(String message) {
-        tilEmail.setError(message);
+        tilName.setError(message);
     }
 }

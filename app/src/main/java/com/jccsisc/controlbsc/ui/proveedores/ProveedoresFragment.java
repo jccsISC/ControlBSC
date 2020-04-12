@@ -14,8 +14,11 @@ import androidx.fragment.app.Fragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.jccsisc.controlbsc.R;
 import com.jccsisc.controlbsc.activities.LoginActivity;
+import com.jccsisc.controlbsc.activities.MainActivity;
 
 public class ProveedoresFragment extends Fragment implements View.OnClickListener {
+
+    public String fragment_text = "Proveedores";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -23,6 +26,9 @@ public class ProveedoresFragment extends Fragment implements View.OnClickListene
         View root = inflater.inflate(R.layout.fragment_proveedores, container, false);
         final TextView textView = root.findViewById(R.id.text_entradas);
         textView.setText("Proveedores");
+
+        MainActivity.visivilitySearch(fragment_text);
+
         return root;
     }
 
