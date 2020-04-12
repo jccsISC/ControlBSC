@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -17,21 +18,25 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Patterns;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.agrawalsuneet.dotsloader.loaders.TashieLoader;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.jccsisc.controlbsc.R;
+import com.jccsisc.controlbsc.utilidades.NodosFirebase;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,11 +49,17 @@ public class ModifyProductFragment extends DialogFragment implements View.OnClic
     private TextInputLayout tilName;
     private TextInputEditText tieName;
     private FirebaseAuth mAuth;
-    private String name, idKey;
+    private String name, idKey, nameE;
     private TextView txtNameModify;
     private TashieLoader tashieLoader;
 
     public ModifyProductFragment() { }
+
+    public ModifyProductFragment(String idKey, String name) {
+        this.idKey = idKey;
+        this.name  = name;
+    }
+
 
     @NonNull
     @Override
@@ -68,9 +79,9 @@ public class ModifyProductFragment extends DialogFragment implements View.OnClic
         txtNameModify = v.findViewById(R.id.txtNameProductoModificar);
         btnModificar = v.findViewById(R.id.btnModify);
         btnEliminar  = v.findViewById(R.id.btnEliminar);
-        name = "papada";
 
         txtNameModify.setText(name);
+        nameE = name;
 
         mAuth    = FirebaseAuth.getInstance();
 
@@ -133,36 +144,49 @@ public class ModifyProductFragment extends DialogFragment implements View.OnClic
                 name = tieName.getEditableText().toString();
                 if(nameIsValid(name)) {
                     tashieLoader.setVisibility(View.VISIBLE);
-                    resetPassword();
+                    modificarProducto(idKey, name);
                 }
+                break;
+            case R.id.btnEliminar:
+                eliminarProducto(idKey);
                 break;
         }
     }
 
-    private void resetPassword() {
-        mAuth.setLanguageCode("es");//idioma en que recibira el correo
-        mAuth.sendPasswordResetEmail(name).addOnCompleteListener(new OnCompleteListener<Void>() {
+    private void modificarProducto(String idKey, final String name) {
+        NodosFirebase.myRef.child(idKey).child("name")
+                .setValue(name.toUpperCase())
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        mtoast("Se modificó: "+nameE+" por "+ name+" correctamente");
+                        dismiss();
+                    }
+                });
+    }
+
+    private void eliminarProducto(String idKey) {
+        NodosFirebase.myRef.child(idKey).removeValue().addOnSuccessListener(new OnSuccessListener<Void>()
+        {
             @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()) {
-                    Toast.makeText(getContext(), getString(R.string.restablece_text), Toast.LENGTH_SHORT).show();
-                }else {
-                    Toast.makeText(getContext(), getString(R.string.error_restablecer), Toast.LENGTH_SHORT).show();
-                }
-                dismiss(); //cerramos el dialog
+            public void onSuccess(Void aVoid) {
+                mtoast("Se eliminó ( "+ name+ " ) correctamente");
+                dismiss();
             }
         });
     }
 
-    private boolean nameIsValid(CharSequence email) {
 
-        if (TextUtils.isEmpty(email)) {
+    public void mtoast(String msj) {
+        Toast toast = Toast.makeText(getContext(), msj, Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER | Gravity.CENTER, 0, 0);
+        toast.show();
+    }
+
+    private boolean nameIsValid(CharSequence name) {
+
+        if (TextUtils.isEmpty(name)) {
             mailMessage(getString(R.string.empty_field));
-            return false;
-        }
-
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            mailMessage(getString(R.string.email_invalid));
             return false;
         }
 

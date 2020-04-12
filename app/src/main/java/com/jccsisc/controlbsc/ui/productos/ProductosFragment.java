@@ -47,7 +47,6 @@ public class ProductosFragment extends Fragment {
     public static ShimmerRecyclerViewX rvProductos;
     public static ArrayList<Producto> productoArrayList, productoArrayList2;
     public static ProductosAdapter productosAdapter, productosAdapter2;
-    private ModifyProductFragment modifyProductFragment = new ModifyProductFragment();
 
     public View onCreateView(@NonNull final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -102,18 +101,17 @@ public class ProductosFragment extends Fragment {
                             movimiento1.addDetalles(detalle);
 
                         }
-
                         producto.addMovimiento(movimiento1);
                     }
 
                     productoArrayList.add(producto);
                 }
-//
-//                if(!edtBuscador.getText().toString().toUpperCase().equals("")){
-//                    metodoBuscar(edtBuscador.getText().toString().toUpperCase());
-//                }else{
-//                    productosAdapter.notifyDataSetChanged();
-//                }
+
+                if(!MainActivity.edtAppBarBuscador.getText().toString().toUpperCase().equals("")){
+                    metodoBuscar(MainActivity.edtAppBarBuscador.getText().toString().toUpperCase());
+                }else{
+                    productosAdapter.notifyDataSetChanged();
+                }
             }
 
             @Override
@@ -121,7 +119,6 @@ public class ProductosFragment extends Fragment {
 
             }
         });
-
 
         showOptions(productoArrayList, productosAdapter);
         showOptions(productoArrayList2, productosAdapter2);
@@ -134,77 +131,16 @@ public class ProductosFragment extends Fragment {
             @Override
             public void onItemClick(final int pos) {
 
+                String idKey = arrayList.get(pos).getIdKey();
+                String name = arrayList.get(pos).getName();
+
+                ModifyProductFragment modifyProductFragment = new ModifyProductFragment(idKey, name);
                 modifyProductFragment.show(getChildFragmentManager(), "dialogModificar");
-//                String idKey = arrayList.get(pos).getIdKey();
-//                String name = arrayList.get(pos).getName();
-
-
-
-
-//
-//                final AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
-//                alertDialog.setTitle("MODIFICAR NOMBRE DEL PRODUCTO");
-//                alertDialog.setMessage(String.valueOf(arrayList.get(pos).getName()));
-//
-//                final EditText input = new EditText(getActivity());
-//                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-//                        LinearLayout.LayoutParams.MATCH_PARENT,
-//                        LinearLayout.LayoutParams.MATCH_PARENT);
-//                input.setLayoutParams(lp);
-//                alertDialog.setView(input);
-//
-//                alertDialog.setPositiveButton("Guardar",
-//                        new DialogInterface.OnClickListener() {
-//                            public void onClick(final DialogInterface dialog, int which) {
-//                                String idKey = arrayList.get(pos).getIdKey();
-//                                modificarProducto(idKey, input, dialog);
-//                            }
-//                        });
-//
-//                alertDialog.setNegativeButton("Cancelar",
-//                        new DialogInterface.OnClickListener() {
-//                            public void onClick(final DialogInterface dialog, int which) {
-//                                dialog.cancel();
-//                            }
-//                        });
-//
-//                alertDialog.setNeutralButton("Eliminar",
-//                        new DialogInterface.OnClickListener() {
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                String idKey = arrayList.get(pos).getIdKey();
-//                                eliminarProducto(idKey);
-//                            }
-//                        });
-//
-//                alertDialog.show();
             }
         });
 
 
     }
-
-    private void modificarProducto(String idKey, EditText input, final DialogInterface alert) {
-        NodosFirebase.myRef.child(idKey).child("name")
-                .setValue(input.getText().toString().toUpperCase())
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        mtoast("Modificado correctamente");
-                        alert.dismiss();
-                    }
-                });
-    }
-
-    private void eliminarProducto(String idKey) {
-        NodosFirebase.myRef.child(idKey).removeValue().addOnSuccessListener(new OnSuccessListener<Void>()
-        {
-            @Override
-            public void onSuccess(Void aVoid) {
-                mtoast("Se eliminó correctamente");
-            }
-        });
-    }
-
 
     public void mtoast(String msj) {
         Toast toast = Toast.makeText(getContext(), msj, Toast.LENGTH_SHORT);
