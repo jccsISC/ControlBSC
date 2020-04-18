@@ -2,8 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:id="@+id/action_more"
+        android:title="@string/more"
+        android:icon="@drawable/ic_more"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/action_exit"
+                android:icon="@drawable/ic_puerta"
+                android:title="@string/menu_cerrarsesion"/>
+        </menu>
+    </item>
 </menu>

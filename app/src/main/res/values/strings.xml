@@ -92,6 +92,7 @@
     <string name="nota_dialog_modify_product">Modifique el nombre del producto o eliminelo</string>
     <string name="btn_eliminar">Eliminar</string>
     <string name="btn_modificar">Modificar</string>
+    <string name="more">More</string>
 
 
 </resources>

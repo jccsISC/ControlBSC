@@ -52,10 +52,6 @@
                 android:id="@+id/nav_contactanos"
                 android:icon="@drawable/ic_servicio_al_cliente"
                 android:title="@string/menu_contacto" />
-            <item
-                android:id="@+id/nav_cerrarsesion"
-                android:icon="@drawable/ic_puerta"
-                android:title="@string/menu_cerrarsesion" />
         </menu>
     </item>
 </menu>

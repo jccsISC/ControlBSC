@@ -16,9 +16,8 @@ import com.jccsisc.controlbsc.activities.LoginActivity;
 import com.jccsisc.controlbsc.R;
 import com.jccsisc.controlbsc.activities.MainActivity;
 
-public class ContactanosFragment extends Fragment implements View.OnClickListener {
+public class ContactanosFragment extends Fragment {
 
-    Button btnSalir;
     public String fragment_text = "Contactanos";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -30,20 +29,7 @@ public class ContactanosFragment extends Fragment implements View.OnClickListene
 
         MainActivity.visivilitySearch(fragment_text);
 
-        btnSalir = root.findViewById(R.id.btnSignOut);
-
-        btnSalir.setOnClickListener(this);
         return root;
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btnSignOut:
-                FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(ContactanosFragment.this.getContext(), LoginActivity.class);
-                startActivity(intent);
-                break;
-        }
-    }
 }

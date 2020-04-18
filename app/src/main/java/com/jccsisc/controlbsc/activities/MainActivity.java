@@ -4,17 +4,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.jccsisc.controlbsc.R;
 import com.jccsisc.controlbsc.model.Producto;
+import com.jccsisc.controlbsc.ui.contactanos.ContactanosFragment;
 import com.jccsisc.controlbsc.ui.productos.ProductosFragment;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -23,9 +27,6 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
-import static com.jccsisc.controlbsc.R.id.nav_cerrarsesion;
-import static com.jccsisc.controlbsc.R.id.nav_controller_view_tag;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -79,10 +80,9 @@ public class MainActivity extends AppCompatActivity {
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_productos, R.id.nav_matanzas, R.id.nav_procesos,
-                R.id.nav_pedidos, R.id.nav_historial, R.id.nav_inventario, R.id.nav_contactanos, nav_cerrarsesion)
+                R.id.nav_pedidos, R.id.nav_historial, R.id.nav_inventario, R.id.nav_contactanos)
                 .setDrawerLayout(drawer)
                 .build();
-
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
@@ -94,6 +94,20 @@ public class MainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_exit:
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override

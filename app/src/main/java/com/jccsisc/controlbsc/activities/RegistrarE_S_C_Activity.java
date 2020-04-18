@@ -39,7 +39,6 @@ import java.util.Locale;
 public class RegistrarE_S_C_Activity extends AppCompatActivity {
 
     private DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("DB_Bodega1").child("DB_Productos");
-//    private static final String DB_NODE = "DB_Entradas";
     private Button btnCargar;
     private ImageButton  btnSumar;
     private TextView nameProducto, txtCT, txtPesoT;
@@ -119,6 +118,7 @@ public class RegistrarE_S_C_Activity extends AppCompatActivity {
                     cajasAdapter.notifyDataSetChanged();
                     edtPesoC.setText("");
                     txtCT.setText(String.valueOf(detallesArrayList.size()));
+                    txtPesoT.setText(String.valueOf(sumatotal));
                 }
             }
         });
