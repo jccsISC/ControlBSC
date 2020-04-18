@@ -19,8 +19,6 @@
         android:contentDescription="@string/img_description"
         />
 
-
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilEmail"
         android:layout_marginTop="@dimen/margin_Top_40"
