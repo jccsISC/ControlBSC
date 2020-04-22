@@ -75,8 +75,6 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.Prod
     }
 
 
-
-
     @Override
     public int getItemCount() {
         return productos_model.size();
@@ -95,9 +93,8 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.Prod
             textUnit        = itemView.findViewById(R.id.textUnit);
             textKg          = itemView.findViewById(R.id.textKg);
         }
-
-
     }
+
     public interface OnClickListener {
         void onItemClick( int pos);
     }

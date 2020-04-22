@@ -58,5 +58,6 @@
     <dimen name="width_100">100dp</dimen>
     <dimen name="height_1">1dp</dimen>
     <dimen name="width_300">300dp</dimen>
+    <dimen name="margin_20">20dp</dimen>
 
 </resources>

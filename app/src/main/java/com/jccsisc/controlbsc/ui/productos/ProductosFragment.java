@@ -1,36 +1,25 @@
 package com.jccsisc.controlbsc.ui.productos;
 
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
+import android.content.Context;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.jccsisc.controlbsc.R;
 import com.jccsisc.controlbsc.activities.MainActivity;
-import com.jccsisc.controlbsc.activities.RegistrarE_S_C_Activity;
 import com.jccsisc.controlbsc.adapters.ProductosAdapter;
 import com.jccsisc.controlbsc.dialogs.ModifyProductFragment;
 import com.jccsisc.controlbsc.model.Detalle;
@@ -44,9 +33,23 @@ import java.util.ArrayList;
 public class ProductosFragment extends Fragment {
 
     private FirebaseAuth mAuth;
+    private DateElement callBack; //para usar la interfaz
     public static ShimmerRecyclerViewX rvProductos;
     public static ArrayList<Producto> productoArrayList, productoArrayList2;
     public static ProductosAdapter productosAdapter, productosAdapter2;
+
+    public ProductosFragment() { }
+
+    //hacemos la comunicacion
+//    @Override
+//    public void onAttach(@NonNull Context context) {
+//        super.onAttach(context);
+//        try {
+//            callBack = (DateElement) context;
+//        } catch (Exception e) {
+//            throw new ClassCastException(context.toString() + "Debe implementar DateElement");
+//        }
+//    }
 
     public View onCreateView(@NonNull final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -107,8 +110,8 @@ public class ProductosFragment extends Fragment {
                     productoArrayList.add(producto);
                 }
 
-                if(!MainActivity.edtAppBarBuscador.getText().toString().toUpperCase().equals("")){
-                    metodoBuscar(MainActivity.edtAppBarBuscador.getText().toString().toUpperCase());
+                if(!MainActivity.edtAppBar.getText().toString().toUpperCase().equals("")){
+                    metodoBuscar(MainActivity.edtAppBar.getText().toString().toUpperCase());
                 }else{
                     productosAdapter.notifyDataSetChanged();
                 }
@@ -126,6 +129,7 @@ public class ProductosFragment extends Fragment {
         return v;
     }
 
+    //accion para elemnt seleccionado
     private void showOptions(final ArrayList<Producto> arrayList, ProductosAdapter adapter) {
         adapter.setOnClickListener(new ProductosAdapter.OnClickListener() {
             @Override
@@ -134,12 +138,17 @@ public class ProductosFragment extends Fragment {
                 String idKey = arrayList.get(pos).getIdKey();
                 String name = arrayList.get(pos).getName();
 
+//                sendDatosProductSelected(idKey,name);
+
                 ModifyProductFragment modifyProductFragment = new ModifyProductFragment(idKey, name);
                 modifyProductFragment.show(getChildFragmentManager(), "dialogModificar");
             }
         });
+    }
 
 
+    private void sendDatosProductSelected(String idkey, String name) {
+        callBack.sendDatos(idkey,name);
     }
 
     public void mtoast(String msj) {
@@ -156,5 +165,10 @@ public class ProductosFragment extends Fragment {
             }
         }
         rvProductos.setAdapter(productosAdapter2);
+    }
+
+    //interfaz para mandar los datos del element precionado
+    public interface DateElement {
+        void sendDatos(String idKey, String name);
     }
 }

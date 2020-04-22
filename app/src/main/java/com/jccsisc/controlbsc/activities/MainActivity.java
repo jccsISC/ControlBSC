@@ -13,6 +13,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.jccsisc.controlbsc.R;
+import com.jccsisc.controlbsc.dialogs.ModifyProductFragment;
 import com.jccsisc.controlbsc.ui.productos.ProductosFragment;
 
 import androidx.annotation.NonNull;
@@ -27,7 +28,7 @@ import androidx.appcompat.widget.Toolbar;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-    public static EditText edtAppBarBuscador;
+    public static EditText edtAppBar;
     public String fragment_text = "Home";
 
     @Override
@@ -35,8 +36,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        toolbar();
         FloatingActionButton fab = findViewById(R.id.fab);
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -47,17 +47,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        edtAppBarBuscador = findViewById(R.id.edtAppBarBuscador); //instanciamos nuestro buscador
+        edtAppBar = findViewById(R.id.edtAppBarBuscador);
 
-        edtAppBarBuscador.addTextChangedListener(new TextWatcher() {
+        edtAppBar.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(!s.equals("")){
+                if (!s.equals("")) {
+
+                    //aqui tenemos que hacer un siwtch para saber en que fragment está y así mandarle al metdo buscar de la clase correcta o un metodo
+
                     ProductosFragment.metodoBuscar(s); //le mandamos el texto a los adapter y recycler que mostraran la info
+
                 }else{
+                    //igual aqui o un metodo que sepa mandar los fragment segun en el que se encuentra
                     ProductosFragment.rvProductos.setAdapter(ProductosFragment.productosAdapter);
                 }
             }
@@ -66,8 +71,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-
 
         visivilitySearch(fragment_text); //para que no muestre el buscador en la vista home
 
@@ -85,6 +88,19 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
+                || super.onSupportNavigateUp();
+    }
+
+
+    private void toolbar() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
     }
 
     @Override
@@ -108,13 +124,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
-                || super.onSupportNavigateUp();
-    }
-
     //para ocultar el buscador del toolbar segun el fragment en el que s encuentre
     public static void visivilitySearch(String fragment) {
 
@@ -122,11 +131,19 @@ public class MainActivity extends AppCompatActivity {
             case "Entradas":
             case "Salidas":
             case "Productos":
-                edtAppBarBuscador.setVisibility(View.VISIBLE);
+                edtAppBar.setVisibility(View.VISIBLE);
                 break;
             default:
-                edtAppBarBuscador.setVisibility(View.INVISIBLE);
+                edtAppBar.setVisibility(View.INVISIBLE);
                 break;
         }
     }
+
+    //enviamos los datos entre fragments
+    public void sendDatos(String idKey, String name) {
+        //llamamos al metodo para renderizar el texto en el ModifyProductFragment pasando el texto que recibimos por parametro en este mismo metodo
+        ModifyProductFragment modifyProductFragment = (ModifyProductFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentModify);
+        modifyProductFragment.modificarProducto(idKey, name);
+    }
+
 }

@@ -1,36 +1,31 @@
-package com.jccsisc.controlbsc.ui;
+package com.jccsisc.controlbsc.ui.home.entradas;
 
 import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.tabs.TabLayout;
 import com.jccsisc.controlbsc.R;
 import com.jccsisc.controlbsc.tabs.SeccionesAdapter;
-import com.jccsisc.controlbsc.ui.matanzas.MatanzasFragment;
-import com.jccsisc.controlbsc.ui.procesos.ProcesosFragment;
-import com.jccsisc.controlbsc.ui.productos.ProductosFragment;
 import com.jccsisc.controlbsc.utilidades.NodosFirebase;
 
-public class ContenedorFragment extends Fragment {
-
+public class ContenedorEntradas extends Fragment {
     View vista;
     private AppBarLayout appBar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
-    public ContenedorFragment() { }
+    public ContenedorEntradas() { }
 
 
-    public static ContenedorFragment newInstance(String param1, String param2) {
-        ContenedorFragment fragment = new ContenedorFragment();
+    public static ContenedorEntradas newInstance(String param1, String param2) {
+        ContenedorEntradas fragment = new ContenedorEntradas();
         Bundle args = new Bundle();
         return fragment;
     }
@@ -81,10 +76,9 @@ public class ContenedorFragment extends Fragment {
     }
 
     private void llenarViewPager(ViewPager viewPager) {
-    SeccionesAdapter adapter = new SeccionesAdapter(getFragmentManager());
-        adapter.addFragment(new ProcesosFragment(), "Procesos");
-        adapter.addFragment(new MatanzasFragment(), "Matanzas");
-        adapter.addFragment(new ProductosFragment(), "Productos");
+        SeccionesAdapter adapter = new SeccionesAdapter(getFragmentManager());
+        adapter.addFragment(new EntradasFragment(), "Entradas");
+        adapter.addFragment(new ResumenFragment(), "Resumen");
         viewPager.setAdapter(adapter);
     }
 }

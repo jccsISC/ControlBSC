@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".dialogs.ModifyProductFragment"
+    android:id="@+id/fragmentModify"
     android:orientation="vertical">
 
     <LinearLayout

@@ -21,6 +21,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.jccsisc.controlbsc.R;
 import com.jccsisc.controlbsc.activities.MainActivity;
 import com.jccsisc.controlbsc.ui.historial.HistorialFragment;
+import com.jccsisc.controlbsc.ui.home.entradas.ContenedorEntradas;
 import com.jccsisc.controlbsc.ui.home.entradas.EntradasFragment;
 import com.jccsisc.controlbsc.ui.home.salidas.SalidasFragment;
 import com.jccsisc.controlbsc.ui.inventario.InventarioFragment;
@@ -48,7 +49,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.cardViewEntrada:
-                Fragment nuevoFragmento = new EntradasFragment();
+                Fragment nuevoFragmento = new ContenedorEntradas();
                 FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
                 transaction.replace(R.id.nav_host_fragment, nuevoFragmento);
                 transaction.addToBackStack(null);

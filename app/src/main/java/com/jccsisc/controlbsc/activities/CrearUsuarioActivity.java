@@ -52,11 +52,7 @@ public class CrearUsuarioActivity extends AppCompatActivity  implements View.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_usuario);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);//para que funcione vete al manifest agregalo
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(getString(R.string.registrate));
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);//el boton de regresar
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        myToolbar(getString(R.string.registrate));
 
         sp = new SoundPool(1, AudioManager.STREAM_MUSIC, 1);
         sonido = sp.load(this, R.raw.cuchillo_dos, 1);
@@ -361,5 +357,20 @@ public class CrearUsuarioActivity extends AppCompatActivity  implements View.OnC
 
     void pwdDMessage(String message) {
         tilVerifyPsw.setError(message);
+    }
+
+    public void myToolbar(String title) {
+        Toolbar toolbar = findViewById(R.id.toolbar);//para que funcione vete al manifest agregalo
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(title);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);//el boton de regresar
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 }

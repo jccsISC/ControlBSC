@@ -61,6 +61,7 @@ public class ModifyProductFragment extends DialogFragment implements View.OnClic
     }
 
 
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -153,13 +154,13 @@ public class ModifyProductFragment extends DialogFragment implements View.OnClic
         }
     }
 
-    private void modificarProducto(String idKey, final String name) {
+    public void modificarProducto(String idKey, final String name) {
         NodosFirebase.myRef.child(idKey).child("name")
                 .setValue(name.toUpperCase())
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        mtoast("Se modificó: "+nameE+" por "+ name+" correctamente");
+                        mtoast("Se modificó: "+nameE+" por "+name.toUpperCase()+" correctamente");
                         dismiss();
                     }
                 });
