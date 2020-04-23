@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.jccsisc.controlbsc.R;
 import com.jccsisc.controlbsc.activities.MainActivity;
+import com.jccsisc.controlbsc.utilidades.NodosFirebase;
 
 public class ResumenFragment extends Fragment {
 
@@ -24,6 +25,7 @@ public class ResumenFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_resumen, container, false);
 
+        MainActivity.edtAppBar.setVisibility(View.INVISIBLE);
         return v;
     }
 }

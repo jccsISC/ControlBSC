@@ -19,10 +19,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.jccsisc.controlbsc.R;
+import com.jccsisc.controlbsc.activities.MainActivity;
 import com.jccsisc.controlbsc.activities.RegistrarE_SActivity;
 import com.jccsisc.controlbsc.activities.RegistrarE_S_C_Activity;
 import com.jccsisc.controlbsc.adapters.ProductosAdapter;
@@ -32,7 +31,6 @@ import com.jccsisc.controlbsc.model.Producto;
 import com.jccsisc.controlbsc.utilidades.NodosFirebase;
 import com.mikelau.views.shimmer.ShimmerRecyclerViewX;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class EntradasFragment extends Fragment {
@@ -45,6 +43,9 @@ public class EntradasFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_entradas, container, false);
+
+        MainActivity.visivilitySearch("Entradas");
+
         edtBuscador = v.findViewById(R.id.edtBuscador);
         rvEntradas = v.findViewById(R.id.recyclerViewEntradas);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
@@ -73,7 +74,6 @@ public class EntradasFragment extends Fragment {
                             snapshot.child("idKey").getValue(String.class));
 
                     for(DataSnapshot movimiento : snapshot.child("movimientos").getChildren()){
-
                         Movimiento movimiento1 = new Movimiento(
                                 movimiento.child("date").getValue(String.class),
                                 movimiento.child("type").getValue(String.class),
@@ -114,14 +114,14 @@ public class EntradasFragment extends Fragment {
         entradasAdapter.setOnClickListener(new ProductosAdapter.OnClickListener() {
             @Override
             public void onItemClick( int pos) {
-                mostrar(pos, productoArrayList);
+                mostraraActivity(pos, productoArrayList);
             }
         });
 
         entradasAdapter2.setOnClickListener(new ProductosAdapter.OnClickListener() {
             @Override
             public void onItemClick( int pos) {
-                mostrar(pos, productoArrayList2);
+                mostraraActivity(pos, productoArrayList2);
             }
         });
 
@@ -147,7 +147,7 @@ public class EntradasFragment extends Fragment {
     }
 
 
-    private void mostrar(int pos, ArrayList<Producto> arrayList) {
+    private void mostraraActivity(int pos, ArrayList<Producto> arrayList) {
         if(arrayList.get(pos).getUnit().equals("Caja")) {
             Intent i = new Intent(getContext(), RegistrarE_S_C_Activity.class);
             i.putExtra("nameProducto", arrayList.get(pos).getName());
@@ -163,7 +163,7 @@ public class EntradasFragment extends Fragment {
 
     private void metodoBuscar(CharSequence s){
         productoArrayList2.clear();
-        for (int i = 0; i<productoArrayList.size(); i++) {
+        for (int i = 0; i < productoArrayList.size(); i++) {
             if (productoArrayList.get(i).getName().contains(s.toString().toUpperCase())) {
                 productoArrayList2.add(productoArrayList.get(i));
             }

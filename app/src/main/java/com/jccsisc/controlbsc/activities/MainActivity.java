@@ -15,6 +15,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.jccsisc.controlbsc.R;
 import com.jccsisc.controlbsc.dialogs.ModifyProductFragment;
 import com.jccsisc.controlbsc.ui.productos.ProductosFragment;
+import com.jccsisc.controlbsc.utilidades.NodosFirebase;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
@@ -29,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     public static EditText edtAppBar;
-    public String fragment_text = "Home";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        visivilitySearch(fragment_text); //para que no muestre el buscador en la vista home
+        visivilitySearch(NodosFirebase.nameFragment); //para que no muestre el buscador en la vista home
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);

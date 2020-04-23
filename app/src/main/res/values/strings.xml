@@ -3,21 +3,30 @@
 
     <string name="btn_login">Iniciar Sesión</string>
     <string name="btn_Sign_In">Registrate ya...</string>
+    <string name="btn_forget">¿Olvidaste tu contraseña?</string>
 
     <string name="caja">Caja</string>
+    <string name="cargar">Cargar</string>
+    <string name="cantidad_piezas">Cantidad de Piezas</string>
 
     <string name="db_User">DB_Users</string>
 
     <string name="empty_field">Campo Vacio</string>
     <string name="email_invalid">Correo Invalido</string>
     <string name="entradas">ENTRADAS</string>
+    <string name="entradas_salidas">Registre las Entradas o Salidas</string>
 
     <string name="hint_email">Ingrese su Correo Electronico</string>
     <string name="hint_password">Ingrese su contraseña</string>
     <string name="hint_producto">Nombre del producto</string>
     <string name="hint_verifyPsw">Verifica tu contraseña</string>
+    <string name="hint_name">Ingresa tu nombre(s)</string>
+    <string name="hint_last_name">Ingresa tus apellidos</string>
+    <string name="hint_cero">0.0</string>
 
     <string name="img_description">Descripcion de la imagen sierra costa</string>
+    <string name="ingrese_peso_caja">Ingrese el peso de la caja</string>
+    <string name="insert_last_name">Ingrese su Apellido!!</string>
 
     <string name="kg">Kg</string>
 
@@ -29,6 +38,7 @@
     <string name="menu_historial">Historial E/S</string>
     <string name="menu_camaras">Control de Camaras</string>
     <string name="menu_inventario">Inventario</string>
+    <string name="menu_tickets">Tickets</string>
     <string name="menu_contacto">Contactanos</string>
     <string name="menu_cerrarsesion">Cerrar Sesión</string>
     <string name="menu_pedidos">Pedidos</string>
@@ -43,12 +53,15 @@
     <string name="noInternet">No tienes internet :/</string>
     <string name="nombre_del_expositor">Buscar producto</string>
 
-
-    <string name="pwd_length">Mínimo 6 caracteres</string>
-    <string name="pwd_segura">Ingrese una Clave segura(Minimo: 1 mayus, 1 minu, 1 número, 8 caracteres mini-max 16)</string>
     <string name="pieza">Pieza</string>
+    <string name="peso_t">Peso Total</string>
+    <string name="pwd_length">Mínimo 6 caracteres</string>
+    <string name="peso_con_caja">Peso total con Caja</string>
+    <string name="peso_sin_caja">Resultado Peso total sin Caja</string>
+    <string name="pwd_segura">Ingrese una Clave segura(Minimo: 1 mayus, 1 minu, 1 número, 8 caracteres mini-max 16)</string>
 
     <string name="registrado">Se registró correctamente</string>
+    <string name="registrar_entradas">Registra la entrada</string>
     <string name="registrate">Registrate ya!!</string>
 
     <string name="salidas">SALIDAS</string>
@@ -57,27 +70,16 @@
     <string name="title_Registrar">Registrar nuevo Producto</string>
 
     <string name="unidad">Seleccione si es una Pieza o Caja</string>
-    <string name="entradas_salidas">Registre las Entradas o Salidas</string>
+
     <string name="tres_kg">3.0 kg</string>
-    <string name="cero">0.0</string>
     <string name="two_two">2.2 kg</string>
     <string name="two">2.0 kg</string>
     <string name="two_four">2.4 kg</string>
     <string name="one_six">1.6 kg</string>
-    <string name="cantidad_piezas">Cantidad de Piezas</string>
-    <string name="peso_sin_caja">Resultado Peso total sin Caja</string>
-    <string name="peso_con_caja">Peso total con Caja</string>
-    <string name="cargar">Cargar</string>
     <string name="one_four">1.4 kg</string>
-    <string name="peso_t">Peso Total</string>
-    <string name="ingrese_peso_caja">Ingrese el peso de la caja</string>
-    <string name="menu_tickets">Tickets</string>
-    <string name="hint_name">Ingresa tu nombre(s)</string>
-    <string name="hint_last_name">Ingresa tus apellidos</string>
-    <string name="insert_last_name">Ingrese su Apellido!!</string>
+
     <string name="no_equals">Las contraseñas no coinciden</string>
     <string name="exist">El usuario ya Existe!!</string>
-    <string name="btn_forget">¿Olvidaste tu contraseña?</string>
     <string name="or">Or</string>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -93,6 +95,8 @@
     <string name="btn_eliminar">Eliminar</string>
     <string name="btn_modificar">Modificar</string>
     <string name="more">More</string>
-
+    <string name="modify_caja">Modifica la caja seleccionada</string>
+    <string name="nota_dialog_modify_caja">Modifica la cantidad de la caja o eliminala</string>
+    <string name="hint_peso_caja">Ingrese el peso de la caja</string>
 
 </resources>

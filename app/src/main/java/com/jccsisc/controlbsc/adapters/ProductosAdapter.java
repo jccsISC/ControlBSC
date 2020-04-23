@@ -14,6 +14,7 @@ import com.jccsisc.controlbsc.R;
 import com.jccsisc.controlbsc.model.Producto;
 import com.jccsisc.controlbsc.utilidades.Aritmetica;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.ProductosViewHolder>{
@@ -22,6 +23,7 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.Prod
     private Activity activity;
     private OnClickListener onClickListener = null;
     private String vista; //para saber si es la entrada o la salida
+    DecimalFormat df = new DecimalFormat("0.00");
 
     public void setOnClickListener(OnClickListener onClickListener) {
         this.onClickListener = onClickListener;
@@ -63,7 +65,7 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.Prod
             }
         });
 
-        holder.textKg.setText(String.valueOf(Aritmetica.sumaMovimiento(producto.getMovimientos())));
+        holder.textKg.setText(df.format(Aritmetica.sumaMovimiento(producto.getMovimientos())));
         if(vista.equals("Entrada")) {
             holder.textCantidad.setText(String.valueOf(Aritmetica.sumaCajaFecha(producto.getMovimientos())));
             holder.textKg.setText(String.valueOf(Aritmetica.sumaMovimientoFecha(producto.getMovimientos())));

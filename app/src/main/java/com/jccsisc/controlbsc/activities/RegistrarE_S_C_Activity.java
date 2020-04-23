@@ -1,6 +1,5 @@
 package com.jccsisc.controlbsc.activities;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -8,11 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -20,15 +17,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.jccsisc.controlbsc.R;
 import com.jccsisc.controlbsc.adapters.CajasAdapter;
 import com.jccsisc.controlbsc.dialogs.ForgetPasswordFragment;
+import com.jccsisc.controlbsc.dialogs.ModifyCajaFragment;
 import com.jccsisc.controlbsc.model.Detalle;
 import com.jccsisc.controlbsc.model.Movimiento;
+import com.jccsisc.controlbsc.utilidades.NodosFirebase;
 
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -38,48 +35,40 @@ import java.util.Locale;
 
 public class RegistrarE_S_C_Activity extends AppCompatActivity {
 
-    private DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("DB_Bodega1").child("DB_Productos");
-    private Button btnCargar;
-    private ImageButton  btnSumar;
-    private TextView nameProducto, txtCT, txtPesoT;
-    private EditText edtPesoC;
-    private String dateEntrada, dateSalida = "", idKey, name;
-    private int hora, minutos, segundos;
-    double sumatotal = 0.0;
-    private ArrayList<Detalle> detallesArrayList = new ArrayList<>();
-    private CajasAdapter cajasAdapter;
-    private ForgetPasswordFragment forgetPasswordFragment = new ForgetPasswordFragment();
-    RecyclerView recyclerPesadasC;
     Intent extras;
-
+    double sumatotal = 0.0;
+    private Button btnCargar;
+    private EditText edtPesoC;
+    private ImageButton  btnSumar;
+    private CajasAdapter cajasAdapter;
+    public static String horaE_S, dateEntrada;
+    public static int hora, minutos, segundos;
+    private RecyclerView recyclerPesadasC;
+    private TextView nameProducto, txtCT, txtPesoT;
+    private String  dateSalida = "", idKey, name;
+    private ArrayList<Detalle> detallesArrayList = new ArrayList<>();
+    private ModifyCajaFragment modifyCajaFragment = new ModifyCajaFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_e_s_productos_caja);
 
+        toolbar();
+        obtenerFecha();
+        obtenerHora();
+
         extras = getIntent();
         name  = extras.getStringExtra("nameProducto");
         idKey = extras.getStringExtra("idKey");
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        Date date = new Date();
-        dateEntrada = dateFormat.format(date);
-
-        Calendar calendario = new GregorianCalendar();
-        hora    = calendario.get(Calendar.HOUR_OF_DAY);
-        minutos = calendario.get(Calendar.MINUTE);
-        segundos= calendario.get(Calendar.SECOND);
-        final String horaE_S = hora + ":" + minutos + ":" + segundos;
-
-
         recyclerPesadasC = findViewById(R.id.recyclerPesadasC);
-        nameProducto = findViewById(R.id.txtNameProductoR);
-        txtCT        = findViewById(R.id.txtCT);
-        txtPesoT     = findViewById(R.id.txtPesoT);
-        btnCargar    = findViewById(R.id.btnCargar);
-        btnSumar     = findViewById(R.id.btnSumar);
-        edtPesoC     = findViewById(R.id.edtPesoC);
+        nameProducto     = findViewById(R.id.txtNameProductoR);
+        txtCT            = findViewById(R.id.txtCT);
+        txtPesoT         = findViewById(R.id.txtPesoT);
+        btnCargar        = findViewById(R.id.btnCargar);
+        btnSumar         = findViewById(R.id.btnSumar);
+        edtPesoC         = findViewById(R.id.edtPesoC);
 
         LinearLayoutManager linearLayoutManager = new GridLayoutManager(this, 3);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
@@ -88,22 +77,6 @@ public class RegistrarE_S_C_Activity extends AppCompatActivity {
         cajasAdapter = new CajasAdapter(detallesArrayList, this);
 
         recyclerPesadasC.setAdapter(cajasAdapter);
-//
-//        CrearUsuarioActivity c = new CrearUsuarioActivity();
-//        c.myToolbar(getString(R.string.entradas));
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(getString(R.string.entradas));
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);//el boton de regresar
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
         btnSumar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,7 +115,8 @@ public class RegistrarE_S_C_Activity extends AppCompatActivity {
 
                 movimiento.setDetalles(detallesArrayList);
 
-                    myRef.child(idKey).child("movimientos").child(id).setValue(movimiento).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    NodosFirebase.myRef.child(idKey).child("movimientos").child(id).setValue(movimiento)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
                             mtoast("Exito");
@@ -158,15 +132,44 @@ public class RegistrarE_S_C_Activity extends AppCompatActivity {
             }
         });
 
-
         cajasAdapter.setOnClickListener(new CajasAdapter.OnClickListener() {
             @Override
             public void onItemClick(final int pos) {
-                forgetPasswordFragment.show(getSupportFragmentManager(), "dialogForget");
+                modifyCajaFragment.show(getSupportFragmentManager(), "dialogModifyCaja");
+
             }
         });
 
     }//onCreate
+
+    private void toolbar() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(getString(R.string.registrar_entradas));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);//el boton de regresar
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+
+    public static void obtenerFecha() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        Date date = new Date();
+        dateEntrada = dateFormat.format(date);
+    }
+
+    public static void obtenerHora() {
+        Calendar calendario = new GregorianCalendar();
+        hora    = calendario.get(Calendar.HOUR_OF_DAY);
+        minutos = calendario.get(Calendar.MINUTE);
+        segundos= calendario.get(Calendar.SECOND);
+        horaE_S = hora + ":" + minutos + ":" + segundos;
+    }
 
     public void mtoast(String msj) {
         Toast toast = Toast.makeText(this, msj, Toast.LENGTH_SHORT);

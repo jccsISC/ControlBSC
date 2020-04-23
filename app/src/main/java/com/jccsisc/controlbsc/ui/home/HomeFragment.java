@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,6 +27,7 @@ import com.jccsisc.controlbsc.ui.home.entradas.EntradasFragment;
 import com.jccsisc.controlbsc.ui.home.salidas.SalidasFragment;
 import com.jccsisc.controlbsc.ui.inventario.InventarioFragment;
 import com.jccsisc.controlbsc.ui.procesos.ProcesosFragment;
+import com.jccsisc.controlbsc.utilidades.NodosFirebase;
 
 public class HomeFragment extends Fragment implements View.OnClickListener{
 
@@ -37,7 +39,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         cardViewEntrada = v.findViewById(R.id.cardViewEntrada);
         cardViewSalidas = v.findViewById(R.id.cardViewSalida);
 
-        MainActivity.visivilitySearch("Home"); //para que el buscador no se visualice en este fragment en el toolbar
+        MainActivity.visivilitySearch(NodosFirebase.nameFragment); //para que el buscador no se visualice en este fragment en el toolbar
 
         cardViewEntrada.setOnClickListener(this);
         cardViewSalidas.setOnClickListener(this);
@@ -54,7 +56,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 transaction.replace(R.id.nav_host_fragment, nuevoFragmento);
                 transaction.addToBackStack(null);
                 transaction.commit();
-                MainActivity.visivilitySearch("Entradas");
                 break;
             case R.id.cardViewSalida:
                 Fragment nuevoFrament = new SalidasFragment();

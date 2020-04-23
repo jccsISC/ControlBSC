@@ -70,7 +70,8 @@ public class ProductosFragment extends Fragment {
         rvProductos.setAdapter(productosAdapter);
         rvProductos.showShimmerAdapter();
 
-        MainActivity.visivilitySearch("Productos");
+        NodosFirebase.nameFragment = "Productos";
+        MainActivity.visivilitySearch(NodosFirebase.nameFragment);
 
         NodosFirebase.myRef.orderByChild("name").addValueEventListener(new ValueEventListener() {
             @Override

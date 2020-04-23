@@ -129,10 +129,10 @@
                     android:inputType="numberDecimal"
                     android:layout_marginEnd="@dimen/marginEnd_22"
                     android:background="@drawable/borde_card"
-                    android:hint="@string/cero"
+                    android:hint="@string/hint_cero"
                     android:textSize="@dimen/size_28"
                     android:gravity="center"
-                    android:autofillHints="@string/cero"/>
+                    android:autofillHints="@string/hint_cero"/>
 
                 <ImageButton
                     android:id="@+id/btnSumar"

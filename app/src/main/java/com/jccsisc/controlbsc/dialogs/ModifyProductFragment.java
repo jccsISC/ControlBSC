@@ -4,43 +4,34 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Patterns;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.agrawalsuneet.dotsloader.loaders.TashieLoader;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.jccsisc.controlbsc.R;
 import com.jccsisc.controlbsc.utilidades.NodosFirebase;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class ModifyProductFragment extends DialogFragment implements View.OnClickListener {
 
     private Activity activity;
@@ -65,21 +56,21 @@ public class ModifyProductFragment extends DialogFragment implements View.OnClic
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        return dialogForget();
+        return dialogModifyProduct();
     }
 
-    private AlertDialog dialogForget() {
+    private AlertDialog dialogModifyProduct() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View v = inflater.inflate(R.layout.fragment_modify_product, null);
         builder.setView(v);
 
-        btnExit  = v.findViewById(R.id.btnExit);
-        tilName = v.findViewById(R.id.tilNameProduct);
-        tieName = v.findViewById(R.id.tieNameProduct);
+        btnExit       = v.findViewById(R.id.btnExit);
+        tilName       = v.findViewById(R.id.tilNameProduct);
+        tieName       = v.findViewById(R.id.tieNameProduct);
         txtNameModify = v.findViewById(R.id.txtNameProductoModificar);
-        btnModificar = v.findViewById(R.id.btnModify);
-        btnEliminar  = v.findViewById(R.id.btnEliminar);
+        btnModificar  = v.findViewById(R.id.btnModify);
+        btnEliminar   = v.findViewById(R.id.btnEliminar);
 
         txtNameModify.setText(name);
         nameE = name;
