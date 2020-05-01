@@ -52,7 +52,6 @@ public class ModifyProductFragment extends DialogFragment implements View.OnClic
     }
 
 
-
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -79,18 +78,7 @@ public class ModifyProductFragment extends DialogFragment implements View.OnClic
 
         tashieLoader = v.findViewById(R.id.tashieLoader);
 
-        //mostrar la animacion de cargando
-        TashieLoader tashie;
-        tashie = new TashieLoader(
-                getActivity(), 5,
-                30, 10,
-                ContextCompat.getColor(getActivity(), R.color.colorPrimary));
-
-        tashie.setAnimDuration(500);
-        tashie.setAnimDelay(100);
-        tashie.setInterpolator(new LinearInterpolator());
-
-        tashieLoader.addView(tashie);
+        tashieLoad();
 
         tieName.addTextChangedListener(new TextWatcher() {
             @Override
@@ -114,6 +102,21 @@ public class ModifyProductFragment extends DialogFragment implements View.OnClic
         btnEliminar.setOnClickListener(this);
 
         return builder.create();
+    }
+
+    private void tashieLoad() {
+        //mostrar la animacion de cargando
+        TashieLoader tashie;
+        tashie = new TashieLoader(
+                getActivity(), 5,
+                30, 10,
+                ContextCompat.getColor(getActivity(), R.color.colorPrimary));
+
+        tashie.setAnimDuration(500);
+        tashie.setAnimDelay(100);
+        tashie.setInterpolator(new LinearInterpolator());
+
+        tashieLoader.addView(tashie);
     }
 
     @Override

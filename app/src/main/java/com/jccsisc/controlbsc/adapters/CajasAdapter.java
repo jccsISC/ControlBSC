@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jccsisc.controlbsc.R;
@@ -43,7 +44,7 @@ public class CajasAdapter extends RecyclerView.Adapter<CajasAdapter.ProductosVie
         holder.txtPesoCaja.setText(String.valueOf(detalles_model.get(position).getPeso()));
         holder.txtNumberCaja.setText(String.valueOf(position + 1));
 
-        holder.txtPesoCaja.setOnClickListener(new View.OnClickListener() {
+        holder.cardCaja.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (onClickListener == null) return;
@@ -62,9 +63,10 @@ public class CajasAdapter extends RecyclerView.Adapter<CajasAdapter.ProductosVie
     //creamos nuestra inner class
     public  class ProductosViewHolder extends RecyclerView.ViewHolder {
         TextView txtPesoCaja, txtNumberCaja;
-
+        CardView cardCaja;
         public ProductosViewHolder(@NonNull View itemView) {
             super(itemView);
+            cardCaja = itemView.findViewById(R.id.cardCaja);
             txtPesoCaja = itemView.findViewById(R.id.txtPesoCaja);
             txtNumberCaja = itemView.findViewById(R.id.txtNumberCaja);
         }

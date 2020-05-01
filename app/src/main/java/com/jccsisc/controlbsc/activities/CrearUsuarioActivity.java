@@ -148,11 +148,11 @@ public class CrearUsuarioActivity extends AppCompatActivity  implements View.OnC
     }
 
     private void registrarNuevoUser() {
-        final String name      = tieName.getEditableText().toString();
-        String lastName  = tieLastName.getEditableText().toString();
-        String email     = tietEmail.getEditableText().toString();
-        String password = tietPassword.getEditableText().toString();
-        String verifyPsw= tietVerifyPsw.getEditableText().toString();
+        final String name = tieName.getEditableText().toString();
+        String lastName   = tieLastName.getEditableText().toString();
+        String email      = tietEmail.getEditableText().toString();
+        String password   = tietPassword.getEditableText().toString();
+        String verifyPsw  = tietVerifyPsw.getEditableText().toString();
 
         if(nameValid(name) & lastNameValid(lastName) & emailIsValid(email) & pwdIsValid(password) & pwdIsValid2(verifyPsw) && isConnected()) {
             if(verifyPsw.equals(password)) {

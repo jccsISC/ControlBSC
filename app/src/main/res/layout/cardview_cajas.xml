@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    android:id="@+id/cardCaja"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/height_40"
+    android:layout_height="@dimen/height_50"
     android:layout_marginVertical="2dp"
     android:layout_marginHorizontal="2dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -12,9 +14,9 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:gravity="center_horizontal">
+        android:gravity="center">
 
         <TextView
             android:id="@+id/txtNumberCaja"
@@ -30,7 +32,7 @@
 
         <TextView
             android:layout_width="20dp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/height_40"
             android:textAlignment="center"
             android:text=" - "
             android:textSize="@dimen/size_24"
@@ -42,7 +44,6 @@
             android:layout_width="50dp"
             android:layout_height="@dimen/height_40"
             android:fontFamily="@font/roboto_bold"
-            android:layout_gravity="center_horizontal"
             android:id="@+id/txtPesoCaja"
             tools:text="21.5"
             android:textSize="@dimen/size_28"
