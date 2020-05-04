@@ -65,7 +65,7 @@ public class EntradasFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 rvEntradas.hideShimmerAdapter();
-                Log.e("LOG",dataSnapshot.toString());
+//                Log.e("LOG",dataSnapshot.toString());
                 productoArrayList.removeAll(productoArrayList);
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Producto producto = new Producto(

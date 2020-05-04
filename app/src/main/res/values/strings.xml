@@ -2,6 +2,8 @@
     <string name="app_name">ControlBSC</string>
 
     <string name="btn_login">Iniciar Sesión</string>
+    <string name="btn_eliminar">Eliminar</string>
+    <string name="btn_modificar">Modificar</string>
     <string name="btn_Sign_In">Registrate ya...</string>
     <string name="btn_forget">¿Olvidaste tu contraseña?</string>
 
@@ -14,7 +16,7 @@
     <string name="empty_field">Campo Vacio</string>
     <string name="email_invalid">Correo Invalido</string>
     <string name="entradas">ENTRADAS</string>
-    <string name="entradas_salidas">Registre las Entradas o Salidas</string>
+    <string name="entradas_salidas">Aquí se mostraran los pendientes por enviar...</string>
 
     <string name="hint_email">Ingrese su Correo Electronico</string>
     <string name="hint_password">Ingrese su contraseña</string>
@@ -92,11 +94,10 @@
     <string name="error_restablecer">No se pudo enviar el correo para restablecer la contraseña</string>
     <string name="modify_name_product">Modificar el Nombre del Producto</string>
     <string name="nota_dialog_modify_product">Modifique el nombre del producto o eliminelo</string>
-    <string name="btn_eliminar">Eliminar</string>
-    <string name="btn_modificar">Modificar</string>
     <string name="more">More</string>
     <string name="modify_caja">Modifica la caja seleccionada</string>
     <string name="nota_dialog_modify_caja">Modifica la cantidad de la caja o eliminala</string>
     <string name="hint_peso_caja">Ingrese el peso de la caja</string>
+    <string name="one_five">1.5</string>
 
 </resources>

@@ -90,10 +90,10 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.Prod
         public ProductosViewHolder(@NonNull View itemView) {
             super(itemView);
             cardViewProducto = itemView.findViewById(R.id.cardViewProducto);
-            textNameProduct = itemView.findViewById(R.id.textNameProducto);
-            textCantidad    = itemView.findViewById(R.id.textCantidad);
-            textUnit        = itemView.findViewById(R.id.textUnit);
-            textKg          = itemView.findViewById(R.id.textKg);
+            textNameProduct  = itemView.findViewById(R.id.textNameProducto);
+            textCantidad     = itemView.findViewById(R.id.textCantidad);
+            textUnit         = itemView.findViewById(R.id.textUnit);
+            textKg           = itemView.findViewById(R.id.textKg);
         }
     }
 

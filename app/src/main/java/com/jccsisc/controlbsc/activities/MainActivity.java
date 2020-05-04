@@ -134,6 +134,9 @@ public class MainActivity extends AppCompatActivity {
             case "Productos":
                 edtAppBar.setVisibility(View.VISIBLE);
                 break;
+            case "Home":
+                edtAppBar.setVisibility(View.INVISIBLE);
+                break;
             default:
                 edtAppBar.setVisibility(View.INVISIBLE);
                 break;

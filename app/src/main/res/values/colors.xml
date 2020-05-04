@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#388E3C</color>
     <color name="colorPrimaryLight">#C8E6C9</color>
     <color name="colorAccent">#8C8C8C</color>
+    <color name="color_bg_red">#EA0C0C</color>
     <color name="colorSecondaryText">#757575</color>
     <color name="shadow">#000000</color>
     <color name="colorPieza">#E91E63</color>

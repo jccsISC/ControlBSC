@@ -70,8 +70,6 @@ public class CajasAdapter extends RecyclerView.Adapter<CajasAdapter.ProductosVie
             txtPesoCaja = itemView.findViewById(R.id.txtPesoCaja);
             txtNumberCaja = itemView.findViewById(R.id.txtNumberCaja);
         }
-
-
     }
     public interface OnClickListener {
         void onItemClick(int pos);

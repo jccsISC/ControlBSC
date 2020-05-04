@@ -62,7 +62,7 @@
 
     <Button
         android:id="@+id/btnLogin"
-        android:layout_marginTop="@dimen/margin_Top_30"
+        android:layout_marginTop="@dimen/marginTop_30"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/btn_login"

@@ -48,7 +48,7 @@ public class RegistrarE_S_C_Activity extends AppCompatActivity implements View.O
     private EditText edtPesoC;
     private ImageButton  btnSumar;
     private CajasAdapter cajasAdapter;
-    public static String horaE_S, dateEntrada;
+    public static String horaES, dateEntrada;
     public static int hora, minutos, segundos;
     private RecyclerView recyclerPesadasC;
     private TextView nameProducto, txtCT, txtPesoT;
@@ -66,13 +66,13 @@ public class RegistrarE_S_C_Activity extends AppCompatActivity implements View.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_e_s_productos_caja);
 
+        extras = getIntent();
+        idKey = extras.getStringExtra("idKey");
+        name  = extras.getStringExtra("nameProducto");
+
         toolbar();
         obtenerFecha();
         obtenerHora();
-
-        extras = getIntent();
-        name  = extras.getStringExtra("nameProducto");
-        idKey = extras.getStringExtra("idKey");
 
         recyclerPesadasC = findViewById(R.id.recyclerPesadasC);
         nameProducto     = findViewById(R.id.txtNameProductoR);
@@ -92,17 +92,22 @@ public class RegistrarE_S_C_Activity extends AppCompatActivity implements View.O
             @Override
             public void onClick(View v) {
                 if(edtPesoC.getText().toString().trim().equals("")){
-                    mtoast("Ingrese una cantidad");
+//                    mtoast("Ingrese una cantidad");
+                    edtPesoC.setBackground(getResources().getDrawable(R.drawable.borde_card_red));
+                    edtPesoC.setHintTextColor(getResources().getColor(R.color.colorPieza));
                 }else{
                     double peso = Double.parseDouble(edtPesoC.getText().toString().trim());
-
-                    String id =  FirebaseDatabase.getInstance().getReference().push().getKey();
+                    String id =  FirebaseDatabase.getInstance().getReference().push().getKey(); //generamos un id
                     Detalle modelitoDetalle =  new Detalle(id, peso);
                     modelitoDetalle.setIdKey(id);
 
                     detallesArrayList.add(modelitoDetalle);
                     cajasAdapter.notifyDataSetChanged();
+
+                    edtPesoC.setBackground(getResources().getDrawable(R.drawable.borde_card));
+                    edtPesoC.setHintTextColor(getResources().getColor(R.color.colorSecondaryText));
                     edtPesoC.setText("");
+
                     sumatoriaPeso();
                 }
             }
@@ -120,7 +125,7 @@ public class RegistrarE_S_C_Activity extends AppCompatActivity implements View.O
 
                     chargingFragment.show(getSupportFragmentManager(), "dialogCharging");
 
-                    Movimiento movimiento = new Movimiento(dateEntrada,"positive",horaE_S, "Congelacion",
+                    Movimiento movimiento = new Movimiento(dateEntrada,"positive", horaES, "Congelacion",
                             "normal", id, sumatotal, detallesArrayList.size());
 
                     movimiento.setDetalles(detallesArrayList);
@@ -212,16 +217,16 @@ public class RegistrarE_S_C_Activity extends AppCompatActivity implements View.O
 
     public static void obtenerFecha() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        Date date = new Date();
+        Date date   = new Date();
         dateEntrada = dateFormat.format(date);
     }
 
     public static void obtenerHora() {
         Calendar calendario = new GregorianCalendar();
-        hora    = calendario.get(Calendar.HOUR_OF_DAY);
-        minutos = calendario.get(Calendar.MINUTE);
-        segundos= calendario.get(Calendar.SECOND);
-        horaE_S = hora + ":" + minutos + ":" + segundos;
+        hora      = calendario.get(Calendar.HOUR_OF_DAY);
+        minutos   = calendario.get(Calendar.MINUTE);
+        segundos  = calendario.get(Calendar.SECOND);
+        horaES    = hora + ":" + minutos + ":" + segundos;
     }
 
     public void mtoast(String msj) {
@@ -243,6 +248,7 @@ public class RegistrarE_S_C_Activity extends AppCompatActivity implements View.O
     void pesoMessage() { tilPesoCaja.setError(null);}
     void pesoMessage(String message) { tilPesoCaja.setError(message);}
 
+    //onclick para el item del recycler
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnExit:
