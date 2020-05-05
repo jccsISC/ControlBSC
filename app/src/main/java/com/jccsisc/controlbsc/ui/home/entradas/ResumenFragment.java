@@ -91,9 +91,8 @@ public class ResumenFragment extends Fragment {
                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
                     Date date = new Date();
                     dateToday = dateFormat.format(date);
-                        ArrayList<Movimiento> movimientos = producto.getMovimientos();
-                        for(int c = 0; c < movimientos.size(); c++){
-                            if(movimientos.get(c).getDate().equals(dateToday)){
+                        for(int c = 0; c < producto.getMovimientos().size(); c++){
+                            if(producto.getMovimientos().get(c).getDate().equals(dateToday)){
                                 productoArrayList.add(producto);
                             }
                         }
