@@ -27,7 +27,10 @@ import com.jccsisc.controlbsc.model.Producto;
 import com.jccsisc.controlbsc.utilidades.NodosFirebase;
 import com.mikelau.views.shimmer.ShimmerRecyclerViewX;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class ResumenFragment extends Fragment {
 
@@ -84,9 +87,13 @@ public class ResumenFragment extends Fragment {
                             producto.addMovimiento(movimiento1);
 //                        }
                     }
+                    String dateToday;
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                    Date date = new Date();
+                    dateToday = dateFormat.format(date);
                         ArrayList<Movimiento> movimientos = producto.getMovimientos();
                         for(int c = 0; c < movimientos.size(); c++){
-                            if(movimientos.get(c).getDate().equals("2020-05-05")){
+                            if(movimientos.get(c).getDate().equals(dateToday)){
                                 productoArrayList.add(producto);
                             }
                         }
