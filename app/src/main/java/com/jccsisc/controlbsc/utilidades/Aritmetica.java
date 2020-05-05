@@ -19,11 +19,9 @@ public class Aritmetica {
     public static double sumaMovimientoFecha(ArrayList<Movimiento> recibido){
         double total = 0;
         String dateEntrada;
-
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         Date date = new Date();
         dateEntrada = dateFormat.format(date);
-
         for(Movimiento nuevo : recibido){
             if(nuevo.getDate().equals(dateEntrada)) {
                 total = total + (nuevo.getWeight());

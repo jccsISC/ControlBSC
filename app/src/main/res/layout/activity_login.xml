@@ -35,6 +35,7 @@
             android:inputType="textEmailAddress"
             android:fontFamily="@font/roboto_regular"
             android:textSize="@dimen/size_20"
+            android:text="silva.jccs18@gmail.com"
             android:drawableEnd="@drawable/ic_usuario"
             />
     </com.google.android.material.textfield.TextInputLayout>
@@ -53,6 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/padding_10"
+            android:text="aaaaaa"
             android:fontFamily="@font/roboto_regular"
             android:hint="@string/hint_password"
             android:inputType="textPassword"
