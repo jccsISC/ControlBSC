@@ -9,7 +9,7 @@ public class Aritmetica {
 
     public static double sumaMovimiento(ArrayList<Movimiento> recibido) {
         double total = 0;
-        for(Movimiento nuevo : recibido) {
+        for (Movimiento nuevo : recibido) {
             total += (nuevo.getWeight());
         }
 

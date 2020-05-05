@@ -59,5 +59,6 @@
     <dimen name="width_160">160dp</dimen>
     <dimen name="width_btn_250">250dp</dimen>
     <dimen name="width_300">300dp</dimen>
+    <dimen name="size_18">18sp</dimen>
 
 </resources>

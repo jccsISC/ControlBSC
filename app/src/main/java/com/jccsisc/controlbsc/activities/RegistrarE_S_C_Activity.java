@@ -121,23 +121,7 @@ public class RegistrarE_S_C_Activity extends AppCompatActivity implements View.O
                 if(detallesArrayList.size() == 0){
                     mtoast("No hay elementos que sumar");
                 }else{
-                    String id = FirebaseDatabase.getInstance().getReference().push().getKey();
-
-                    chargingFragment.show(getSupportFragmentManager(), "dialogCharging");
-
-                    Movimiento movimiento = new Movimiento(dateEntrada,"positive", horaES, "Congelacion",
-                            "normal", id, sumatotal, detallesArrayList.size());
-
-                    movimiento.setDetalles(detallesArrayList);
-
-                    NodosFirebase.myRef.child(idKey).child("movimientos").child(id).setValue(movimiento)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            mtoast("Se guardó correctamente");
-                            finish();
-                        }
-                    });
+                    registrarEntradasCaja();
                     }
             }
         });
@@ -157,6 +141,26 @@ public class RegistrarE_S_C_Activity extends AppCompatActivity implements View.O
 
     }//onCreate
 
+
+    private void registrarEntradasCaja() {
+        String id = FirebaseDatabase.getInstance().getReference().push().getKey();
+
+        chargingFragment.show(getSupportFragmentManager(), "dialogCharging");
+
+        Movimiento movimiento = new Movimiento(dateEntrada,"positive", horaES, "Congelacion",
+                "normal", id, sumatotal, detallesArrayList.size());
+
+        movimiento.setDetalles(detallesArrayList);
+
+        NodosFirebase.myRef.child(idKey).child("movimientos").child(id).setValue(movimiento)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        mtoast("Se guardó correctamente");
+                        finish();
+                    }
+                });
+    }
 
     private void sumatoriaPeso() {
         sumatotal = 0;

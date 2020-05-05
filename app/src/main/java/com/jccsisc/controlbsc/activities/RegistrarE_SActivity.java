@@ -100,26 +100,7 @@ public class RegistrarE_SActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (!pesoTCon.getText().toString().trim().equals("")) {
-
-                    String id = FirebaseDatabase.getInstance().getReference().push().getKey();
-
-                    chargingFragment.show(getSupportFragmentManager(), "dialogChargin");
-
-//                    pesoFinal = Double.parseDouble(pesoTSin.toString());
-                    int cantPieza = Integer.parseInt(cantPiezas.getText().toString());
-
-                    MovimientoPiezas movimientoCarne = new MovimientoPiezas(dateEntrada, "positive", horaEntrada, "Conservacion",
-                            "normal", id, pesoFinal, cantPieza);
-
-                    NodosFirebase.myRef.child(idKey).child("movimientos").child(id).setValue(movimientoCarne)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    mtoast("se cuardó correctamente");
-                                    finish();
-                                }
-                            });
-
+                    registrarEntradasPieza();
                 }else {
                     mtoast("Ingresa la cantidad");
                     pesoTCon.setHintTextColor(getResources().getColor(R.color.colorPieza));
@@ -178,10 +159,29 @@ public class RegistrarE_SActivity extends AppCompatActivity {
 
     //registrar las entradas de piezas
     private void registrarEntradasPieza() {
-        String cantidadPz = cantPiezas.getText().toString();
-        if (quantityEmpty(cantidadPz)) {
-           mtoast(cantidadPz);
-       }
+        String id = FirebaseDatabase.getInstance().getReference().push().getKey();
+
+        chargingFragment.show(getSupportFragmentManager(), "dialogChargin");
+
+        int cantPieza = 0;
+
+        if (cantPiezas.getText().toString().equals("")) {
+            cantPieza = 0;
+        }else {
+            cantPieza = Integer.parseInt(cantPiezas.getText().toString());
+        }
+
+        MovimientoPiezas movimientoCarne = new MovimientoPiezas(dateEntrada, "positive", horaEntrada, "Conservacion",
+                "normal", id, pesoFinal, cantPieza);
+
+        NodosFirebase.myRef.child(idKey).child("movimientos").child(id).setValue(movimientoCarne)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        mtoast("se cuardó correctamente");
+                        finish();
+                    }
+                });
     }
 
     private boolean quantityEmpty(String cantidad) {
