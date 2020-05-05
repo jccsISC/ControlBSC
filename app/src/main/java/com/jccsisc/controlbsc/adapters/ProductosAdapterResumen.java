@@ -1,6 +1,7 @@
 package com.jccsisc.controlbsc.adapters;
 
 import android.app.Activity;
+import android.graphics.Rect;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

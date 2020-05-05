@@ -135,10 +135,10 @@ public class RegistrarE_SActivity extends AppCompatActivity {
 
     private void obtenerHora() {
         Calendar calendario = new GregorianCalendar();
-        hora    = calendario.get(Calendar.HOUR_OF_DAY);
-        minutos = calendario.get(Calendar.MINUTE);
-        segundos= calendario.get(Calendar.SECOND);
-        horaEntrada = hora + " : " + minutos + " : " + segundos;
+        hora        = calendario.get(Calendar.HOUR_OF_DAY);
+        minutos     = calendario.get(Calendar.MINUTE);
+        segundos    = calendario.get(Calendar.SECOND);
+        horaEntrada = hora + ":" + minutos + ":" + segundos;
     }
 
     private void calcular(CharSequence s) {
