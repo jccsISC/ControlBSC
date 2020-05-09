@@ -24,6 +24,7 @@ import com.jccsisc.controlbsc.activities.MainActivity;
 import com.jccsisc.controlbsc.ui.historial.HistorialFragment;
 import com.jccsisc.controlbsc.ui.home.entradas.ContenedorEntradas;
 import com.jccsisc.controlbsc.ui.home.entradas.EntradasFragment;
+import com.jccsisc.controlbsc.ui.home.salidas.ContenedorSalidas;
 import com.jccsisc.controlbsc.ui.home.salidas.SalidasFragment;
 import com.jccsisc.controlbsc.ui.inventario.InventarioFragment;
 import com.jccsisc.controlbsc.ui.procesos.ProcesosFragment;
@@ -58,7 +59,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 transaction.commit();
                 break;
             case R.id.cardViewSalida:
-                Fragment nuevoFrament = new SalidasFragment();
+                Fragment nuevoFrament = new ContenedorSalidas();
                 FragmentTransaction transaction1 = getParentFragmentManager().beginTransaction();
                 transaction1.replace(R.id.nav_host_fragment, nuevoFrament);
                 transaction1.addToBackStack(null);

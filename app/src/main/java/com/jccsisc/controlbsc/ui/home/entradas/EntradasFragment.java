@@ -2,6 +2,7 @@ package com.jccsisc.controlbsc.ui.home.entradas;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -22,6 +23,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.jccsisc.controlbsc.R;
 import com.jccsisc.controlbsc.activities.MainActivity;
+import com.jccsisc.controlbsc.activities.ModificarMovimientoActivity;
 import com.jccsisc.controlbsc.activities.RegistrarE_SActivity;
 import com.jccsisc.controlbsc.activities.RegistrarE_S_C_Activity;
 import com.jccsisc.controlbsc.adapters.ProductosAdapter;
@@ -31,7 +33,10 @@ import com.jccsisc.controlbsc.model.Producto;
 import com.jccsisc.controlbsc.utilidades.NodosFirebase;
 import com.mikelau.views.shimmer.ShimmerRecyclerViewX;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class EntradasFragment extends Fragment {
 
@@ -116,12 +121,66 @@ public class EntradasFragment extends Fragment {
             public void onItemClick( int pos) {
                 mostraraActivity(pos, productoArrayList);
             }
+
+            @Override
+            public void onLongItemClick(int pos) {
+                ArrayList<Movimiento> movimientos = new ArrayList<>();
+
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+                Date date = new Date();
+                String dateToday = dateFormat.format(date);
+                for (int i = 0; i < productoArrayList.get(pos).getMovimientos().size(); i++) {
+                    if (productoArrayList.get(pos).getMovimientos().get(i).getDate().equals(dateToday)) {
+                        movimientos.add(productoArrayList.get(pos).getMovimientos().get(i));
+                    }
+                }
+
+                if (movimientos.size() != 0) {
+                    Intent i = new Intent(getContext(), ModificarMovimientoActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("movimientos", movimientos);
+                    i.putExtras(bundle);
+                    i.putExtra("unit", productoArrayList.get(pos).getUnit());
+                    i.putExtra("name", productoArrayList.get(pos).getName());
+                    i.putExtra("key", productoArrayList.get(pos).getIdKey());
+                    startActivity(i);
+                } else {
+                    mtoast("No hay movimientos");
+                }
+            }
         });
 
         entradasAdapter2.setOnClickListener(new ProductosAdapter.OnClickListener() {
             @Override
             public void onItemClick( int pos) {
                 mostraraActivity(pos, productoArrayList2);
+            }
+
+            @Override
+            public void onLongItemClick(int pos) {
+                ArrayList<Movimiento> movimientos = new ArrayList<>();
+
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+                Date date = new Date();
+                String dateToday = dateFormat.format(date);
+                for (int i = 0; i < productoArrayList2.get(pos).getMovimientos().size(); i++) {
+                    if (productoArrayList2.get(pos).getMovimientos().get(i).getDate().equals(dateToday)) {
+                        movimientos.add(productoArrayList2.get(pos).getMovimientos().get(i));
+                    }
+                }
+
+                if (movimientos.size() != 0) {
+                    Intent i = new Intent(getContext(), ModificarMovimientoActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("movimientos", movimientos);
+                    i.putExtras(bundle);
+                    i.putExtra("unit", productoArrayList2.get(pos).getUnit());
+                    i.putExtra("name", productoArrayList2.get(pos).getName());
+                    i.putExtra("key", productoArrayList2.get(pos).getIdKey());
+                    startActivity(i);
+                } else {
+                    mtoast("No hay movimientos");
+                }
             }
         });
 
@@ -134,7 +193,7 @@ public class EntradasFragment extends Fragment {
                 if(!s.equals("")){
                     metodoBuscar(s);
                 }else{
-                    rvEntradas.setAdapter(entradasAdapter2);
+                    rvEntradas.setAdapter(entradasAdapter);
                 }
             }
             @Override
@@ -150,11 +209,13 @@ public class EntradasFragment extends Fragment {
     private void mostraraActivity(int pos, ArrayList<Producto> arrayList) {
         if(arrayList.get(pos).getUnit().equals("Caja")) {
             Intent i = new Intent(getContext(), RegistrarE_S_C_Activity.class);
+            i.putExtra("type", "create");
             i.putExtra("nameProducto", arrayList.get(pos).getName());
             i.putExtra("idKey", arrayList.get(pos).getIdKey());
             startActivity(i);
         }else if(arrayList.get(pos).getUnit().equals("Pieza")) {
             Intent i = new Intent(getContext(), RegistrarE_SActivity.class);
+            i.putExtra("type", "create");
             i.putExtra("nameProducto", arrayList.get(pos).getName());
             i.putExtra("idKey", arrayList.get(pos).getIdKey());
             startActivity(i);

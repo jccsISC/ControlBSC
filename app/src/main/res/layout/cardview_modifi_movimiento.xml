@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/cardViewProductoR"
+    android:id="@+id/cardViewMovimiento"
     android:layout_width="match_parent"
     android:layout_height="40dp"
     xmlns:tools="http://schemas.android.com/tools"
@@ -16,20 +16,40 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:layout_weight="0.4"
             android:baselineAligned="false">
-            <TextView
-                android:id="@+id/textNameProductoR"
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:text="Manitas de Caja"
-                android:textSize="@dimen/size_15"
-                android:fontFamily="@font/roboto_regular"
-                android:gravity="center_vertical"
-                android:autoSizeTextType="uniform"
-                android:autoSizeMaxTextSize="@dimen/size_15"
-                android:autoSizeMinTextSize="@dimen/size_8"/>
+                android:orientation="horizontal"
+                android:weightSum="1">
+                <TextView
+                    android:id="@+id/textNameProductoM"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3"
+                    tools:text="Manitas de Caja"
+                    android:gravity="center"
+                    android:textSize="@dimen/size_15"
+                    android:fontFamily="@font/roboto_regular"
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMaxTextSize="@dimen/size_15"
+                    android:autoSizeMinTextSize="@dimen/size_8"/>
+                <TextView
+                    android:id="@+id/textHoraProductoM"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:gravity="center"
+                    tools:text="13:25:52"
+                    android:textSize="@dimen/size_15"
+                    android:fontFamily="@font/roboto_regular"
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMaxTextSize="@dimen/size_15"
+                    android:autoSizeMinTextSize="@dimen/size_8"/>
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -52,14 +72,14 @@
                     tools:background="@color/colorPrimaryLight"
                     android:baselineAligned="false">
                     <ImageView
-                        android:id="@+id/imgUnit"
+                        android:id="@+id/imgUnitM"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginEnd="@dimen/margin_5"
                         android:layout_gravity="center_vertical"
                         tools:background="@drawable/ic_caja"/>
                     <TextView
-                        android:id="@+id/textCantidadR"
+                        android:id="@+id/textCantidadM"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         tools:text="5"
@@ -79,7 +99,7 @@
                     android:orientation="vertical"
                     android:layout_weight="0.5">
                     <TextView
-                        android:id="@+id/textKgR"
+                        android:id="@+id/textKgM"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         tools:text="80.6"

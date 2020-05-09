@@ -1,8 +1,9 @@
 package com.jccsisc.controlbsc.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Movimiento {
+public class Movimiento implements Serializable {
 
     public String date;
     public String type;
@@ -39,9 +40,15 @@ public class Movimiento {
         this.detalles.add(movimiento);
     }
 
+    public ArrayList<Detalle> getDetalles() {
+        return detalles;
+    }
+
     public void setDetalles(ArrayList<Detalle> movimientos) {
         this.detalles = movimientos;
     }
+
+
 
     public String getDate() {
         return date;

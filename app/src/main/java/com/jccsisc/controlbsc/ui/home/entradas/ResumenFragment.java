@@ -37,6 +37,8 @@ public class ResumenFragment extends Fragment {
     private ShimmerRecyclerViewX rvEntradasResumen;
     private ArrayList<Producto> productoArrayList;
     private ProductosAdapterResumen entradasAdapter;
+    private TextView txtDate;
+    String dateToday;
 
     public ResumenFragment() { }
 
@@ -45,6 +47,9 @@ public class ResumenFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_resumen, container, false);
         MainActivity.edtAppBar.setVisibility(View.INVISIBLE);
+
+        txtDate = v.findViewById(R.id.txtDate);
+
         rvEntradasResumen = v.findViewById(R.id.recyclerViewEntradasResumen);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
@@ -52,6 +57,7 @@ public class ResumenFragment extends Fragment {
         productoArrayList = new ArrayList<>();
         entradasAdapter   = new ProductosAdapterResumen(productoArrayList, getActivity(), "Entrada");
         rvEntradasResumen.setAdapter(entradasAdapter);
+
         rvEntradasResumen.showShimmerAdapter();
 
         NodosFirebase.myRef.orderByChild("name").addValueEventListener(new ValueEventListener() {
@@ -87,8 +93,8 @@ public class ResumenFragment extends Fragment {
                             producto.addMovimiento(movimiento1);
 //                        }
                     }
-                    String dateToday;
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                    txtDate.setText(dateToday);
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
                     Date date = new Date();
                     dateToday = dateFormat.format(date);
                         for(int c = 0; c < producto.getMovimientos().size(); c++){
@@ -96,7 +102,6 @@ public class ResumenFragment extends Fragment {
                                 productoArrayList.add(producto);
                             }
                         }
-
                 }
             }
 

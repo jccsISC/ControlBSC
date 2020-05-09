@@ -29,6 +29,7 @@
         android:gravity="center"
         android:textStyle="bold"
         android:layout_marginTop="@dimen/marginTop_10"
+        android:padding="@dimen/padding_5"
         android:layout_marginBottom="@dimen/marginTop_10"
         android:autoSizeTextType="uniform"
         android:autoSizeMaxTextSize="@dimen/size_25"
@@ -165,7 +166,7 @@
                     android:id="@+id/txtOneSix"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/one_five"
+                    android:text="@string/one_six"
                     android:gravity="center"
                     android:textSize="@dimen/size_16"/>
                 <EditText
@@ -176,6 +177,34 @@
                     android:inputType="number"
                     android:layout_gravity="bottom"
                     android:textColor="@android:color/holo_red_dark"
+                    android:gravity="center"
+                    android:textSize="@dimen/size_16"
+                    android:autofillHints="@string/hint_cero"/>
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="@dimen/height_card_p_80"
+                android:layout_height="@dimen/height_60"
+                tools:backgroundTint="@color/colorPrimaryLight"
+                android:layout_margin="@dimen/margin_5"
+                app:cardCornerRadius="6dp"
+                android:foreground="?android:attr/selectableItemBackground">
+                <TextView
+                    android:id="@+id/txtOneFive"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/one_five"
+                    android:gravity="center"
+                    android:textSize="@dimen/size_16"/>
+                <EditText
+                    android:id="@+id/etdNumOneFive"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_40"
+                    android:hint="@string/hint_cero"
+                    android:inputType="number"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:layout_gravity="bottom"
                     android:gravity="center"
                     android:textSize="@dimen/size_16"
                     android:autofillHints="@string/hint_cero"/>

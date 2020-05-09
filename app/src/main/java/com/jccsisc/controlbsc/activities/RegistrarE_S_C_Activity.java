@@ -52,7 +52,7 @@ public class RegistrarE_S_C_Activity extends AppCompatActivity implements View.O
     public static int hora, minutos, segundos;
     private RecyclerView recyclerPesadasC;
     private TextView nameProducto, txtCT, txtPesoT;
-    private String  dateSalida = "", idKey, name;
+    private String  dateSalida = "", idKey, name, type;
     public static Button btnModificar, btnEliminar;
     private TextInputLayout tilPesoCaja;
     public TextInputEditText tiePesoCaja;
@@ -60,15 +60,14 @@ public class RegistrarE_S_C_Activity extends AppCompatActivity implements View.O
     private int position;
     private TextView txtPesoCaja;
     private ChargingFragment chargingFragment = new ChargingFragment();
-
+    Movimiento mov;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_e_s_productos_caja);
 
         extras = getIntent();
-        idKey = extras.getStringExtra("idKey");
-        name  = extras.getStringExtra("nameProducto");
+        type  = extras.getStringExtra("type");
 
         toolbar();
         obtenerFecha();
@@ -85,6 +84,20 @@ public class RegistrarE_S_C_Activity extends AppCompatActivity implements View.O
         LinearLayoutManager linearLayoutManager = new GridLayoutManager(this, 3);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerPesadasC.setLayoutManager(linearLayoutManager);
+
+
+
+        if(type.equals("create")){
+            idKey = extras.getStringExtra("idKey");
+            name  = extras.getStringExtra("nameProducto");
+        }else{
+            idKey = extras.getStringExtra("idKey");
+            name  = extras.getStringExtra("nameProducto");
+            Bundle bundle = extras.getExtras();
+            mov = (Movimiento)bundle.getSerializable("movimiento");
+            detallesArrayList = mov.getDetalles();
+        }
+
         cajasAdapter = new CajasAdapter(detallesArrayList, this);
         recyclerPesadasC.setAdapter(cajasAdapter);
 
@@ -122,7 +135,7 @@ public class RegistrarE_S_C_Activity extends AppCompatActivity implements View.O
                     mtoast("No hay elementos que sumar");
                 }else{
                     registrarEntradasCaja();
-                    }
+                }
             }
         });
 
@@ -143,15 +156,22 @@ public class RegistrarE_S_C_Activity extends AppCompatActivity implements View.O
 
 
     private void registrarEntradasCaja() {
-        String id = FirebaseDatabase.getInstance().getReference().push().getKey();
+        String id = "", finalDateEntrada = "", finalHoraES = "";
+
+        if (type.equals("create")) {
+            finalDateEntrada = dateEntrada;
+            finalHoraES = horaES;
+            id = FirebaseDatabase.getInstance().getReference().push().getKey();
+        } else if (type.equals("modify")) {
+            id = mov.getIdKey();
+            finalDateEntrada = mov.getDate();
+            finalHoraES = mov.getHour();
+        }
 
         chargingFragment.show(getSupportFragmentManager(), "dialogCharging");
-
-        Movimiento movimiento = new Movimiento(dateEntrada,"positive", horaES, "Congelacion",
+        Movimiento movimiento = new Movimiento(finalDateEntrada,"positive",finalHoraES , "Congelacion",
                 "normal", id, sumatotal, detallesArrayList.size());
-
         movimiento.setDetalles(detallesArrayList);
-
         NodosFirebase.myRef.child(idKey).child("movimientos").child(id).setValue(movimiento)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -220,7 +240,7 @@ public class RegistrarE_S_C_Activity extends AppCompatActivity implements View.O
     }
 
     public static void obtenerFecha() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         Date date   = new Date();
         dateEntrada = dateFormat.format(date);
     }

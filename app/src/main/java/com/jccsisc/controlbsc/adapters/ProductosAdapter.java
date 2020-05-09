@@ -48,7 +48,7 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.Prod
         //obtenemos la posicion de la lista
         final Producto producto = productos_model.get(position);
 
-        holder.textNameProduct.setText(producto.getName());
+        holder.textNameProducto.setText(producto.getName());
         if(producto.getUnit().equals("Caja")) {
             holder.textUnit.setTextColor(activity.getResources().getColor(R.color.colorPrimary));
         }else {
@@ -62,6 +62,15 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.Prod
             public void onClick(View v) {
                 if (onClickListener == null) return;
                 onClickListener.onItemClick( position);
+            }
+        });
+
+        holder.cardViewProducto.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if (onClickListener == null) return false;
+                onClickListener.onLongItemClick(position);
+                return true;
             }
         });
 
@@ -84,13 +93,13 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.Prod
 
     //creamos nuestra inner class
     public  class ProductosViewHolder extends RecyclerView.ViewHolder {
-        TextView textNameProduct, textUnit, textCantidad, textKg;
+        TextView textNameProducto, textUnit, textCantidad, textKg;
         CardView cardViewProducto;
 
         public ProductosViewHolder(@NonNull View itemView) {
             super(itemView);
             cardViewProducto = itemView.findViewById(R.id.cardViewProducto);
-            textNameProduct  = itemView.findViewById(R.id.textNameProducto);
+            textNameProducto  = itemView.findViewById(R.id.textNameProducto);
             textCantidad     = itemView.findViewById(R.id.textCantidad);
             textUnit         = itemView.findViewById(R.id.textUnit);
             textKg           = itemView.findViewById(R.id.textKg);
@@ -99,6 +108,7 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.Prod
 
     public interface OnClickListener {
         void onItemClick( int pos);
+        void onLongItemClick(int pos);
     }
 
 }

@@ -144,6 +144,11 @@ public class ProductosFragment extends Fragment {
                 ModifyProductFragment modifyProductFragment = new ModifyProductFragment(idKey, name);
                 modifyProductFragment.show(getChildFragmentManager(), "dialogModificar");
             }
+
+            @Override
+            public void onLongItemClick(int pos) {
+
+            }
         });
     }
 

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/activityModificarMovimiento"
+    tools:context=".activities.ModificarMovimientoActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Seleccione el registro que quiere modificar:"
+        android:layout_marginTop="@dimen/marginTop_20"
+        android:fontFamily="@font/roboto_bold"
+        android:textSize="@dimen/size_15"
+        android:layout_margin="@dimen/margin_10"/>
+
+    <com.mikelau.views.shimmer.ShimmerRecyclerViewX
+        android:id="@+id/recyclerViewModificarMovimiento"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/margin_10"
+        android:layout_margin="@dimen/margin_20"
+        android:background="@drawable/borde_card"
+        android:padding="@dimen/padding_10"
+        app:shimmer_demo_layout="@layout/layout_demo_grid_resumen" />
+    
+
+</LinearLayout>

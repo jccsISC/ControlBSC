@@ -45,10 +45,11 @@ public class RegistrarE_SActivity extends AppCompatActivity {
     private Button btnCargar;
     private TextView nameProducto, pesoTSin;
     private EditText cantPiezas, pesoTCon;
-    private EditText[] txtCajas = new EditText[6];
-    double[] pesosCajas =  {3,2.4,2.2,2,1.5,1.4};
-    public static String horaEntrada, dateEntrada, dateSalida = "", idKey, name;
+    private EditText[] txtCajas = new EditText[7];
+    double[] pesosCajas =  {3,2.4,2.2,2,1.6,1.5,1.4};
+    public static String horaEntrada, dateEntrada, dateSalida = "", idKey, name, type;
     ChargingFragment chargingFragment = new ChargingFragment();
+    Movimiento mov;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +57,6 @@ public class RegistrarE_SActivity extends AppCompatActivity {
         setContentView(R.layout.activity_e_s_matanza);
 
         extras = getIntent();
-        idKey = extras.getStringExtra("idKey");
-        name  = extras.getStringExtra("nameProducto");
 
         toolbar();
         obtenerFecha();
@@ -70,10 +69,25 @@ public class RegistrarE_SActivity extends AppCompatActivity {
         txtCajas[2]  = findViewById(R.id.etdNumTwoTwo);
         txtCajas[3]  = findViewById(R.id.etdNumTwo);
         txtCajas[4]  = findViewById(R.id.etdNumOneSix);
-        txtCajas[5]  = findViewById(R.id.etdNumOneFour);
+        txtCajas[5]  = findViewById(R.id.etdNumOneFive);
+        txtCajas[6]  = findViewById(R.id.etdNumOneFour);
         cantPiezas   = findViewById(R.id.edtCantPiezas);
         pesoTCon     = findViewById(R.id.edtPesoTCajas);
         pesoTSin     = findViewById(R.id.txtPesoTSinC);
+
+
+        type  = extras.getStringExtra("type");
+        if(type.equals("create")){
+            idKey = extras.getStringExtra("idKey");
+            name  = extras.getStringExtra("nameProducto");
+        }else{
+            idKey = extras.getStringExtra("idKey");
+            name  = extras.getStringExtra("nameProducto");
+            Bundle bundle = extras.getExtras();
+            mov = (Movimiento)bundle.getSerializable("movimiento");
+            cantPiezas.setText(String.valueOf(mov.getQuantity()));
+            pesoTSin.setText(String.valueOf(mov.getWeight()));
+        }
 
         nameProducto.setText(name);
 
@@ -99,14 +113,23 @@ public class RegistrarE_SActivity extends AppCompatActivity {
         btnCargar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!pesoTCon.getText().toString().trim().equals("")) {
-                    registrarEntradasPieza();
-                }else {
-                    mtoast("Ingresa la cantidad");
-                    pesoTCon.setHintTextColor(getResources().getColor(R.color.colorPieza));
-                    pesoTCon.setBackground(getResources().getDrawable(R.drawable.borde_card_red));
+                if (type.equals("create")) {
+                    if (!pesoTCon.getText().toString().trim().equals("")) {
+                        registrarEntradasPieza();
+                    }else {
+                        mtoast("Ingresa la cantidad");
+                        pesoTCon.setHintTextColor(getResources().getColor(R.color.colorPieza));
+                        pesoTCon.setBackground(getResources().getDrawable(R.drawable.borde_card_red));
+                    }
+                }else if (type.equals("modify")) {
+                    if (!pesoTCon.getText().toString().trim().equals("")) {
+                        modifyEntradasPieza();
+                    }else {
+                        mtoast("Ingresa la cantidad");
+                        pesoTCon.setHintTextColor(getResources().getColor(R.color.colorPieza));
+                        pesoTCon.setBackground(getResources().getDrawable(R.drawable.borde_card_red));
+                    }
                 }
-
             }
         });
     }
@@ -128,7 +151,7 @@ public class RegistrarE_SActivity extends AppCompatActivity {
     }
 
     private void obtenerFecha() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         Date date   = new Date();
         dateEntrada = dateFormat.format(date);
     }
@@ -158,6 +181,35 @@ public class RegistrarE_SActivity extends AppCompatActivity {
     }
 
     //registrar las entradas de piezas
+    private void modifyEntradasPieza() {
+        String id = mov.getIdKey();
+
+
+
+        chargingFragment.show(getSupportFragmentManager(), "dialogChargin");
+
+        int cantPieza = 0;
+
+        if (cantPiezas.getText().toString().equals("")) {
+            cantPieza = 0;
+        }else {
+            cantPieza = Integer.parseInt(cantPiezas.getText().toString());
+        }
+
+        mov.setWeight(pesoFinal);
+        mov.setQuantity(cantPieza);
+
+        NodosFirebase.myRef.child(idKey).child("movimientos").child(id).setValue(mov)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        mtoast("Se guardó correctamente");
+                        finish();
+                    }
+                });
+    }
+
+    //registrar las entradas de piezas
     private void registrarEntradasPieza() {
         String id = FirebaseDatabase.getInstance().getReference().push().getKey();
 
@@ -178,7 +230,7 @@ public class RegistrarE_SActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        mtoast("se cuardó correctamente");
+                        mtoast("Se guardó correctamente");
                         finish();
                     }
                 });

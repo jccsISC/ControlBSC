@@ -18,10 +18,14 @@
         android:textSize="14sp"
         android:background="@drawable/border_search"
         android:layout_height="wrap_content"/>
+    <cjh.reboundscrollviewlibrary.ReboundScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <com.mikelau.views.shimmer.ShimmerRecyclerViewX
         android:id="@+id/recyclerViewEntradas"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:shimmer_demo_layout="@layout/layout_demo_grid" />
+    </cjh.reboundscrollviewlibrary.ReboundScrollView>
 </LinearLayout>

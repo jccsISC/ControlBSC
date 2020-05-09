@@ -1,6 +1,8 @@
 package com.jccsisc.controlbsc.model;
 
-public class Detalle {
+import java.io.Serializable;
+
+public class Detalle implements Serializable {
 
 
     public String idKey;

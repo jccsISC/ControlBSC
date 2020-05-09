@@ -51,7 +51,6 @@ public class CajasAdapter extends RecyclerView.Adapter<CajasAdapter.ProductosVie
                 onClickListener.onItemClick( position);
             }
         });
-
     }
 
 

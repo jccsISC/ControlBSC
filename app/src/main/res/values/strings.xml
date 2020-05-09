@@ -78,8 +78,8 @@
     <string name="two">2.0 kg</string>
     <string name="two_four">2.4 kg</string>
     <string name="one_six">1.6 kg</string>
+    <string name="one_five">1.5 kg</string>
     <string name="one_four">1.4 kg</string>
-
     <string name="no_equals">Las contraseñas no coinciden</string>
     <string name="exist">El usuario ya Existe!!</string>
     <string name="or">Or</string>
@@ -98,6 +98,5 @@
     <string name="modify_caja">Modifica la caja seleccionada</string>
     <string name="nota_dialog_modify_caja">Modifica la cantidad de la caja o eliminala</string>
     <string name="hint_peso_caja">Ingrese el peso de la caja</string>
-    <string name="one_five">1.5</string>
 
 </resources>
