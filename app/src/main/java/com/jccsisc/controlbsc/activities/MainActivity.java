@@ -46,7 +46,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 if (NodosFirebase.addContac.equals("addContac")) {
-                    startActivity(new Intent(getApplicationContext(), AddContactoActivity.class));
+                    Intent i = new Intent(getApplicationContext(), AddContactoActivity.class);
+                    i.putExtra("type","new");
+                    startActivity(i);
                     Animatoo.animateShrink(MainActivity.this);
                 } else {
                     Intent intent = new Intent(getApplicationContext(), RegistrarProductoActivity.class);

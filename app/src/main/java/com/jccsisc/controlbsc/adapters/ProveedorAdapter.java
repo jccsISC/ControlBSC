@@ -73,7 +73,6 @@ public class ProveedorAdapter extends RecyclerView.Adapter<ProveedorAdapter.Prov
             public void onClick(View v) {
                 if (onClickListener == null) return;
                 onClickListener.openIntent( position);
-
             }
         });
 

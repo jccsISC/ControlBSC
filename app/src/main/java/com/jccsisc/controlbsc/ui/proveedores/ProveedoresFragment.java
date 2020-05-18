@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.telephony.PhoneNumberUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,8 +44,8 @@ import java.util.zip.Inflater;
 public class ProveedoresFragment extends Fragment {
 
     public static ShimmerRecyclerViewX rvProveedores;
-    public static ArrayList<Proveedor> proveedorArrayList;
-    public static ProveedorAdapter proveedorAdapter;
+    public  ArrayList<Proveedor> proveedorArrayList;
+    public ProveedorAdapter proveedorAdapter;
     LinearLayout linearLayoutExpandible;
     private static final int REQUEST_CALL = 1;
     public ProveedoresFragment() { }
@@ -72,19 +73,21 @@ public class ProveedoresFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 rvProveedores.hideShimmerAdapter();
-                proveedorArrayList.removeAll(proveedorArrayList);
+                proveedorArrayList.clear();
+//                proveedorArrayList.removeAll(proveedorArrayList);
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Proveedor proveedor = new Proveedor(
                             snapshot.child("name").getValue(String.class),
                             snapshot.child("lastName").getValue(String.class),
                             snapshot.child("nameCompany").getValue(String.class),
-                            snapshot.child("impCompany").getValue(String.class),
+                            snapshot.child("imgCompany").getValue(String.class),
                             snapshot.child("numberPhone").getValue(String.class),
-                            snapshot.child(",idKey").getValue(String.class));
+                            snapshot.child("idKey").getValue(String.class));
 
                     proveedorArrayList.add(proveedor);
                 }
+                proveedorAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -117,7 +120,14 @@ public class ProveedoresFragment extends Fragment {
 
             @Override
             public void openIntent(int pos) {
-                startActivity(new Intent(getContext(), AddContactoActivity.class));
+                Intent i = new Intent(getContext(), AddContactoActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("modelo", proveedorArrayList.get(pos));
+                i.putExtras(bundle);
+                i.putExtra("type","edit");
+                i.putExtra("idKey", proveedorArrayList.get(pos).getIdKey());
+                Log.e("idKey enviado",proveedorArrayList.get(pos).getIdKey());
+                startActivity(i);
                 Animatoo.animateZoom(getActivity());
             }
 

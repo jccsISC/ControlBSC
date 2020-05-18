@@ -4,19 +4,21 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.jccsisc.controlbsc.R;
 import com.jccsisc.controlbsc.dialogs.ChargingFragment;
@@ -30,12 +32,19 @@ public class AddContactoActivity extends AppCompatActivity implements View.OnCli
     private TextInputLayout tilNameContac, tilLastNameContac, tilNameCompany, tilPhoneCompany;
     private TextInputEditText tieNameContac, tieLastNameContac, tieNameCompany, tiePhoneCompany;
 
+    Intent extras;
+    Proveedor modelito;
+    String type;
+    String id = "";
+    String imgCompany = "imagen";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_contacto);
-        myToolbar(getString(R.string.crear_contacto));
+        extras = getIntent();
+        type = extras.getStringExtra("type");
 
+        myToolbar(getString(R.string.crear_contacto));
         imgvProveedor     = findViewById(R.id.imgvProveedor);
         tilNameContac     = findViewById(R.id.tilNameContact);
         tieNameContac     = findViewById(R.id.tieNameContact);
@@ -45,6 +54,22 @@ public class AddContactoActivity extends AppCompatActivity implements View.OnCli
         tieNameCompany    = findViewById(R.id.tieNameCompany);
         tilPhoneCompany   = findViewById(R.id.tilPhoneContact);
         tiePhoneCompany   = findViewById(R.id.tiePhoneContact);
+
+        if(type.equals("edit")) {
+            Bundle bundle = extras.getExtras();
+            modelito = (Proveedor) bundle.getSerializable("modelo");
+            tieNameContac.setText(modelito.getName());
+            tieLastNameContac.setText(modelito.getLastName());
+            tieNameCompany.setText(modelito.getNameCompany());
+            tiePhoneCompany.setText(modelito.getNumberPhone());
+            id = extras.getStringExtra("idKey");
+            Glide.with(this)
+                    .load(modelito.getImgCompany())
+                    .into(imgvProveedor);
+            imgCompany = modelito.getImgCompany();
+        }else if(type.equals("new")){
+            id = FirebaseDatabase.getInstance().getReference().push().getKey();
+        }
 
         tieNameContac.addTextChangedListener(new TextWatcher() {
             @Override
@@ -126,11 +151,12 @@ public class AddContactoActivity extends AppCompatActivity implements View.OnCli
         String lastName    = tieLastNameContac.getEditableText().toString();
         String nameCompany = tieNameCompany.getEditableText().toString();
         String phoneNumber    = tiePhoneCompany.getEditableText().toString();
-        String imgCompany = "imagen";
+
 
         if (nameValid(name) & lastNameValid(lastName) & nameCompanyValid(nameCompany) & phoneNumberValid(phoneNumber)) {
             chargingFragment.show(getSupportFragmentManager(), "dialogChargin");
-            String id = FirebaseDatabase.getInstance().getReference().push().getKey();
+//            Log.e("idkey", id);
+
             Proveedor proveedor = new Proveedor(name, lastName, nameCompany, imgCompany, phoneNumber, id);
             NodosFirebase.myRefProveedor.child(id).setValue(proveedor).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
