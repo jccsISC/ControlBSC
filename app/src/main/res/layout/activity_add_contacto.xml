@@ -24,9 +24,20 @@
         android:contentDescription="@string/nav_header_desc"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:layout_gravity="center_horizontal"
+        android:elevation="8dp"
         android:layout_marginTop="@dimen/marginTop_30"
         android:foreground="?attr/selectableItemBackground"
         app:srcCompat="@drawable/ic_add_img" />
+
+    <Button
+        android:id="@+id/btnSubirImg"
+        android:layout_width="@dimen/width_100"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/marginTop_10"
+        android:text="subir"
+        android:background="@drawable/borde_card_entradas"
+        android:drawableEnd="@drawable/ic_ok"/>
 
         <ScrollView
             android:layout_width="match_parent"

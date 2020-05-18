@@ -54,5 +54,7 @@ dependencies {
     implementation 'com.github.mohammadatif:Animatoo:master'
     //libreria para animacion de transiciones
 
-    
+    implementation 'com.theartofdev.edmodo:android-image-cropper:2.4.+' //para recortar imagen
+    implementation 'com.squareup.picasso:picasso:2.5.0'
+    implementation 'id.zelory:compressor:2.1.0' //comprimir imagen
 }

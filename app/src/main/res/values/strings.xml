@@ -102,5 +102,7 @@
     <string name="hint_number_contact">Ingresa su número telefónico</string>
     <string name="btn_create_contact">Crear Contacto</string>
     <string name="crear_contacto">Crear Contacto</string>
+    <string name="delete_contact">Eliminar un Contacto</string>
+    <string name="nota_dialog_delete">¿Está seguro de que quiere eliminar este contacto?</string>
 
 </resources>

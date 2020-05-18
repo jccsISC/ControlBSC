@@ -1,37 +1,62 @@
 package com.jccsisc.controlbsc.activities;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.jccsisc.controlbsc.R;
 import com.jccsisc.controlbsc.dialogs.ChargingFragment;
 import com.jccsisc.controlbsc.model.Proveedor;
 import com.jccsisc.controlbsc.utilidades.NodosFirebase;
+import com.squareup.picasso.Picasso;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.util.Objects;
+
+import id.zelory.compressor.Compressor;
 
 public class AddContactoActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ChargingFragment chargingFragment = new ChargingFragment();
+    private Button btnSubirImg;
     private ImageView imgvProveedor;
     private TextInputLayout tilNameContac, tilLastNameContac, tilNameCompany, tilPhoneCompany;
     private TextInputEditText tieNameContac, tieLastNameContac, tieNameCompany, tiePhoneCompany;
-
+    DatabaseReference myStorageReference;
+    StorageReference storageReference;
+    Bitmap thumb_bitmp = null; //comprimir img
     Intent extras;
     Proveedor modelito;
     String type;
@@ -45,6 +70,7 @@ public class AddContactoActivity extends AppCompatActivity implements View.OnCli
         type = extras.getStringExtra("type");
 
         myToolbar(getString(R.string.crear_contacto));
+        btnSubirImg       = findViewById(R.id.btnSubirImg);
         imgvProveedor     = findViewById(R.id.imgvProveedor);
         tilNameContac     = findViewById(R.id.tilNameContact);
         tieNameContac     = findViewById(R.id.tieNameContact);
@@ -54,6 +80,17 @@ public class AddContactoActivity extends AppCompatActivity implements View.OnCli
         tieNameCompany    = findViewById(R.id.tieNameCompany);
         tilPhoneCompany   = findViewById(R.id.tilPhoneContact);
         tiePhoneCompany   = findViewById(R.id.tiePhoneContact);
+
+        myStorageReference = FirebaseDatabase.getInstance().getReference().child("Fotos_empresas");
+        storageReference = FirebaseStorage.getInstance().getReference().child("img_comprimidas");
+
+        imgvProveedor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CropImage.startPickImageActivity(AddContactoActivity.this);
+
+            }
+        });
 
         if(type.equals("edit")) {
             Bundle bundle = extras.getExtras();
@@ -152,7 +189,6 @@ public class AddContactoActivity extends AppCompatActivity implements View.OnCli
         String nameCompany = tieNameCompany.getEditableText().toString();
         String phoneNumber    = tiePhoneCompany.getEditableText().toString();
 
-
         if (nameValid(name) & lastNameValid(lastName) & nameCompanyValid(nameCompany) & phoneNumberValid(phoneNumber)) {
             chargingFragment.show(getSupportFragmentManager(), "dialogChargin");
 //            Log.e("idkey", id);
@@ -170,6 +206,89 @@ public class AddContactoActivity extends AppCompatActivity implements View.OnCli
                     snackMessage("ha ocurrido un error");
                 }
             });
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            Uri imgUri = CropImage.getPickImageResultUri(this, data);
+            //recortar imagen
+            CropImage.activity(imgUri).setGuidelines(CropImageView.Guidelines.ON)
+                    .setRequestedSize(640, 480)
+                    .setAspectRatio(2, 1).start(AddContactoActivity.this);
+        }
+
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+
+            if (resultCode == RESULT_OK) {
+                Uri resultUri = result.getUri();
+                File url = new File(resultUri.getPath());
+
+                Picasso.with(this).load(url).into(imgvProveedor);
+
+                //comprimiendo imagen
+                try {
+                    thumb_bitmp = new Compressor(this)
+                            .setMaxWidth(640)
+                            .setMaxHeight(480)
+                            .setQuality(90)
+                            .compressToBitmap(url);
+                }catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                thumb_bitmp.compress(Bitmap.CompressFormat.JPEG, 90, byteArrayOutputStream);
+                final byte [] thumb_byte = byteArrayOutputStream.toByteArray();
+
+                //fin del compresor
+
+                //para generr un nombre aleatorio en cada imagen que se suba
+                int p = (int) (Math.random() *25 + 1); int s = (int) (Math.random() *25 +1);
+                int t = (int) (Math.random() *25 + 1); int c = (int) (Math.random() *25 +1);
+                int num1 = (int) (Math.random() * 1012 + 2111);
+                int num2 = (int) (Math.random() * 1012 + 2111);
+
+                String [] elements = {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","x","y","z"};
+                final String randome = elements[p] + elements[s] + num1 + elements[t] + elements[c] + num2 + "comprimido.jpg";
+
+                btnSubirImg.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final StorageReference ref = storageReference.child(randome);
+                        chargingFragment.show(getSupportFragmentManager(), "dialogCharging");
+                        UploadTask uploadTask = ref.putBytes(thumb_byte);
+
+                        //subir imagen al storage
+                        Task<Uri> uriTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                            @Override
+                            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                                if (!task.isSuccessful()) {
+                                    throw Objects.requireNonNull(task.getException()); //evitamos que muestre error
+                                }else{
+
+                                }
+                                return ref.getDownloadUrl();
+                            }
+                        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Uri> task) {
+                                //tenemos la imagen cargada al storage
+                                Uri downLoadUri = task.getResult();
+                                chargingFragment.dismiss();
+                                myStorageReference.push().child("urlFoto").setValue(downLoadUri.toString());
+                                snackMessage("Imagen cargada");
+                                myStorageReference.child(id)
+
+                            }
+                        });
+                    }
+                });
+            }
         }
     }
 

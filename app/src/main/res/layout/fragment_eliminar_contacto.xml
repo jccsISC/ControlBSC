@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fragmentEliminarContacto"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/size_16"
+            android:text="@string/delete_contact"
+            android:fontFamily="@font/roboto_regular"
+            android:textAlignment="center"
+            android:layout_weight="0.5"/>
+
+        <ImageButton
+            android:id="@+id/btnExit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_cerrar"
+            android:layout_marginStart="@dimen/margin_5"
+            android:layout_marginEnd="@dimen/margin_5"
+            android:layout_weight="0.2"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_1"
+        android:background="@color/colorPrimaryLight"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_regular"
+        android:textSize="@dimen/size_15"
+        android:text="@string/nota_dialog_delete"
+        android:layout_margin="@dimen/margin_10"/>
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:padding="@dimen/padding_5"
+       android:orientation="horizontal">
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Nombre:"
+           android:textSize="@dimen/size_15"
+           android:layout_marginEnd="@dimen/margin_5"
+           android:fontFamily="@font/roboto_bold"/>
+
+       <TextView
+           android:id="@+id/txtNameContact"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           tools:text="Julio Cesar"
+           android:textSize="@dimen/size_15"
+           android:layout_marginEnd="@dimen/margin_5"
+           android:fontFamily="@font/roboto_bold"/>
+
+       <TextView
+           android:id="@+id/txtLastNameProveedor"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           tools:text="Camacho Silva"
+           android:textSize="@dimen/size_15"
+           android:fontFamily="@font/roboto_bold" />
+   </LinearLayout>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/margin_10"
+      android:padding="@dimen/padding_5"
+      android:orientation="horizontal">
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Número:"
+          android:textSize="@dimen/size_15"
+          android:fontFamily="@font/roboto_bold"
+          android:layout_marginEnd="@dimen/margin_5"/>
+      <TextView
+          android:id="@+id/txtPhoneNumber"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textSize="@dimen/size_15"
+          tools:text="4531260729"
+          android:fontFamily="@font/roboto_bold" />
+  </LinearLayout>
+
+
+
+    <Button
+        android:id="@+id/btnEliminar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_eliminar"
+        android:layout_marginTop="@dimen/margin_10"
+        android:layout_marginEnd="@dimen/marginStart_40"
+        android:layout_marginStart="@dimen/marginStart_40"
+        android:layout_marginBottom="@dimen/margin_10"
+        android:layout_gravity="center"
+        android:fontFamily="@font/roboto_regular"
+        android:background="@drawable/borde_btn_eliminar"
+        android:textColor="@android:color/white"/>
+
+
+    <com.agrawalsuneet.dotsloader.loaders.TashieLoader
+        android:id="@+id/tashieLoader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_margin="20dp"
+        app:tashieloader_animDelay="200"
+        app:tashieloader_animDur="1000"
+        app:tashieloader_dotsColor="@color/colorPrimary"
+        app:tashieloader_dotsDist="5dp"
+        app:tashieloader_dotsRadius="12dp"
+        app:tashieloader_interpolator="@android:anim/accelerate_interpolator"
+        app:tashieloader_noOfDots="6"
+        android:layout_gravity="center"/>
+
+</LinearLayout>

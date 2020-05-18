@@ -7,16 +7,20 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.telephony.PhoneNumberUtils;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -32,8 +36,10 @@ import com.jccsisc.controlbsc.activities.AddContactoActivity;
 import com.jccsisc.controlbsc.activities.CrearUsuarioActivity;
 import com.jccsisc.controlbsc.activities.LoginActivity;
 import com.jccsisc.controlbsc.activities.MainActivity;
+import com.jccsisc.controlbsc.activities.RegistrarE_S_C_Activity;
 import com.jccsisc.controlbsc.adapters.ProveedorAdapter;
 import com.jccsisc.controlbsc.adapters.ProveedorAdapter.ProveedoresViewHolder;
+import com.jccsisc.controlbsc.dialogs.ModifyProductFragment;
 import com.jccsisc.controlbsc.model.Proveedor;
 import com.jccsisc.controlbsc.utilidades.NodosFirebase;
 import com.mikelau.views.shimmer.ShimmerRecyclerViewX;
@@ -43,6 +49,11 @@ import java.util.zip.Inflater;
 
 public class ProveedoresFragment extends Fragment {
 
+    private AlertDialog dialog;
+    private ImageButton btnExit;
+    private int position;
+    public static Button btnEliminar;
+    private TextView nameContacto, numberPhone, lastName;
     public static ShimmerRecyclerViewX rvProveedores;
     public  ArrayList<Proveedor> proveedorArrayList;
     public ProveedorAdapter proveedorAdapter;
@@ -115,7 +126,13 @@ public class ProveedoresFragment extends Fragment {
 
             @Override
             public void onLongItemClick(int pos) {
-
+                position = pos;
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity(), R.style.AppCompatDialogStyle);
+                View view = getLayoutInflater().inflate(R.layout.fragment_eliminar_contacto, null);
+                alertDialog.setView(view);
+                dialog = alertDialog.create();
+                instancias(view);
+                dialog.show();
             }
 
             @Override
@@ -185,5 +202,35 @@ public class ProveedoresFragment extends Fragment {
 
         return app_installed;
     }
+
+
+    private void instancias(View v) {
+        btnExit      = v.findViewById(R.id.btnExit);
+        nameContacto = v.findViewById(R.id.txtNameContact);
+        lastName     = v.findViewById(R.id.txtLastNameProveedor);
+        numberPhone  = v.findViewById(R.id.txtPhoneNumber);
+        btnEliminar  = v.findViewById(R.id.btnEliminar);
+
+        nameContacto.setText(proveedorArrayList.get(position).getName());
+        lastName.setText(proveedorArrayList.get(position).getLastName());
+        numberPhone.setText(proveedorArrayList.get(position).getNumberPhone());
+
+
+        btnExit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        btnEliminar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NodosFirebase.myRefProveedor.child(proveedorArrayList.get(position).getIdKey()).removeValue();
+                Toast.makeText(getContext(), "Eliminado",Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
+    }
+
 
 }
