@@ -98,5 +98,9 @@
     <string name="modify_caja">Modifica la caja seleccionada</string>
     <string name="nota_dialog_modify_caja">Modifica la cantidad de la caja o eliminala</string>
     <string name="hint_peso_caja">Ingrese el peso de la caja</string>
+    <string name="hint_name_company">Ingresa el nombre de la empresa</string>
+    <string name="hint_number_contact">Ingresa su número telefónico</string>
+    <string name="btn_create_contact">Crear Contacto</string>
+    <string name="crear_contacto">Crear Contacto</string>
 
 </resources>

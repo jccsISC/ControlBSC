@@ -130,6 +130,8 @@ public class ProductosFragment extends Fragment {
         return v;
     }
 
+
+
     //accion para elemnt seleccionado
     private void showOptions(final ArrayList<Producto> arrayList, ProductosAdapter adapter) {
         adapter.setOnClickListener(new ProductosAdapter.OnClickListener() {
@@ -151,7 +153,6 @@ public class ProductosFragment extends Fragment {
             }
         });
     }
-
 
     private void sendDatosProductSelected(String idkey, String name) {
         callBack.sendDatos(idkey,name);

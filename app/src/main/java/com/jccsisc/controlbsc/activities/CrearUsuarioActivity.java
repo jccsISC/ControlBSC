@@ -64,8 +64,8 @@ public class CrearUsuarioActivity extends AppCompatActivity  implements View.OnC
         tieName       = findViewById(R.id.tieName);
         tilLastName   = findViewById(R.id.tilLastName);
         tieLastName   = findViewById(R.id.tieLastName);
-        tilEmail = findViewById(R.id.tilEmail);
-        tietEmail = findViewById(R.id.tieEmail);
+        tilEmail      = findViewById(R.id.tilEmail);
+        tietEmail     = findViewById(R.id.tieEmail);
         tilPassword   = findViewById(R.id.tilPassword);
         tietPassword  = findViewById(R.id.tiePassword);
         tilVerifyPsw  = findViewById(R.id.tilVerifyPsw);

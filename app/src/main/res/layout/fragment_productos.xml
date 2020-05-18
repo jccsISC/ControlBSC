@@ -12,6 +12,7 @@
        android:id="@+id/recyclerProductos"
        android:layout_width="match_parent"
        android:layout_height="match_parent"
+       android:scrollbars="vertical"
        app:shimmer_demo_layout="@layout/layout_demo_grid" />
 
 </LinearLayout>

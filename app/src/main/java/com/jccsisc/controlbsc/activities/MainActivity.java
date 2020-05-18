@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.Menu;
 import android.widget.EditText;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     public static EditText edtAppBar;
+    public static FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,13 +39,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         toolbar();
-        FloatingActionButton fab = findViewById(R.id.fab);
+        fab = findViewById(R.id.fab);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), RegistrarProductoActivity.class);
-                startActivity(intent);
+
+                if (NodosFirebase.addContac.equals("addContac")) {
+                    startActivity(new Intent(getApplicationContext(), AddContactoActivity.class));
+                    Animatoo.animateShrink(MainActivity.this);
+                } else {
+                    Intent intent = new Intent(getApplicationContext(), RegistrarProductoActivity.class);
+                    startActivity(intent);
+                }
+
             }
         });
 

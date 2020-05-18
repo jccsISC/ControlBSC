@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.AddContactoActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar"/>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ImageView
+        android:id="@+id/imgvProveedor"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:contentDescription="@string/nav_header_desc"
+        android:paddingTop="@dimen/nav_header_vertical_spacing"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/marginTop_30"
+        android:foreground="?attr/selectableItemBackground"
+        app:srcCompat="@drawable/ic_add_img" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:layout_margin="@dimen/margin_10">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilNameContact"
+                    android:layout_marginTop="@dimen/margin_Top_40"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tieNameContact"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/padding_10"
+                        android:hint="@string/hint_name"
+                        android:inputType="textPersonName"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textSize="@dimen/size_20"
+                        android:drawableEnd="@drawable/ic_add_contac_senci"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilLastNameContact"
+                    android:layout_marginTop="@dimen/marginTop_20"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tieLastNameContact"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/padding_10"
+                        android:hint="@string/hint_last_name"
+                        android:inputType="textPersonName"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textSize="@dimen/size_20"
+                        android:drawableEnd="@drawable/ic_add_contac_senci"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilNameCompany"
+                    android:layout_marginTop="@dimen/marginTop_20"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tieNameCompany"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/padding_10"
+                        android:hint="@string/hint_name_company"
+                        android:fontFamily="@font/roboto_regular"
+                        android:inputType="textPersonName"
+                        android:textSize="@dimen/size_20"
+                        android:drawableEnd="@drawable/ic_flechas"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilPhoneContact"
+                    android:layout_marginTop="@dimen/marginTop_20"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tiePhoneContact"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin_Bottom_20"
+                        android:hint="@string/hint_number_contact"
+                        android:fontFamily="@font/roboto_regular"
+                        android:inputType="number"
+                        android:textSize="@dimen/size_20"
+                        android:maxLength="10"
+                        android:drawableEnd="@drawable/ic_smartphone"/>
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+        </ScrollView>
+
+    <Button
+        android:id="@+id/btnCrearContact"
+        android:layout_marginTop="@dimen/marginTop_30"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_create_contact"
+        android:layout_margin="@dimen/margin_10"
+        android:fontFamily="@font/roboto_regular"
+        android:background="@drawable/borde_btn_sumar"
+        android:textColor="@android:color/white"
+        android:onClick="onClick"/>
+
+</LinearLayout>

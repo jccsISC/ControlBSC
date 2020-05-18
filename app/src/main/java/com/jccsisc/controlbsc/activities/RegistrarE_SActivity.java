@@ -183,9 +183,6 @@ public class RegistrarE_SActivity extends AppCompatActivity {
     //registrar las entradas de piezas
     private void modifyEntradasPieza() {
         String id = mov.getIdKey();
-
-
-
         chargingFragment.show(getSupportFragmentManager(), "dialogChargin");
 
         int cantPieza = 0;

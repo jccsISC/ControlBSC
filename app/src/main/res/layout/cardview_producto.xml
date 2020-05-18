@@ -55,7 +55,6 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:layout_weight="0.5"
-                    tools:background="@color/colorPrimaryLight"
                     android:background="@drawable/borde_l"
                     android:baselineAligned="false">
                     <TextView
