@@ -22,146 +22,151 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <LinearLayout
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_weight="0.3"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:gravity="center"
-        android:padding="@dimen/padding_20"
-        >
-        <ScrollView
+        android:padding="@dimen/padding_20">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgUser"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/marginTop_20"
+                android:elevation="10dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_add_img"
+                app:civ_border_width="1dp"
+                app:civ_border_color="@color/colorSecondaryText"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilName"
+                android:layout_marginTop="@dimen/margin_Top_40"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/tilName"
-                    android:layout_marginTop="@dimen/margin_Top_40"
+                android:layout_height="wrap_content"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tieName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    >
+                    android:padding="@dimen/padding_10"
+                    android:hint="@string/hint_name"
+                    android:inputType="textPersonName"
+                    android:textColor="@color/colorText"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textSize="@dimen/size_20"
+                    android:drawableEnd="@drawable/ic_usuario"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tieName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="@dimen/padding_10"
-                        android:hint="@string/hint_name"
-                        android:inputType="textPersonName"
-                        android:fontFamily="@font/roboto_regular"
-                        android:textSize="@dimen/size_20"
-                        android:drawableEnd="@drawable/ic_usuario"
-                        />
-                </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilLastName"
+                android:layout_marginTop="@dimen/marginTop_20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/tilLastName"
-                    android:layout_marginTop="@dimen/marginTop_20"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tieLastName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    >
+                    android:padding="@dimen/padding_10"
+                    android:hint="@string/hint_last_name"
+                    android:inputType="textPersonName"
+                    android:textColor="@color/colorText"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textSize="@dimen/size_20"
+                    android:drawableEnd="@drawable/ic_usuario"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tieLastName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="@dimen/padding_10"
-                        android:hint="@string/hint_last_name"
-                        android:inputType="textPersonName"
-                        android:fontFamily="@font/roboto_regular"
-                        android:textSize="@dimen/size_20"
-                        android:drawableEnd="@drawable/ic_usuario"
-                        />
-                </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilEmail"
+                android:layout_marginTop="@dimen/marginTop_20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/tilEmail"
-                    android:layout_marginTop="@dimen/marginTop_20"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tieEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    >
+                    android:padding="@dimen/padding_10"
+                    android:hint="@string/hint_email"
+                    android:inputType="textEmailAddress"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/size_20"
+                    android:drawableEnd="@drawable/ic_sobre"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tieEmail"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="@dimen/padding_10"
-                        android:hint="@string/hint_email"
-                        android:inputType="textEmailAddress"
-                        android:fontFamily="@font/roboto_regular"
-                        android:textSize="@dimen/size_20"
-                        android:drawableEnd="@drawable/ic_sobre"
-                        />
-                </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilPassword"
+                android:layout_marginTop="@dimen/marginTop_20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@android:color/holo_red_dark"
+                >
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/tilPassword"
-                    android:layout_marginTop="@dimen/marginTop_20"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tiePassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:passwordToggleEnabled="true"
-                    app:passwordToggleTint="@android:color/holo_red_dark"
-                    >
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tiePassword"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="@dimen/padding_10"
-                        android:hint="@string/hint_password"
-                        android:fontFamily="@font/roboto_regular"
-                        android:inputType="textPassword"
-                        android:textSize="@dimen/size_20"
-                        />
-                </com.google.android.material.textfield.TextInputLayout>
+                    android:padding="@dimen/padding_10"
+                    android:hint="@string/hint_password"
+                    android:fontFamily="@font/roboto_regular"
+                    android:inputType="textPassword"
+                    android:textSize="@dimen/size_20"
+                    android:textColor="@color/colorText"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/tilVerifyPsw"
-                    android:layout_marginTop="@dimen/marginTop_20"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilVerifyPsw"
+                android:layout_marginTop="@dimen/marginTop_20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@android:color/holo_red_dark"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tieVerifyPsw"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:passwordToggleEnabled="true"
-                    app:passwordToggleTint="@android:color/holo_red_dark"
-                    >
+                    android:padding="@dimen/padding_10"
+                    android:layout_marginBottom="@dimen/margin_Bottom_20"
+                    android:hint="@string/hint_verifyPsw"
+                    android:fontFamily="@font/roboto_regular"
+                    android:inputType="textPassword"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/size_20" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+    </ScrollView>
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tieVerifyPsw"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="@dimen/padding_10"
-                        android:layout_marginBottom="@dimen/margin_Bottom_20"
-                        android:hint="@string/hint_verifyPsw"
-                        android:fontFamily="@font/roboto_regular"
-                        android:inputType="textPassword"
-                        android:textSize="@dimen/size_20" />
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
-        </ScrollView>
 
-    </LinearLayout>
-
-    <LinearLayout
+    <Button
+        android:id="@+id/btnLogin"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_weight="0.7"
-        android:gravity="center"
-        android:padding="@dimen/padding_20"
-        >
-        <Button
-            android:id="@+id/btnLogin"
-            android:layout_marginTop="@dimen/marginTop_30"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_login"
-            android:fontFamily="@font/roboto_regular"
-            android:background="@drawable/borde_btn_sumar"
-            android:textColor="@android:color/white"
-            android:onClick="onClick"
-            />
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginTop_20"
+        android:layout_marginBottom="@dimen/margin_10"
+        android:layout_margin="@dimen/margin_10"
+        android:text="@string/btn_login"
+        android:fontFamily="@font/roboto_regular"
+        android:background="@drawable/borde_btn_sumar"
+        android:textColor="@android:color/white"
+        android:onClick="onClick" />
 </LinearLayout>

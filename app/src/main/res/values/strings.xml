@@ -104,5 +104,6 @@
     <string name="crear_contacto">Crear Contacto</string>
     <string name="delete_contact">Eliminar un Contacto</string>
     <string name="nota_dialog_delete">¿Está seguro de que quiere eliminar este contacto?</string>
+    <string name="menu_perfil">Mi perfil</string>
 
 </resources>

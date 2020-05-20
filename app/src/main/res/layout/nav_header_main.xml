@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_header_height"
     android:background="@drawable/side_nav_bar"
-    android:gravity="bottom"
     android:orientation="vertical"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
@@ -12,28 +11,50 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imgUser"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:elevation="10dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_add_img"
-        app:civ_border_width="1dp"
-        app:civ_border_color="@color/colorSecondaryText"/>
-
-
-    <TextView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="@string/nav_header_title"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/txtNumberBodega"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bodega 1"
+            android:textSize="@dimen/size_15"
+            android:layout_marginTop="@dimen/marginTop_20"
+            android:fontFamily="@font/roboto_bold"
+            android:layout_gravity="end"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/nav_header_subtitle" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="bottom">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgUser"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:elevation="@dimen/elevation_4"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_add_img"
+                app:civ_border_width="1dp"
+                app:civ_border_color="@color/colorSecondaryText"/>
 
+            <TextView
+                android:id="@+id/txtNameUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_regular"
+                android:paddingTop="@dimen/nav_header_vertical_spacing"
+                android:text="Julio Cesar"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+            <TextView
+                android:id="@+id/txtPuesto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Encargado de Inventario" />
+        </LinearLayout>
+
+    </FrameLayout>
 </LinearLayout>

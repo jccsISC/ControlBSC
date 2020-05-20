@@ -8,9 +8,13 @@
         app:showAsAction="always">
         <menu>
             <item
+                android:id="@+id/action_perfil"
+                android:icon="@drawable/ic_usuario"
+                android:title="@string/menu_perfil" />
+            <item
                 android:id="@+id/action_exit"
                 android:icon="@drawable/ic_puerta"
-                android:title="@string/menu_cerrarsesion"/>
+                android:title="@string/menu_cerrarsesion" />
         </menu>
     </item>
 </menu>

@@ -32,18 +32,22 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.jccsisc.controlbsc.R;
 import com.jccsisc.controlbsc.dialogs.ChargingFragment;
 import com.jccsisc.controlbsc.model.CrearUser;
+import com.jccsisc.controlbsc.utilidades.NodosFirebase;
 
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class CrearUsuarioActivity extends AppCompatActivity  implements View.OnClickListener{
 
+    public String imagenUser = "Imagen", numberBodega = "Bodega 1";
     private FirebaseAuth mAuth;
-    private DatabaseReference myRef;
     private int sonido; //valor paara el sonido
     private SoundPool sp; //para reproducir el sonido
     private ChargingFragment chargingFragment = new ChargingFragment();
+    private CircleImageView imgUser;
     private TextInputLayout tilName, tilLastName, tilEmail, tilPassword, tilVerifyPsw;
     private TextInputEditText tieName, tieLastName, tietEmail, tietPassword, tietVerifyPsw;
 
@@ -58,8 +62,8 @@ public class CrearUsuarioActivity extends AppCompatActivity  implements View.OnC
         sonido = sp.load(this, R.raw.cuchillo_dos, 1);
 
         mAuth = FirebaseAuth.getInstance();
-        myRef = FirebaseDatabase.getInstance().getReference(getResources().getString(R.string.db_User));
 
+        imgUser       = findViewById(R.id.imgUser);
         tilName       = findViewById(R.id.tilName);
         tieName       = findViewById(R.id.tieName);
         tilLastName   = findViewById(R.id.tilLastName);
@@ -74,71 +78,46 @@ public class CrearUsuarioActivity extends AppCompatActivity  implements View.OnC
         tieName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                nameValid(s);
-            }
-
+            public void onTextChanged(CharSequence s, int start, int before, int count) { nameValid(s); }
             @Override
-            public void afterTextChanged(Editable s) {
-            }
+            public void afterTextChanged(Editable s) { }
         });
 
         tieLastName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                lastNameValid(s);
-            }
-
+            public void onTextChanged(CharSequence s, int start, int before, int count) { lastNameValid(s); }
             @Override
-            public void afterTextChanged(Editable s) {
-            }
+            public void afterTextChanged(Editable s) { }
         });
 
         tietEmail.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                emailIsValid(s);
-            }
-
+            public void onTextChanged(CharSequence s, int start, int before, int count) { emailIsValid(s); }
             @Override
-            public void afterTextChanged(Editable s) {
-            }
+            public void afterTextChanged(Editable s) { }
         });
 
         tietPassword.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                pwdIsValid(s);
-            }
-
+            public void onTextChanged(CharSequence s, int start, int before, int count) { pwdIsValid(s); }
             @Override
-            public void afterTextChanged(Editable s) {
-            }
+            public void afterTextChanged(Editable s) { }
         });
 
         tietVerifyPsw.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                pwdIsValid2(s);
-            }
-
+            public void onTextChanged(CharSequence s, int start, int before, int count) { pwdIsValid2(s); }
             @Override
-            public void afterTextChanged(Editable s) {
-            }
+            public void afterTextChanged(Editable s) { }
         });
     }
 
@@ -170,6 +149,7 @@ public class CrearUsuarioActivity extends AppCompatActivity  implements View.OnC
                                 }else {
                                     Toast.makeText(CrearUsuarioActivity.this, getString(R.string.exist), Toast.LENGTH_SHORT).show();
                                     updateUI(null);
+                                    chargingFragment.dismiss();
                                 }
                             }
                         });
@@ -182,13 +162,13 @@ public class CrearUsuarioActivity extends AppCompatActivity  implements View.OnC
     //detecta si ya inicio sesion
     private void updateUI(FirebaseUser currentUser) {
         if (currentUser !=null) {
-            String id = mAuth.getUid();
+            String id        = mAuth.getUid();
             String name      = tieName.getEditableText().toString().toUpperCase();
             String lastName  = tieLastName.getEditableText().toString().toUpperCase();
-            String email = tietEmail.getEditableText().toString();
-            CrearUser crearUser = new CrearUser(id, name, lastName, email);
+            String email     = tietEmail.getEditableText().toString();
+            CrearUser crearUser = new CrearUser(id, imagenUser, name, lastName, email, numberBodega);
 
-            myRef.child(id).setValue(crearUser);
+            NodosFirebase.myRefUser.child(id).setValue(crearUser);
 
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);

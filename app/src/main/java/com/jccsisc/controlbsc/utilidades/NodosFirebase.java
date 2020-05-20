@@ -6,6 +6,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.jccsisc.controlbsc.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -19,10 +20,9 @@ public class NodosFirebase {
     public static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
     public static Date date = new Date();
 
-    public static DatabaseReference myRef = FirebaseDatabase.getInstance().getReference(NodosFirebase.DB_BODEGA_UNO).child(NodosFirebase.DB_PRODUCTOS);
-    public static DatabaseReference myRefProveedor = FirebaseDatabase.getInstance().getReference(NodosFirebase.DB_BODEGA_UNO).child("DB_Proveedores");
+    public static DatabaseReference myRefUser = FirebaseDatabase.getInstance().getReference("DB_Users");
+    public static DatabaseReference myRefProveedor = FirebaseDatabase.getInstance().getReference("DB_Bodega1").child("DB_Proveedores");
+    public static DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("DB_Bodega1").child("DB_Productos");
     public static StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("img_comprimidas");
-    public static final String DB_BODEGA_UNO = "DB_Bodega1";
-    public static final String DB_PRODUCTOS = "DB_Productos";
 
 }

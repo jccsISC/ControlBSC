@@ -1,15 +1,33 @@
 package com.jccsisc.controlbsc.model;
 
 public class CrearUser {
-    String idUser, name, lastName, email;
+    String idUser, imgUser, name, lastName, email, numberBodega;
 
     public CrearUser() {}
 
-    public CrearUser(String idUser, String name, String lastName, String email) {
+    public CrearUser(String idUser, String imgUser, String name, String lastName, String email, String numberBodega) {
         this.idUser   = idUser;
+        this.imgUser  = imgUser;
         this.name     = name;
         this.lastName = lastName;
         this.email    = email;
+        this.numberBodega = numberBodega;
+    }
+
+    public String getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
+    }
+
+    public String getImgUser() {
+        return imgUser;
+    }
+
+    public void setImgUser(String imgUser) {
+        this.imgUser = imgUser;
     }
 
     public String getName() {
@@ -28,19 +46,19 @@ public class CrearUser {
         this.lastName = lastName;
     }
 
-    public String getIdUser() {
-        return idUser;
-    }
-
-    public void setIdUser(String idUser) {
-        this.idUser = idUser;
-    }
-
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getNumberBodega() {
+        return numberBodega;
+    }
+
+    public void setNumberBodega(String numberBodega) {
+        this.numberBodega = numberBodega;
     }
 }

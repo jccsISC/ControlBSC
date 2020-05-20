@@ -39,6 +39,7 @@
         android:layout_marginTop="@dimen/marginTop_10"
         android:padding="@dimen/padding_3"
         android:text="subir"
+        android:textColor="@android:color/darker_gray"
         android:background="@drawable/borde_card_entradas"
         android:drawableEnd="@drawable/ic_ok"/>
 
@@ -65,6 +66,7 @@
                         android:padding="@dimen/padding_10"
                         android:hint="@string/hint_name"
                         android:inputType="textPersonName"
+                        android:textColor="@color/colorText"
                         android:fontFamily="@font/roboto_regular"
                         android:textSize="@dimen/size_20"
                         android:drawableEnd="@drawable/ic_add_contac_senci"
@@ -85,6 +87,7 @@
                         android:padding="@dimen/padding_10"
                         android:hint="@string/hint_last_name"
                         android:inputType="textPersonName"
+                        android:textColor="@color/colorText"
                         android:fontFamily="@font/roboto_regular"
                         android:textSize="@dimen/size_20"
                         android:drawableEnd="@drawable/ic_add_contac_senci"
@@ -104,6 +107,7 @@
                         android:padding="@dimen/padding_10"
                         android:hint="@string/hint_name_company"
                         android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/colorText"
                         android:inputType="textPersonName"
                         android:textSize="@dimen/size_20"
                         android:drawableEnd="@drawable/ic_flechas"/>
@@ -124,6 +128,7 @@
                         android:hint="@string/hint_number_contact"
                         android:fontFamily="@font/roboto_regular"
                         android:inputType="number"
+                        android:textColor="@color/colorText"
                         android:textSize="@dimen/size_20"
                         android:maxLength="10"
                         android:drawableEnd="@drawable/ic_smartphone"/>

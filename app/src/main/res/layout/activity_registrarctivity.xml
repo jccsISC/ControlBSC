@@ -38,6 +38,7 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/padding_10"
                 android:hint="@string/hint_producto"
+                android:textColor="@color/colorText"
                 android:inputType="text"
                 android:textSize="@dimen/size_24"
                 android:fontFamily="@font/roboto_regular"/>

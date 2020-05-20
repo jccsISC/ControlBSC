@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -29,6 +30,7 @@ import androidx.appcompat.widget.Toolbar;
 
 public class MainActivity extends AppCompatActivity {
 
+    private TextView txtNameUser, txtPuestoUser;
     private AppBarConfiguration mAppBarConfiguration;
     public static EditText edtAppBar;
     public static FloatingActionButton fab;
@@ -40,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
 
         toolbar();
         fab = findViewById(R.id.fab);
-
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,8 +58,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         edtAppBar = findViewById(R.id.edtAppBarBuscador);
-
-
         edtAppBar.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
@@ -106,7 +105,6 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-
     private void toolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -122,6 +120,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.action_perfil:
+                Intent intent1 = new Intent(getApplicationContext(), CrearUsuarioActivity.class);
+                startActivity(intent1);
+                Animatoo.animateSplit(MainActivity.this);
+                return true;
             case R.id.action_exit:
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
