@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 if (NodosFirebase.addContac.equals("addContac")) {
                     Intent i = new Intent(getApplicationContext(), AddContactoActivity.class);
                     i.putExtra("type","new");
@@ -54,11 +53,11 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), RegistrarProductoActivity.class);
                     startActivity(intent);
                 }
-
             }
         });
 
         edtAppBar = findViewById(R.id.edtAppBarBuscador);
+
 
         edtAppBar.addTextChangedListener(new TextWatcher() {
             @Override
@@ -83,8 +82,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        visivilitySearch(NodosFirebase.nameFragment); //para que no muestre el buscador en la vista home
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setItemIconTintList(null);
@@ -93,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_productos, R.id.nav_matanzas, R.id.nav_procesos,
                 R.id.nav_pedidos, R.id.nav_historial, R.id.nav_tickets, R.id.nav_camaras, R.id.nav_inventario,
-                R.id.nav_proveedores, R.id.nav_contactanos, R.id.nav_contenedor_fragment)
+                R.id.nav_proveedores, R.id.nav_contactanos)
                 .setDrawerLayout(drawer)
                 .build();
 
@@ -133,24 +130,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
-        }
-    }
-
-    //para ocultar el buscador del toolbar segun el fragment en el que s encuentre
-    public static void visivilitySearch(String fragment) {
-
-        switch (fragment) {
-            case "Entradas":
-            case "Salidas":
-            case "Productos":
-                edtAppBar.setVisibility(View.VISIBLE);
-                break;
-            case "Home":
-                edtAppBar.setVisibility(View.INVISIBLE);
-                break;
-            default:
-                edtAppBar.setVisibility(View.INVISIBLE);
-                break;
         }
     }
 

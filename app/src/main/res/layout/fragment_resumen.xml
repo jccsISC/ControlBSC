@@ -13,7 +13,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/borde_card"
+            android:background="@drawable/borde_card_green"
             android:layout_margin="@dimen/margin_20"
             android:paddingBottom="@dimen/padding_10"
             android:orientation="vertical">
@@ -57,7 +57,7 @@
                     android:id="@+id/txtDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="04/05/20"
+                    tools:text="04/05/20"
                     android:padding="@dimen/padding_5"
                     android:textSize="@dimen/size_12"
                     android:fontFamily="@font/roboto_bold" />

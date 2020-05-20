@@ -14,8 +14,6 @@ import com.jccsisc.controlbsc.activities.MainActivity;
 
 public class InventarioFragment extends Fragment {
 
-    public String fragment_text = "Inventario";
-
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -24,7 +22,6 @@ public class InventarioFragment extends Fragment {
         final TextView textView = root.findViewById(R.id.text_entradas);
         textView.setText("Inventario");
 
-        MainActivity.visivilitySearch(fragment_text);
 
         return root;
     }

@@ -14,7 +14,6 @@ import java.util.Locale;
 public class NodosFirebase {
 
     public static int tab = 0; //para controlar los tabs que no se destruyan
-    public static String nameFragment = "Home";
     public static String addContac = "";
 
     public static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());

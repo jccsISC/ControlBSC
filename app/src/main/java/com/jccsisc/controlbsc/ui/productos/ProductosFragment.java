@@ -70,8 +70,10 @@ public class ProductosFragment extends Fragment {
         rvProductos.setAdapter(productosAdapter);
         rvProductos.showShimmerAdapter();
 
-        NodosFirebase.nameFragment = "Productos";
-        MainActivity.visivilitySearch(NodosFirebase.nameFragment);
+//        NodosFirebase.nameFragment = "Productos";
+//        MainActivity.visivilitySearch(NodosFirebase.nameFragment);
+
+        MainActivity.edtAppBar.setVisibility(View.VISIBLE);
 
         NodosFirebase.myRef.orderByChild("name").addValueEventListener(new ValueEventListener() {
             @Override
@@ -177,5 +179,11 @@ public class ProductosFragment extends Fragment {
     //interfaz para mandar los datos del element precionado
     public interface DateElement {
         void sendDatos(String idKey, String name);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        MainActivity.edtAppBar.setVisibility(View.INVISIBLE);
     }
 }

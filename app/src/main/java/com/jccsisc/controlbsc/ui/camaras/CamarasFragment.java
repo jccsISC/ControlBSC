@@ -23,8 +23,6 @@ public class CamarasFragment extends Fragment {
         final TextView textView = root.findViewById(R.id.text_entradas);
         textView.setText("camaras");
 
-        MainActivity.visivilitySearch(fragment_text);
-
         return root;
     }
 }

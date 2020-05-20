@@ -49,8 +49,6 @@ public class EntradasFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_entradas, container, false);
 
-        MainActivity.visivilitySearch("Entradas");
-
         edtBuscador = v.findViewById(R.id.edtBuscador);
         rvEntradas = v.findViewById(R.id.recyclerViewEntradas);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());

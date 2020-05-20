@@ -39,9 +39,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         View v = inflater.inflate(R.layout.fragment_home, container, false);
         cardViewEntrada = v.findViewById(R.id.cardViewEntrada);
         cardViewSalidas = v.findViewById(R.id.cardViewSalida);
-
-        MainActivity.visivilitySearch(NodosFirebase.nameFragment); //para que el buscador no se visualice en este fragment en el toolbar
-
         cardViewEntrada.setOnClickListener(this);
         cardViewSalidas.setOnClickListener(this);
 

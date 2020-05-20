@@ -18,18 +18,19 @@ import com.jccsisc.controlbsc.activities.MainActivity;
 
 public class ContactanosFragment extends Fragment {
 
-    public String fragment_text = "Contactanos";
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_contactanos, container, false);
-        final TextView textView = root.findViewById(R.id.text_entradas);
-        textView.setText("Contactanos");
+        View v = inflater.inflate(R.layout.fragment_contactanos, container, false);
 
-        MainActivity.visivilitySearch(fragment_text);
+        MainActivity.fab.setVisibility(View.INVISIBLE);
 
-        return root;
+        return v;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        MainActivity.fab.setVisibility(View.VISIBLE);
+    }
 }

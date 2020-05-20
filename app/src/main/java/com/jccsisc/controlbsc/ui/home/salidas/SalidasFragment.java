@@ -43,8 +43,6 @@ public class SalidasFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_salidas, container, false);
 
-        MainActivity.visivilitySearch("salidas");
-
         edtBuscador = v.findViewById(R.id.edtBuscador);
         rvSalidas = v.findViewById(R.id.recyclerViewSalidas);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());

@@ -99,6 +99,10 @@ public class AddContactoActivity extends AppCompatActivity implements View.OnCli
             btnSubirImg.setText("Actualizar Foto");
             btnCrearContact.setText("Guardar cambios");
 
+//            imgvProveedor.getLayoutParams().width = 100;
+//            imgvProveedor.getLayoutParams().height = 100;
+//            imgvProveedor.setAdjustViewBounds(true);
+
             Glide.with(this)
                     .load(modelito.getImgCompany())
                     .into(imgvProveedor);

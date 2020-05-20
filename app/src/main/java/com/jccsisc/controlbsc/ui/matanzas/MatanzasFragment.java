@@ -27,7 +27,6 @@ public class MatanzasFragment extends Fragment {
 
     DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("DB_Bodega1");
     FirebaseAuth mAuth;
-    public String fragment_text = "Matanzas";
 
     private RecyclerView rvMatanzas;
     private ArrayList<Producto> productoArrayList;
@@ -45,8 +44,6 @@ public class MatanzasFragment extends Fragment {
         productosAdapter = new ProductosAdapter(productoArrayList, getActivity(), "Producto");
 
         rvMatanzas.setAdapter(productosAdapter);
-
-        MainActivity.visivilitySearch(fragment_text);
 
         mAuth = FirebaseAuth.getInstance(); //obtenemos al usuario actual
         final  String uid = mAuth.getUid();
