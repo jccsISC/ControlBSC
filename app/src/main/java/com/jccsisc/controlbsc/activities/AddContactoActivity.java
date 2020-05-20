@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Continuation;
@@ -45,23 +46,22 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import id.zelory.compressor.Compressor;
 
 public class AddContactoActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private ChargingFragment chargingFragment = new ChargingFragment();
-    private Button btnSubirImg;
-    private ImageView imgvProveedor;
     private TextInputLayout tilNameContac, tilLastNameContac, tilNameCompany, tilPhoneCompany;
     private TextInputEditText tieNameContac, tieLastNameContac, tieNameCompany, tiePhoneCompany;
-    DatabaseReference myStorageReference;
-    StorageReference storageReference;
-    Bitmap thumb_bitmp = null; //comprimir img
-    Intent extras;
-    Proveedor modelito;
-    String type;
-    String id = "";
-    String imgCompany = "imagen";
+    private ChargingFragment chargingFragment = new ChargingFragment();
+    private Button btnSubirImg, btnCrearContact;
+    private CircleImageView imgvProveedor;
+    private Bitmap thumb_bitmp = null; //comprimir img
+    private Intent extras;
+    private Proveedor modelito;
+    private String type;
+    private String id = "";
+    private String imgCompany;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +71,7 @@ public class AddContactoActivity extends AppCompatActivity implements View.OnCli
 
         myToolbar(getString(R.string.crear_contacto));
         btnSubirImg       = findViewById(R.id.btnSubirImg);
+        btnCrearContact   = findViewById(R.id.btnCrearContact);
         imgvProveedor     = findViewById(R.id.imgvProveedor);
         tilNameContac     = findViewById(R.id.tilNameContact);
         tieNameContac     = findViewById(R.id.tieNameContact);
@@ -81,18 +82,12 @@ public class AddContactoActivity extends AppCompatActivity implements View.OnCli
         tilPhoneCompany   = findViewById(R.id.tilPhoneContact);
         tiePhoneCompany   = findViewById(R.id.tiePhoneContact);
 
-        myStorageReference = FirebaseDatabase.getInstance().getReference().child("Fotos_empresas");
-        storageReference = FirebaseStorage.getInstance().getReference().child("img_comprimidas");
-
-        imgvProveedor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CropImage.startPickImageActivity(AddContactoActivity.this);
-
-            }
-        });
+        imgvProveedor.setOnClickListener(this);
+        btnCrearContact.setOnClickListener(this);
 
         if(type.equals("edit")) {
+
+            myToolbar("Actualizar Contacto");
             Bundle bundle = extras.getExtras();
             modelito = (Proveedor) bundle.getSerializable("modelo");
             tieNameContac.setText(modelito.getName());
@@ -100,6 +95,10 @@ public class AddContactoActivity extends AppCompatActivity implements View.OnCli
             tieNameCompany.setText(modelito.getNameCompany());
             tiePhoneCompany.setText(modelito.getNumberPhone());
             id = extras.getStringExtra("idKey");
+
+            btnSubirImg.setText("Actualizar Foto");
+            btnCrearContact.setText("Guardar cambios");
+
             Glide.with(this)
                     .load(modelito.getImgCompany())
                     .into(imgvProveedor);
@@ -110,88 +109,62 @@ public class AddContactoActivity extends AppCompatActivity implements View.OnCli
 
         tieNameContac.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                nameValid(s);
-            }
-
+            public void onTextChanged(CharSequence s, int start, int before, int count) { nameValid(s); }
             @Override
-            public void afterTextChanged(Editable s) {
-
-            }
+            public void afterTextChanged(Editable s) { }
         });
 
         tieLastNameContac.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                lastNameValid(s);
-            }
-
+            public void onTextChanged(CharSequence s, int start, int before, int count) { lastNameValid(s); }
             @Override
-            public void afterTextChanged(Editable s) {
-
-            }
+            public void afterTextChanged(Editable s) { }
         });
 
         tieNameCompany.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                nameCompanyValid(s);
-            }
-
+            public void onTextChanged(CharSequence s, int start, int before, int count) { nameCompanyValid(s); }
             @Override
-            public void afterTextChanged(Editable s) {
-
-            }
+            public void afterTextChanged(Editable s) { }
         });
 
         tiePhoneCompany.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                phoneNumberValid(s);
-            }
-
+            public void onTextChanged(CharSequence s, int start, int before, int count) { phoneNumberValid(s); }
             @Override
-            public void afterTextChanged(Editable s) {
-
-            }
+            public void afterTextChanged(Editable s) { }
         });
 
     }
 
     @Override
     public void onClick(View v) {
-        registarContacto();
+        switch (v.getId()) {
+            case R.id.btnCrearContact:
+                registarContacto();
+                break;
+            case R.id.imgvProveedor:
+                CropImage.startPickImageActivity(AddContactoActivity.this);
+                break;
+        }
     }
 
     private void registarContacto() {
-        String name        = tieNameContac.getEditableText().toString();
-        String lastName    = tieLastNameContac.getEditableText().toString();
-        String nameCompany = tieNameCompany.getEditableText().toString();
+        String name           = tieNameContac.getEditableText().toString().toUpperCase();
+        String lastName       = tieLastNameContac.getEditableText().toString().toUpperCase();
+        String nameCompany    = tieNameCompany.getEditableText().toString().toUpperCase();
         String phoneNumber    = tiePhoneCompany.getEditableText().toString();
 
-        if (nameValid(name) & lastNameValid(lastName) & nameCompanyValid(nameCompany) & phoneNumberValid(phoneNumber)) {
+        if (nameValid(name) & nameCompanyValid(nameCompany) & phoneNumberValid(phoneNumber)) {
             chargingFragment.show(getSupportFragmentManager(), "dialogChargin");
-//            Log.e("idkey", id);
 
             Proveedor proveedor = new Proveedor(name, lastName, nameCompany, imgCompany, phoneNumber, id);
             NodosFirebase.myRefProveedor.child(id).setValue(proveedor).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -228,7 +201,7 @@ public class AddContactoActivity extends AppCompatActivity implements View.OnCli
                 Uri resultUri = result.getUri();
                 File url = new File(resultUri.getPath());
 
-                Picasso.with(this).load(url).into(imgvProveedor);
+                Picasso.get().load(url).into(imgvProveedor);
 
                 //comprimiendo imagen
                 try {
@@ -259,8 +232,8 @@ public class AddContactoActivity extends AppCompatActivity implements View.OnCli
                 btnSubirImg.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        final StorageReference ref = storageReference.child(randome);
                         chargingFragment.show(getSupportFragmentManager(), "dialogCharging");
+                        final StorageReference ref = NodosFirebase.storageReference.child(randome);
                         UploadTask uploadTask = ref.putBytes(thumb_byte);
 
                         //subir imagen al storage
@@ -280,10 +253,8 @@ public class AddContactoActivity extends AppCompatActivity implements View.OnCli
                                 //tenemos la imagen cargada al storage
                                 Uri downLoadUri = task.getResult();
                                 chargingFragment.dismiss();
-                                myStorageReference.push().child("urlFoto").setValue(downLoadUri.toString());
+                                imgCompany = downLoadUri.toString();
                                 snackMessage("Imagen cargada");
-                                myStorageReference.child(id)
-
                             }
                         });
                     }
@@ -375,7 +346,6 @@ public class AddContactoActivity extends AppCompatActivity implements View.OnCli
     void nameMessage() {
         tilNameContac.setError(null);
     }
-
     void nameMessage(String message) {
         tilNameContac.setError(message);
     }
@@ -383,7 +353,6 @@ public class AddContactoActivity extends AppCompatActivity implements View.OnCli
     void lastNameMessage() {
         tilLastNameContac.setError(null);
     }
-
     void lastNameMessage(String message) {
         tilLastNameContac.setError(message);
     }
@@ -391,7 +360,6 @@ public class AddContactoActivity extends AppCompatActivity implements View.OnCli
     void nameCompanyMessage() {
         tilNameCompany.setError(null);
     }
-
     void nameCompanyMessage(String message) {
         tilNameCompany.setError(message);
     }
@@ -399,7 +367,6 @@ public class AddContactoActivity extends AppCompatActivity implements View.OnCli
     void phoneMessage() {
         tilPhoneCompany.setError(null);
     }
-
     void phoneMessage(String message) {
         tilPhoneCompany.setError(message);
     }

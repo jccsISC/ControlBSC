@@ -17,24 +17,27 @@
             layout="@layout/toolbar"/>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <ImageView
+
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgvProveedor"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:contentDescription="@string/nav_header_desc"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:layout_gravity="center_horizontal"
-        android:elevation="8dp"
-        android:layout_marginTop="@dimen/marginTop_30"
-        android:foreground="?attr/selectableItemBackground"
-        app:srcCompat="@drawable/ic_add_img" />
+        android:layout_marginTop="@dimen/marginTop_20"
+        android:elevation="10dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_add_img"
+        app:civ_border_width="1dp"
+        app:civ_border_color="@color/colorSecondaryText"/>
 
     <Button
         android:id="@+id/btnSubirImg"
-        android:layout_width="@dimen/width_100"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/marginTop_10"
+        android:padding="@dimen/padding_3"
         android:text="subir"
         android:background="@drawable/borde_card_entradas"
         android:drawableEnd="@drawable/ic_ok"/>
@@ -137,7 +140,6 @@
         android:layout_margin="@dimen/margin_10"
         android:fontFamily="@font/roboto_regular"
         android:background="@drawable/borde_btn_sumar"
-        android:textColor="@android:color/white"
-        android:onClick="onClick"/>
+        android:textColor="@android:color/white" />
 
 </LinearLayout>

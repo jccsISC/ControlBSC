@@ -132,7 +132,7 @@
                     android:layout_height="@dimen/height_60"
                     android:inputType="numberDecimal"
                     android:layout_marginEnd="@dimen/marginEnd_22"
-                    android:background="@drawable/borde_card"
+                    android:background="@drawable/borde_card_green"
                     android:hint="@string/hint_cero"
                     android:textSize="@dimen/size_28"
                     android:gravity="center"

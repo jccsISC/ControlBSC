@@ -13,7 +13,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/borde_card"
+        android:background="@drawable/borde_card_green"
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,13 +28,17 @@
                 android:layout_weight="0.7"
                 android:gravity="center"
                 android:baselineAligned="false">
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/imgvProveedor"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:contentDescription="@string/nav_header_desc"
-                    android:paddingTop="@dimen/nav_header_vertical_spacing"
-                    app:srcCompat="@drawable/ic_add_img" />
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center_horizontal"
+                    android:scaleType="centerCrop"
+                    android:elevation="10dp"
+                    android:src="@drawable/ic_add_img"
+                    app:civ_border_width="1dp"
+                    app:civ_border_color="@color/colorSecondaryText"/>
             </LinearLayout>
 
             <LinearLayout

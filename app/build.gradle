@@ -57,4 +57,8 @@ dependencies {
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.4.+' //para recortar imagen
     implementation 'com.squareup.picasso:picasso:2.5.0'
     implementation 'id.zelory:compressor:2.1.0' //comprimir imagen
+
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 }
+

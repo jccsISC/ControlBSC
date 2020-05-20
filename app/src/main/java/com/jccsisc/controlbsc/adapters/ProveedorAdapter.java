@@ -19,16 +19,20 @@ import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.jccsisc.controlbsc.R;
 import com.jccsisc.controlbsc.activities.AddContactoActivity;
 import com.jccsisc.controlbsc.model.Proveedor;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class ProveedorAdapter extends RecyclerView.Adapter<ProveedorAdapter.ProveedoresViewHolder> {
 
-    ArrayList<Proveedor> proveedor_model;
     private Activity activity;
+    ArrayList<Proveedor> proveedor_model;
     private OnClickListener onClickListener = null;
 
     public void setOnClickListener(OnClickListener onClickListener) {
@@ -84,9 +88,13 @@ public class ProveedorAdapter extends RecyclerView.Adapter<ProveedorAdapter.Prov
             }
         });
 
+//        Glide.with(activity.getApplicationContext())
+//                .load(proveedor.getImgCompany())
+//                .into(holder.imgCompany);
+//        holder.imgCompany = proveedor.getImgCompany();
 
-
-
+        Picasso.get().load(proveedor.getImgCompany())
+                .into(holder.imgCompany);
 
         holder.cardViewProveedor.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,7 +131,8 @@ public class ProveedorAdapter extends RecyclerView.Adapter<ProveedorAdapter.Prov
     public static class ProveedoresViewHolder extends RecyclerView.ViewHolder {
         TextView txtnameProveedor, txtLastName, txtNameCompany, txtPhoneNumber;
         CardView cardViewProveedor;
-        ImageView imgCompany, imgFlechaExpandir;
+        ImageView imgFlechaExpandir;
+        CircleImageView imgCompany;
         LinearLayout linearLayoutExpandible, layoutCall, layoutEditContact, layoutWhatssap;
 
         public ProveedoresViewHolder(@NonNull View itemView) {
@@ -148,5 +157,4 @@ public class ProveedorAdapter extends RecyclerView.Adapter<ProveedorAdapter.Prov
         void openIntent(int pos);
         void openWhatsapp(int pos);
     }
-
 }

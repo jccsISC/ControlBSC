@@ -6,7 +6,7 @@
     android:layout_margin="@dimen/margin_10"
     android:orientation="horizontal"
     android:baselineAligned="false"
-    android:background="@drawable/borde_card"
+    android:background="@drawable/borde_card_gray"
     android:weightSum="1">
 
         <LinearLayout

@@ -117,7 +117,7 @@ public class RegistrarE_S_C_Activity extends AppCompatActivity implements View.O
                     detallesArrayList.add(modelitoDetalle);
                     cajasAdapter.notifyDataSetChanged();
 
-                    edtPesoC.setBackground(getResources().getDrawable(R.drawable.borde_card));
+                    edtPesoC.setBackground(getResources().getDrawable(R.drawable.borde_card_green));
                     edtPesoC.setHintTextColor(getResources().getColor(R.color.colorSecondaryText));
                     edtPesoC.setText("");
 

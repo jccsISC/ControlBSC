@@ -13,8 +13,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.AddContactoActivity"></activity>
-        <activity android:name=".activities.ModificarMovimientoActivity" />
+        <activity
+            android:name=".activities.AddContactoActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"></activity>
+        <activity
+            android:name=".activities.ModificarMovimientoActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".activities.Splash_ScreenActivity"
             android:screenOrientation="portrait"

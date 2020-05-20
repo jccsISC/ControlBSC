@@ -49,18 +49,17 @@ import java.util.zip.Inflater;
 
 public class ProveedoresFragment extends Fragment {
 
+    private int position;
     private AlertDialog dialog;
     private ImageButton btnExit;
-    private int position;
-    public static Button btnEliminar;
     private TextView nameContacto, numberPhone, lastName;
-    public static ShimmerRecyclerViewX rvProveedores;
     public  ArrayList<Proveedor> proveedorArrayList;
     public ProveedorAdapter proveedorAdapter;
-    LinearLayout linearLayoutExpandible;
+    public static Button btnEliminar;
     private static final int REQUEST_CALL = 1;
-    public ProveedoresFragment() { }
+    public static ShimmerRecyclerViewX rvProveedores;
 
+    public ProveedoresFragment() { }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -108,6 +107,7 @@ public class ProveedoresFragment extends Fragment {
         });
 
         proveedorAdapter.setOnClickListener(new ProveedorAdapter.OnClickListener() {
+           //marcar un numero
             @Override
             public void onItemClick(int pos) {
                     if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
@@ -124,6 +124,7 @@ public class ProveedoresFragment extends Fragment {
                     }
                 }
 
+             //eliminar el contacto
             @Override
             public void onLongItemClick(int pos) {
                 position = pos;
@@ -135,6 +136,7 @@ public class ProveedoresFragment extends Fragment {
                 dialog.show();
             }
 
+            //editar el contacto
             @Override
             public void openIntent(int pos) {
                 Intent i = new Intent(getContext(), AddContactoActivity.class);
@@ -143,11 +145,12 @@ public class ProveedoresFragment extends Fragment {
                 i.putExtras(bundle);
                 i.putExtra("type","edit");
                 i.putExtra("idKey", proveedorArrayList.get(pos).getIdKey());
-                Log.e("idKey enviado",proveedorArrayList.get(pos).getIdKey());
+//                Log.e("idKey enviado",proveedorArrayList.get(pos).getIdKey());
                 startActivity(i);
                 Animatoo.animateZoom(getActivity());
             }
 
+            //abrir whatssap
             @Override
             public void openWhatsapp(int pos) {
                 String phone = String.valueOf(proveedorArrayList.get(pos).getNumberPhone());
@@ -187,7 +190,7 @@ public class ProveedoresFragment extends Fragment {
         }
     }
 
-
+    //is intalled whatsaopp or not
     private boolean appInstalledOrNot(String url) {
         PackageManager packageManager = getActivity().getPackageManager();
         boolean app_installed;
@@ -203,7 +206,6 @@ public class ProveedoresFragment extends Fragment {
         return app_installed;
     }
 
-
     private void instancias(View v) {
         btnExit      = v.findViewById(R.id.btnExit);
         nameContacto = v.findViewById(R.id.txtNameContact);
@@ -214,7 +216,6 @@ public class ProveedoresFragment extends Fragment {
         nameContacto.setText(proveedorArrayList.get(position).getName());
         lastName.setText(proveedorArrayList.get(position).getLastName());
         numberPhone.setText(proveedorArrayList.get(position).getNumberPhone());
-
 
         btnExit.setOnClickListener(new View.OnClickListener() {
             @Override
