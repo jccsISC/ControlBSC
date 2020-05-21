@@ -53,14 +53,13 @@ public class AddContactoActivity extends AppCompatActivity implements View.OnCli
 
     private TextInputLayout tilNameContac, tilLastNameContac, tilNameCompany, tilPhoneCompany;
     private TextInputEditText tieNameContac, tieLastNameContac, tieNameCompany, tiePhoneCompany;
-    private ChargingFragment chargingFragment = new ChargingFragment();
     private Button btnSubirImg, btnCrearContact;
     private CircleImageView imgvProveedor;
     private Bitmap thumb_bitmp = null; //comprimir img
     private Intent extras;
     private Proveedor modelito;
-    private String type;
     private String id = "";
+    private String type;
     private String imgCompany;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,7 +167,7 @@ public class AddContactoActivity extends AppCompatActivity implements View.OnCli
         String phoneNumber    = tiePhoneCompany.getEditableText().toString();
 
         if (nameValid(name) & nameCompanyValid(nameCompany) & phoneNumberValid(phoneNumber)) {
-            chargingFragment.show(getSupportFragmentManager(), "dialogChargin");
+            NodosFirebase.chargingFragment.show(getSupportFragmentManager(), "dialogChargin");
 
             Proveedor proveedor = new Proveedor(name, lastName, nameCompany, imgCompany, phoneNumber, id);
             NodosFirebase.myRefProveedor.child(id).setValue(proveedor).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -236,7 +235,7 @@ public class AddContactoActivity extends AppCompatActivity implements View.OnCli
                 btnSubirImg.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        chargingFragment.show(getSupportFragmentManager(), "dialogCharging");
+                        NodosFirebase.chargingFragment.show(getSupportFragmentManager(), "dialogCharging");
                         final StorageReference ref = NodosFirebase.storageReference.child(randome);
                         UploadTask uploadTask = ref.putBytes(thumb_byte);
 
@@ -256,7 +255,7 @@ public class AddContactoActivity extends AppCompatActivity implements View.OnCli
                             public void onComplete(@NonNull Task<Uri> task) {
                                 //tenemos la imagen cargada al storage
                                 Uri downLoadUri = task.getResult();
-                                chargingFragment.dismiss();
+                                NodosFirebase.chargingFragment.dismiss();
                                 imgCompany = downLoadUri.toString();
                                 snackMessage("Imagen cargada");
                             }

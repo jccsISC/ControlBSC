@@ -42,12 +42,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CrearUsuarioActivity extends AppCompatActivity  implements View.OnClickListener{
 
-    public String imagenUser = "Imagen", numberBodega = "Bodega 1";
-    private FirebaseAuth mAuth;
-    private int sonido; //valor paara el sonido
-    private SoundPool sp; //para reproducir el sonido
-    private ChargingFragment chargingFragment = new ChargingFragment();
+    private int sonido;
+    private SoundPool sp;
     private CircleImageView imgUser;
+    public String imagenUser = "Imagen", numberBodega = "Bodega 1";
     private TextInputLayout tilName, tilLastName, tilEmail, tilPassword, tilVerifyPsw;
     private TextInputEditText tieName, tieLastName, tietEmail, tietPassword, tietVerifyPsw;
 
@@ -61,7 +59,7 @@ public class CrearUsuarioActivity extends AppCompatActivity  implements View.OnC
         sp = new SoundPool(1, AudioManager.STREAM_MUSIC, 1);
         sonido = sp.load(this, R.raw.cuchillo_dos, 1);
 
-        mAuth = FirebaseAuth.getInstance();
+        NodosFirebase.mAuth = FirebaseAuth.getInstance();
 
         imgUser       = findViewById(R.id.imgUser);
         tilName       = findViewById(R.id.tilName);
@@ -135,21 +133,21 @@ public class CrearUsuarioActivity extends AppCompatActivity  implements View.OnC
 
         if(nameValid(name) & lastNameValid(lastName) & emailIsValid(email) & pwdIsValid(password) & pwdIsValid2(verifyPsw) && isConnected()) {
             if(verifyPsw.equals(password)) {
-                chargingFragment.show(getSupportFragmentManager(), "dialogCharging");
+                NodosFirebase.chargingFragment.show(getSupportFragmentManager(), "dialogCharging");
                 sp.play(sonido, 3, 3, 1, 0, 0); //reproducimos el sonido
-                mAuth.createUserWithEmailAndPassword(email, password)
+                NodosFirebase.mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(CrearUsuarioActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if(task.isSuccessful()) {
-                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    FirebaseUser user = NodosFirebase.mAuth.getCurrentUser();
                                     updateUI(user);
 
                                     Toast.makeText(getApplicationContext(),"Bienvenido " + name,Toast.LENGTH_SHORT).show();
                                 }else {
                                     Toast.makeText(CrearUsuarioActivity.this, getString(R.string.exist), Toast.LENGTH_SHORT).show();
                                     updateUI(null);
-                                    chargingFragment.dismiss();
+                                    NodosFirebase.chargingFragment.dismiss();
                                 }
                             }
                         });
@@ -162,7 +160,7 @@ public class CrearUsuarioActivity extends AppCompatActivity  implements View.OnC
     //detecta si ya inicio sesion
     private void updateUI(FirebaseUser currentUser) {
         if (currentUser !=null) {
-            String id        = mAuth.getUid();
+            String id        = NodosFirebase.mAuth.getUid();
             String name      = tieName.getEditableText().toString().toUpperCase();
             String lastName  = tieLastName.getEditableText().toString().toUpperCase();
             String email     = tietEmail.getEditableText().toString();
@@ -287,8 +285,7 @@ public class CrearUsuarioActivity extends AppCompatActivity  implements View.OnC
     }
 
     //Validar Contraseña segura
-    public Matcher validarContraSegura(String password)
-    {
+    public Matcher validarContraSegura(String password) {
         Pattern patternClave = Pattern
                 .compile("^(?=\\w*\\d)(?=\\w*[A-Z])(?=\\w*[a-z])\\s{8,}$");
         Matcher matcherPassword = patternClave.matcher(password);

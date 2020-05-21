@@ -39,16 +39,15 @@ public class ModificarMovimientoActivity extends AppCompatActivity {
         extras = getIntent();
         Bundle bundle = extras.getExtras();
         myList = (ArrayList<Movimiento>)bundle.getSerializable("movimientos");
-        unit = extras.getStringExtra("unit");
-        name = extras.getStringExtra("name");
-        key = extras.getStringExtra("key");
+        unit   = extras.getStringExtra("unit");
+        name   = extras.getStringExtra("name");
+        key    = extras.getStringExtra("key");
 
         Log.e("size", myList.size() +"");
         rvMovimientos = findViewById(R.id.recyclerViewModificarMovimiento);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         rvMovimientos.setLayoutManager(linearLayoutManager);
-
 
         adapter = new ModifyMovimientoAdapter(myList, getApplicationContext(), unit, name);
         rvMovimientos.setAdapter(adapter);

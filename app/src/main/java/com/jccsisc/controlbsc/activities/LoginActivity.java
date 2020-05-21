@@ -30,24 +30,23 @@ import com.google.firebase.auth.FirebaseUser;
 import com.jccsisc.controlbsc.R;
 import com.jccsisc.controlbsc.dialogs.ChargingFragment;
 import com.jccsisc.controlbsc.dialogs.ForgetPasswordFragment;
+import com.jccsisc.controlbsc.utilidades.NodosFirebase;
 
 import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private FirebaseAuth mAuth; // para conectarnos con el usuario de la db
     private int sonido; //valor paara el sonido
     private SoundPool sp; //para reproducir el sonido
-    private TextInputLayout tilEmail, tilPassword;
     private EditText tieEmail, tiePassword;
-    private ChargingFragment chargingFragment = new ChargingFragment(); //para mostrar el alertDialog
+    private TextInputLayout tilEmail, tilPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        mAuth = FirebaseAuth.getInstance();
+        NodosFirebase.mAuth = FirebaseAuth.getInstance();
 
         sp = new SoundPool(1, AudioManager.STREAM_MUSIC, 1);
         sonido = sp.load(this, R.raw.cuchillo_dos, 1);
@@ -60,31 +59,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         tieEmail.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                emailIsValid(s);
-            }
-
+            public void onTextChanged(CharSequence s, int start, int before, int count) { emailIsValid(s); }
             @Override
-            public void afterTextChanged(Editable s) {
-            }
+            public void afterTextChanged(Editable s) { }
         });
 
         tiePassword.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                pwdIsValid(s);
-            }
+            public void onTextChanged(CharSequence s, int start, int before, int count) { pwdIsValid(s); }
             @Override
-            public void afterTextChanged(Editable s) {
-
-            }
+            public void afterTextChanged(Editable s) { }
         });
-
     }
 
     @Override
@@ -95,8 +83,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.btnForget:
                 //mostramos el dialog
-                ForgetPasswordFragment forgetPasswordFragment = new ForgetPasswordFragment();
-                forgetPasswordFragment.show(getSupportFragmentManager(), "dialogCharging");
+                NodosFirebase.forgetPasswordFragment.show(getSupportFragmentManager(), "dialogCharging");
                 break;
             case R.id.btnSignIn:
                 login_Create();
@@ -108,7 +95,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onStart() {
         super.onStart();
         //comprobamos si el usuario ha iniciado sesion y actualizamos la IU
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        FirebaseUser currentUser = NodosFirebase.mAuth.getCurrentUser();
         updateUI(currentUser);
     }
 
@@ -122,28 +109,28 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void login_user() {
-        String email = tieEmail.getEditableText().toString().trim(); //trim para eliminar espacios al inicio o al final de la caja
+        String email     = tieEmail.getEditableText().toString().trim(); //trim para eliminar espacios al inicio o al final de la caja
         String password  = tiePassword.getEditableText().toString().trim();
         if(emailIsValid(email) & pwdIsValid(password) && isConnected()) {
-            chargingFragment.show(getSupportFragmentManager(), "dialogCharging"); //cargamos el dialog
+            NodosFirebase.chargingFragment.show(getSupportFragmentManager(), "dialogCharging"); //cargamos el dialog
             sp.play(sonido, 3, 3, 1, 0, 0); //reproducimos el sonido
-            mAuth.signInWithEmailAndPassword(email, password)
+            NodosFirebase.mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 Toast.makeText(getApplicationContext(),"Bienvenido",Toast.LENGTH_SHORT).show();
-                                FirebaseUser user = mAuth.getCurrentUser();
+                                FirebaseUser user = NodosFirebase.mAuth.getCurrentUser();
                                 updateUI(user);
                             } else {
                                 Toast.makeText(LoginActivity.this, "Verifica tu internet o usuario", Toast.LENGTH_SHORT).show();
                                 updateUI(null);
-                                chargingFragment.dismiss();
+                                NodosFirebase.chargingFragment.dismiss();
                             }
                         }
                     });
         }else {
-//            snackMessage("Algo sucedió");
+            snackMessage("Ha ocurrido un error");
         }
     }
 
@@ -168,7 +155,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private boolean emailIsValid(CharSequence email) {
-
         if (TextUtils.isEmpty(email)) {
             mailMessage(getString(R.string.empty_field));
             return false;
@@ -218,5 +204,4 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     void pwdMessage(String message) {
         tilPassword.setError(message);
     }
-
 }

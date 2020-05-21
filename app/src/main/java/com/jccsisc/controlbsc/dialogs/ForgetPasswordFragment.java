@@ -31,16 +31,16 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.jccsisc.controlbsc.R;
+import com.jccsisc.controlbsc.utilidades.NodosFirebase;
 
 public class ForgetPasswordFragment extends DialogFragment implements View.OnClickListener {
 
+    private String email;
+    private Button btnSend;
     private Activity activity;
     private ImageButton btnExit;
-    private Button btnSend;
     private TextInputLayout tilEmail;
     private TextInputEditText tieEmail;
-    private FirebaseAuth mAuth;
-    private String email;
     private TashieLoader tashieLoader;
 
     public ForgetPasswordFragment() { }
@@ -62,38 +62,18 @@ public class ForgetPasswordFragment extends DialogFragment implements View.OnCli
         tieEmail = v.findViewById(R.id.tieEmail);
         btnSend  = v.findViewById(R.id.btnSend);
 
-        mAuth    = FirebaseAuth.getInstance();
+        NodosFirebase.mAuth    = FirebaseAuth.getInstance();
 
         tashieLoader = v.findViewById(R.id.tashieLoader);
-
-        //mostrar la animacion de cargando
-        TashieLoader tashie;
-        tashie = new TashieLoader(
-                getActivity(), 5,
-                30, 10,
-                ContextCompat.getColor(getActivity(), R.color.colorPrimary));
-
-        tashie.setAnimDuration(500);
-        tashie.setAnimDelay(100);
-        tashie.setInterpolator(new LinearInterpolator());
-
-        tashieLoader.addView(tashie);
+        showTashieLoader();
 
         tieEmail.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                emailIsValid(s);
-            }
-
+            public void onTextChanged(CharSequence s, int start, int before, int count) { emailIsValid(s); }
             @Override
-            public void afterTextChanged(Editable s) {
-
-            }
+            public void afterTextChanged(Editable s) { }
         });
 
         btnExit.setOnClickListener(this);
@@ -129,18 +109,23 @@ public class ForgetPasswordFragment extends DialogFragment implements View.OnCli
     }
 
     private void resetPassword() {
-        mAuth.setLanguageCode("es");//idioma en que recibira el correo
-        mAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+        NodosFirebase.mAuth.setLanguageCode("es");//idioma en que recibira el correo
+        NodosFirebase.mAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()) {
-                    Toast.makeText(getContext(), getString(R.string.restablece_text), Toast.LENGTH_SHORT).show();
+                    mToast(getString(R.string.restablece_text));
                 }else {
-                    Toast.makeText(getContext(), getString(R.string.error_restablecer), Toast.LENGTH_SHORT).show();
+                    mToast(getString(R.string.error_restablecer));
                 }
                 dismiss(); //cerramos el dialog
             }
         });
+    }
+
+
+    private void mToast(String msj) {
+        Toast.makeText(getContext(), msj, Toast.LENGTH_SHORT).show();
     }
 
     private boolean emailIsValid(CharSequence email) {
@@ -157,6 +142,19 @@ public class ForgetPasswordFragment extends DialogFragment implements View.OnCli
 
         mailMessage();
         return true;
+    }
+
+    private void showTashieLoader() {
+        //mostrar la animacion de cargando
+        TashieLoader tashie;
+        tashie = new TashieLoader(
+                getActivity(), 5,
+                30, 10,
+                ContextCompat.getColor(getActivity(), R.color.colorPrimary));
+        tashie.setAnimDuration(500);
+        tashie.setAnimDelay(100);
+        tashie.setInterpolator(new LinearInterpolator());
+        tashieLoader.addView(tashie);
     }
 
     void mailMessage() {

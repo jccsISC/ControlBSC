@@ -76,6 +76,7 @@ public class ProveedoresFragment extends Fragment {
         rvProveedores.setAdapter(proveedorAdapter);
         rvProveedores.showShimmerAdapter();
 
+        //cambiamos el icono del floatButton
         NodosFirebase.addContac = "addContac";
         MainActivity.fab.setImageResource(R.drawable.ic_add_user);
 
