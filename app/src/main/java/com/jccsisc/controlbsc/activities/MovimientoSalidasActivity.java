@@ -1,34 +1,30 @@
 package com.jccsisc.controlbsc.activities;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Adapter;
-
 import com.jccsisc.controlbsc.R;
-import com.jccsisc.controlbsc.adapters.ModifyMovimientoAdapter;
 import com.jccsisc.controlbsc.adapters.MovimientoSalidasAdapter;
-import com.jccsisc.controlbsc.adapters.ProductosAdapter;
 import com.jccsisc.controlbsc.model.Movimiento;
+import com.jccsisc.controlbsc.model.MovimientoPiezas;
 import com.jccsisc.controlbsc.model.Producto;
-import com.jccsisc.controlbsc.utilidades.toolbarShow;
 import com.mikelau.views.shimmer.ShimmerRecyclerViewX;
 
 import java.util.ArrayList;
-import java.util.zip.Inflater;
 
-public class ModificarMovimientoActivity extends AppCompatActivity {
+public class MovimientoSalidasActivity extends AppCompatActivity {
 
     Intent extras;
-    ModifyMovimientoAdapter adapter;
-    ArrayList<Movimiento> myList = new ArrayList<>();;
+    MovimientoSalidasAdapter adapter;
+    ArrayList<Movimiento> myList = new ArrayList<>();
+    ArrayList<Movimiento> myListFiltered = new ArrayList<>();
     private ShimmerRecyclerViewX rvMovimientos;
     private String unit, name, key;
 
@@ -50,9 +46,10 @@ public class ModificarMovimientoActivity extends AppCompatActivity {
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         rvMovimientos.setLayoutManager(linearLayoutManager);
 
-        adapter = new ModifyMovimientoAdapter(myList, getApplicationContext(), unit, name);
-        rvMovimientos.setAdapter(adapter);
-        adapter.setOnClickListener(new ModifyMovimientoAdapter.OnClickListener() {
+        adapter = new MovimientoSalidasAdapter(myListFiltered, getApplicationContext(), unit, name);
+        filterData();
+
+        adapter.setOnClickListener(new MovimientoSalidasAdapter.OnClickListener() {
             @Override
             public void onItemClick(int pos) {
                 if(unit.equals("Caja")) {
@@ -76,6 +73,24 @@ public class ModificarMovimientoActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void filterData() {
+        MovimientoPiezas nuevoMov = new MovimientoPiezas();
+        for(int i = 0; i < myList.size(); i++){
+            if(myList.get(i).getType().equals("positive")){
+               myListFiltered.add(myList.get(i));
+            }
+        }
+//        for(int g = 0; g < myListFiltered.size(); g++){
+//            for(int h = 0; h < myListFiltered){
+//
+//
+//
+//            }
+//
+//        }
+        rvMovimientos.setAdapter(adapter);
     }
 
     public void myToolbar(String title) {

@@ -11,7 +11,6 @@ public class Detalle implements Serializable {
     public Detalle( String idKey, double peso) {
         this.idKey = idKey;
         this.peso = peso;
-
     }
 
     public double getPeso() {

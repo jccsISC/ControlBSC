@@ -7,15 +7,17 @@ import java.util.Locale;
 
 public class Aritmetica {
 
+    //sumamos el total del peso de todas las entradas del producto
     public static double sumaMovimiento(ArrayList<Movimiento> recibido) {
         double total = 0;
         for (Movimiento nuevo : recibido) {
             total += (nuevo.getWeight());
         }
-
         return total;
     }
 
+
+    //sumamos el total de los movimientos del mismo dia
     public static double sumaMovimientoFecha(ArrayList<Movimiento> recibido){
         double total = 0;
         String dateEntrada;
@@ -27,18 +29,14 @@ public class Aritmetica {
                 total = total + (nuevo.getWeight());
             }
         }
-
         return total;
     }
 
    public static int sumaCaja(ArrayList<Movimiento> recibido){
         int total = 0;
-
         for(Movimiento nuevo : recibido){
             total = total + (nuevo.getQuantity());
-
         }
-
         return total;
     }
 
@@ -55,7 +53,6 @@ public class Aritmetica {
                 total = total + (nuevo.getQuantity());
             }
         }
-
         return total;
     }
 

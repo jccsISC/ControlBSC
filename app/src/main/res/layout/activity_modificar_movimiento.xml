@@ -35,7 +35,7 @@
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/margin_10"
         android:layout_margin="@dimen/margin_20"
-        android:background="@drawable/borde_card"
+        android:background="@drawable/borde_card_green"
         android:padding="@dimen/padding_10"
         app:shimmer_demo_layout="@layout/layout_demo_grid_resumen" />
     

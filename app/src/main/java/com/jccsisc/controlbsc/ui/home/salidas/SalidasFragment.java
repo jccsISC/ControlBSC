@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +21,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.jccsisc.controlbsc.R;
-import com.jccsisc.controlbsc.activities.MainActivity;
+import com.jccsisc.controlbsc.activities.ModificarMovimientoActivity;
+import com.jccsisc.controlbsc.activities.MovimientoSalidasActivity;
 import com.jccsisc.controlbsc.activities.RegistrarE_SActivity;
 import com.jccsisc.controlbsc.activities.RegistrarE_S_C_Activity;
 import com.jccsisc.controlbsc.adapters.ProductosAdapter;
@@ -34,10 +36,10 @@ import java.util.ArrayList;
 
 public class SalidasFragment extends Fragment {
 
-    private ShimmerRecyclerViewX rvSalidas;
-    private ArrayList<Producto> productoArrayList, productoArrayList2;
-    private ProductosAdapter entradasAdapter, entradasAdapter2;
     private EditText edtBuscador;
+    private ShimmerRecyclerViewX rvSalidas;
+    private ProductosAdapter salidasAdapter, salidasAdapter2;
+    private ArrayList<Producto> productoArrayList, productoArrayList2;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -50,11 +52,11 @@ public class SalidasFragment extends Fragment {
         rvSalidas.setLayoutManager(linearLayoutManager);
 
         productoArrayList = new ArrayList<>();
-        entradasAdapter = new ProductosAdapter(productoArrayList, getActivity(), "Entrada");
+        salidasAdapter = new ProductosAdapter(productoArrayList, getActivity(), "Producto");
 
         productoArrayList2 = new ArrayList<>(); //este lo ocupams para refrezcar el segundo adapter para el buscador
-        entradasAdapter2 = new ProductosAdapter(productoArrayList2, getActivity(), "Entrada");
-        rvSalidas.setAdapter(entradasAdapter);
+        salidasAdapter2 = new ProductosAdapter(productoArrayList2, getActivity(), "Producto");
+        rvSalidas.setAdapter(salidasAdapter);
 
         rvSalidas.showShimmerAdapter();
 
@@ -78,6 +80,7 @@ public class SalidasFragment extends Fragment {
                                 movimiento.child("destiny").getValue(String.class),
                                 movimiento.child("status").getValue(String.class),
                                 movimiento.child("idKey").getValue(String.class),
+                                movimiento.child("idMovimiento").getValue(String.class),
                                 movimiento.child("weight").getValue(Double.class),
                                 movimiento.child("quantity").getValue(Integer.class));
 
@@ -97,7 +100,7 @@ public class SalidasFragment extends Fragment {
                 if(!edtBuscador.getText().toString().toUpperCase().equals("")){
                     metodoBuscar(edtBuscador.getText().toString().toUpperCase());
                 }else{
-                    entradasAdapter.notifyDataSetChanged();
+                    salidasAdapter.notifyDataSetChanged();
                 }
 
             }
@@ -108,27 +111,87 @@ public class SalidasFragment extends Fragment {
             }
         });
 
-        entradasAdapter.setOnClickListener(new ProductosAdapter.OnClickListener() {
+        salidasAdapter.setOnClickListener(new ProductosAdapter.OnClickListener() {
             @Override
             public void onItemClick( int pos) {
-                mostraraActivity(pos, productoArrayList);
+                ArrayList<Movimiento> movimientos = new ArrayList<>();
+
+                for (int i = 0; i < productoArrayList.get(pos).getMovimientos().size(); i++) {
+                    movimientos.add(productoArrayList.get(pos).getMovimientos().get(i));
+                }
+
+                if (movimientos.size() != 0) {
+                    Intent i = new Intent(getContext(), MovimientoSalidasActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("movimientos", movimientos);
+                    i.putExtras(bundle);
+                    i.putExtra("unit", productoArrayList.get(pos).getUnit());
+                    i.putExtra("name", productoArrayList.get(pos).getName());
+                    i.putExtra("key", productoArrayList.get(pos).getIdKey());
+                    startActivity(i);
+                } else {
+                    mtoast("No hay movimientos");
+                }
             }
 
             @Override
             public void onLongItemClick(int pos) {
+
+//                ArrayList<Movimiento> movimientos = new ArrayList<>();
+//
+//                for (int i = 0; i < productoArrayList.get(pos).getMovimientos().size(); i++) {
+//                    movimientos.add(productoArrayList.get(pos).getMovimientos().get(i));
+//                }
+//
+//                if (movimientos.size() != 0) {
+//                    Intent i = new Intent(getContext(), ModificarMovimientoActivity.class);
+//                    Bundle bundle = new Bundle();
+//                    bundle.putSerializable("movimientos", movimientos);
+//                    i.putExtras(bundle);
+//                    i.putExtra("unit", productoArrayList.get(pos).getUnit());
+//                    i.putExtra("name", productoArrayList.get(pos).getName());
+//                    i.putExtra("key", productoArrayList.get(pos).getIdKey());
+//                    startActivity(i);
+//                } else {
+//                    mtoast("No hay movimientos");
+//                }
 
             }
         });
 
-        entradasAdapter2.setOnClickListener(new ProductosAdapter.OnClickListener() {
+        salidasAdapter2.setOnClickListener(new ProductosAdapter.OnClickListener() {
             @Override
             public void onItemClick( int pos) {
-                mostraraActivity(pos, productoArrayList2);
+//                mostraraActivity(pos, productoArrayList2);
             }
 
             @Override
             public void onLongItemClick(int pos) {
+                ArrayList<Movimiento> movimientos = new ArrayList<>();
 
+//                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+//                Date date = new Date();
+//                String dateToday = dateFormat.format(date);
+
+                for (int i = 0; i < productoArrayList.get(pos).getMovimientos().size(); i++) {
+                    movimientos.add(productoArrayList.get(pos).getMovimientos().get(i));
+                }
+
+                if (movimientos.size() != 0) {
+                    if (productoArrayList.get(pos).getUnit().equals("Caja")) {
+                        mostraraActivity(pos, productoArrayList);
+                    }
+//                    Intent i = new Intent(getContext(), ModificarMovimientoActivity.class);
+//                    Bundle bundle = new Bundle();
+//                    bundle.putSerializable("movimientos", movimientos);
+//                    i.putExtras(bundle);
+//                    i.putExtra("unit", productoArrayList.get(pos).getUnit());
+//                    i.putExtra("name", productoArrayList.get(pos).getName());
+//                    i.putExtra("key", productoArrayList.get(pos).getIdKey());
+//                    startActivity(i);
+                } else {
+                    mtoast("No hay movimientos");
+                }
             }
         });
 
@@ -143,7 +206,7 @@ public class SalidasFragment extends Fragment {
                 if(!s.equals("")){
                     metodoBuscar(s);
                 }else{
-                    rvSalidas.setAdapter(entradasAdapter2);
+                    rvSalidas.setAdapter(salidasAdapter2);
                 }
             }
             @Override
@@ -177,7 +240,7 @@ public class SalidasFragment extends Fragment {
                 productoArrayList2.add(productoArrayList.get(i));
             }
         }
-        rvSalidas.setAdapter(entradasAdapter2);
+        rvSalidas.setAdapter(salidasAdapter2);
     }
 
     public void mtoast(String msj) {

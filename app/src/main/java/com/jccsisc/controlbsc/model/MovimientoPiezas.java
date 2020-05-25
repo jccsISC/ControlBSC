@@ -1,6 +1,5 @@
 package com.jccsisc.controlbsc.model;
 
-import java.util.ArrayList;
 
 public class MovimientoPiezas {
 
@@ -10,11 +9,11 @@ public class MovimientoPiezas {
     public String destiny;
     public String status;
     public String idKey;
+    public String idMovimiento;
     public double weight;
     public int quantity;
 
-    public MovimientoPiezas() {
-    }
+    public MovimientoPiezas() { }
 
     public MovimientoPiezas(String date,
                             String type,
@@ -22,6 +21,7 @@ public class MovimientoPiezas {
                             String destiny,
                             String status,
                             String idKey,
+                            String idMovimiento,
                             double weight,
                             int quantity) {
         this.date     = date;
@@ -30,8 +30,17 @@ public class MovimientoPiezas {
         this.destiny  = destiny;
         this.status   = status;
         this.idKey    = idKey;
+        this.idMovimiento = idMovimiento;
         this.weight   = weight;
         this.quantity = quantity;
+    }
+
+    public String getIdMovimiento() {
+        return idMovimiento;
+    }
+
+    public void setIdMovimiento(String idMovimiento) {
+        this.idMovimiento = idMovimiento;
     }
 
     public String getDate() {

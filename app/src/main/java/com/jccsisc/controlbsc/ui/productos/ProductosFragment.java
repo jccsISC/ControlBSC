@@ -32,24 +32,11 @@ import java.util.ArrayList;
 
 public class ProductosFragment extends Fragment {
 
-    private FirebaseAuth mAuth;
-    private DateElement callBack; //para usar la interfaz
     public static ShimmerRecyclerViewX rvProductos;
-    public static ArrayList<Producto> productoArrayList, productoArrayList2;
     public static ProductosAdapter productosAdapter, productosAdapter2;
+    public static ArrayList<Producto> productoArrayList, productoArrayList2;
 
     public ProductosFragment() { }
-
-    //hacemos la comunicacion
-//    @Override
-//    public void onAttach(@NonNull Context context) {
-//        super.onAttach(context);
-//        try {
-//            callBack = (DateElement) context;
-//        } catch (Exception e) {
-//            throw new ClassCastException(context.toString() + "Debe implementar DateElement");
-//        }
-//    }
 
     public View onCreateView(@NonNull final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -65,13 +52,9 @@ public class ProductosFragment extends Fragment {
         //replicamos el arrayList para la hora de buscar
         productoArrayList2 = new ArrayList<>();
         productosAdapter2  = new ProductosAdapter(productoArrayList2, getActivity(), "Producto");
-//        mAuth = FirebaseAuth.getInstance(); //obtenemos al usuario actual
 
         rvProductos.setAdapter(productosAdapter);
         rvProductos.showShimmerAdapter();
-
-//        NodosFirebase.nameFragment = "Productos";
-//        MainActivity.visivilitySearch(NodosFirebase.nameFragment);
 
         MainActivity.edtAppBar.setVisibility(View.VISIBLE);
 
@@ -96,6 +79,7 @@ public class ProductosFragment extends Fragment {
                                 movimiento.child("destiny").getValue(String.class),
                                 movimiento.child("status").getValue(String.class),
                                 movimiento.child("idKey").getValue(String.class),
+                                movimiento.child("idMovimiento").getValue(String.class),
                                 movimiento.child("weight").getValue(Double.class),
                                 movimiento.child("quantity").getValue(Integer.class));
 
@@ -143,8 +127,6 @@ public class ProductosFragment extends Fragment {
                 String idKey = arrayList.get(pos).getIdKey();
                 String name = arrayList.get(pos).getName();
 
-//                sendDatosProductSelected(idKey,name);
-
                 ModifyProductFragment modifyProductFragment = new ModifyProductFragment(idKey, name);
                 modifyProductFragment.show(getChildFragmentManager(), "dialogModificar");
             }
@@ -154,10 +136,6 @@ public class ProductosFragment extends Fragment {
 
             }
         });
-    }
-
-    private void sendDatosProductSelected(String idkey, String name) {
-        callBack.sendDatos(idkey,name);
     }
 
     public void mtoast(String msj) {
@@ -174,11 +152,6 @@ public class ProductosFragment extends Fragment {
             }
         }
         rvProductos.setAdapter(productosAdapter2);
-    }
-
-    //interfaz para mandar los datos del element precionado
-    public interface DateElement {
-        void sendDatos(String idKey, String name);
     }
 
     @Override

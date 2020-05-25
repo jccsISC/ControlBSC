@@ -170,7 +170,7 @@ public class RegistrarE_S_C_Activity extends AppCompatActivity implements View.O
 
         chargingFragment.show(getSupportFragmentManager(), "dialogCharging");
         Movimiento movimiento = new Movimiento(finalDateEntrada,"positive",finalHoraES , "Congelacion",
-                "normal", id, sumatotal, detallesArrayList.size());
+                "normal", id, "vacio", sumatotal, detallesArrayList.size());
         movimiento.setDetalles(detallesArrayList);
         NodosFirebase.myRef.child(idKey).child("movimientos").child(id).setValue(movimiento)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {

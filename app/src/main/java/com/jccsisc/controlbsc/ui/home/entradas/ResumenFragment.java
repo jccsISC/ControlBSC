@@ -82,6 +82,7 @@ public class ResumenFragment extends Fragment {
                                     movimiento.child("destiny").getValue(String.class),
                                     movimiento.child("status").getValue(String.class),
                                     movimiento.child("idKey").getValue(String.class),
+                                    movimiento.child("idMovimiento").getValue(String.class),
                                     movimiento.child("weight").getValue(Double.class),
                                     movimiento.child("quantity").getValue(Integer.class));
                             for (DataSnapshot detalles : movimiento.child("detalles").getChildren()) {
