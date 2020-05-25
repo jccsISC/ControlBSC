@@ -74,7 +74,7 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.Prod
             }
         });
 
-        holder.textKg.setText(df.format(Aritmetica.sumaMovimiento(producto.getMovimientos())));
+
         if(vista.equals("Entrada")) {
             holder.textCantidad.setText(String.valueOf(Aritmetica.sumaCajaFecha(producto.getMovimientos())));
             holder.textKg.setText(String.valueOf(Aritmetica.sumaMovimientoFecha(producto.getMovimientos())));

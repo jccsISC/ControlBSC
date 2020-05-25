@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.jccsisc.controlbsc.R;
 import com.jccsisc.controlbsc.adapters.MovimientoSalidasAdapter;
 import com.jccsisc.controlbsc.model.Movimiento;
-import com.jccsisc.controlbsc.model.MovimientoPiezas;
 import com.jccsisc.controlbsc.model.Producto;
 import com.mikelau.views.shimmer.ShimmerRecyclerViewX;
 
@@ -24,7 +23,9 @@ public class MovimientoSalidasActivity extends AppCompatActivity {
     Intent extras;
     MovimientoSalidasAdapter adapter;
     ArrayList<Movimiento> myList = new ArrayList<>();
-    ArrayList<Movimiento> myListFiltered = new ArrayList<>();
+    ArrayList<Movimiento> myListPositive = new ArrayList<>();
+    ArrayList<Movimiento> myListNegative = new ArrayList<>();
+    ArrayList<Movimiento> myListFilteredFinal = new ArrayList<>();
     private ShimmerRecyclerViewX rvMovimientos;
     private String unit, name, key;
 
@@ -46,7 +47,7 @@ public class MovimientoSalidasActivity extends AppCompatActivity {
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         rvMovimientos.setLayoutManager(linearLayoutManager);
 
-        adapter = new MovimientoSalidasAdapter(myListFiltered, getApplicationContext(), unit, name);
+        adapter = new MovimientoSalidasAdapter(myListFilteredFinal, getApplicationContext(), unit, name);
         filterData();
 
         adapter.setOnClickListener(new MovimientoSalidasAdapter.OnClickListener() {
@@ -76,20 +77,44 @@ public class MovimientoSalidasActivity extends AppCompatActivity {
     }
 
     private void filterData() {
-        MovimientoPiezas nuevoMov = new MovimientoPiezas();
+        //Paso 1 -> Obtener los mov type positive
+        //Paso 2 -> Restar todos los type negative con idMovimiento equals
+        //Paso 3 -> Ponerlo dentro de l recyclerView
+
         for(int i = 0; i < myList.size(); i++){
             if(myList.get(i).getType().equals("positive")){
-               myListFiltered.add(myList.get(i));
+               myListPositive.add(myList.get(i));
             }
         }
-//        for(int g = 0; g < myListFiltered.size(); g++){
-//            for(int h = 0; h < myListFiltered){
-//
-//
-//
-//            }
-//
-//        }
+        for(int i = 0; i < myList.size(); i++){
+            if(myList.get(i).getType().equals("negative")){
+                myListNegative.add(myList.get(i));
+            }
+        }
+        for(int g = 0; g < myListPositive.size(); g++){//3
+            boolean found = false;
+            int quantity = 0;
+            double weight = 0;
+            for(int h = 0; h < myListNegative.size(); h++){//3
+                if(myListPositive.get(g).getIdKey().equals(myListNegative.get(h).getIdMovimiento())){
+                    found = true;
+                    quantity += myListNegative.get(h).getQuantity();
+                    weight   += myListNegative.get(h).getWeight();
+
+                }
+            }
+            if(found){
+                if((myListPositive.get(g).getWeight() - weight) != 0){
+                    Movimiento nuevoMov = new Movimiento(myListPositive.get(g).getDate(), myListPositive.get(g).getType(),
+                            myListPositive.get(g).getHour(), myListPositive.get(g).getDestiny(), myListPositive.get(g).getStatus(),
+                            myListPositive.get(g).getIdKey(), myListPositive.get(g).getIdMovimiento(),
+                            (myListPositive.get(g).getWeight() - weight), (myListPositive.get(g).getQuantity() - quantity));
+                    myListFilteredFinal.add(nuevoMov);
+                }
+            }else{
+                myListFilteredFinal.add(myListPositive.get(g));
+            }
+        }
         rvMovimientos.setAdapter(adapter);
     }
 

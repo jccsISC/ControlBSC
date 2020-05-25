@@ -10,10 +10,18 @@ public class Aritmetica {
     //sumamos el total del peso de todas las entradas del producto
     public static double sumaMovimiento(ArrayList<Movimiento> recibido) {
         double total = 0;
+        double totalNegative = 0.0;
         for (Movimiento nuevo : recibido) {
-            total += (nuevo.getWeight());
+            if(nuevo.getType().equals("positive")){
+                total += nuevo.getWeight();
+            }
         }
-        return total;
+        for(Movimiento nuevo : recibido){
+            if(nuevo.getType().equals("negative")){
+                totalNegative += nuevo.getWeight();
+            }
+        }
+        return total - totalNegative;
     }
 
 
@@ -34,10 +42,18 @@ public class Aritmetica {
 
    public static int sumaCaja(ArrayList<Movimiento> recibido){
         int total = 0;
+       int totalNegative = 0;
         for(Movimiento nuevo : recibido){
-            total = total + (nuevo.getQuantity());
+            if(nuevo.getType().equals("positive")){
+                total += nuevo.getQuantity();
+            }
         }
-        return total;
+       for(Movimiento nuevo : recibido){
+           if(nuevo.getType().equals("negative")){
+               totalNegative += nuevo.getQuantity();
+           }
+       }
+        return total - totalNegative;
     }
 
     public static int sumaCajaFecha(ArrayList<Movimiento> recibido){

@@ -211,7 +211,7 @@ public class RegistrarE_SActivity extends AppCompatActivity {
         }
 
         MovimientoPiezas movimientoCarne = new MovimientoPiezas(dateEntrada, "positive", horaEntrada, "Conservacion",
-                "normal", id, pesoFinal, cantPieza);
+                "normal", id,"vacio", pesoFinal, cantPieza);
 
         NodosFirebase.myRef.child(idKey).child("movimientos").child(id).setValue(movimientoCarne)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
