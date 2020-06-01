@@ -39,12 +39,12 @@ import java.util.Map;
 
 public class RegistrarE_SActivity extends AppCompatActivity {
 
-    public static int hora, minutos, segundos;
     Intent extras;
     public double pesoFinal = 0.0;
     private Button btnCargar;
     private TextView nameProducto, pesoTSin;
     private EditText cantPiezas, pesoTCon;
+    public static int hora, minutos, segundos;
     private EditText[] txtCajas = new EditText[7];
     double[] pesosCajas =  {3,2.4,2.2,2,1.6,1.5,1.4};
     public static String horaEntrada, dateEntrada, dateSalida = "", idKey, name, type;
@@ -57,7 +57,6 @@ public class RegistrarE_SActivity extends AppCompatActivity {
         setContentView(R.layout.activity_e_s_matanza);
 
         extras = getIntent();
-
         toolbar();
         obtenerFecha();
         obtenerHora();

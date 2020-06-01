@@ -137,61 +137,35 @@ public class SalidasFragment extends Fragment {
             @Override
             public void onLongItemClick(int pos) {
 
-//                ArrayList<Movimiento> movimientos = new ArrayList<>();
-//
-//                for (int i = 0; i < productoArrayList.get(pos).getMovimientos().size(); i++) {
-//                    movimientos.add(productoArrayList.get(pos).getMovimientos().get(i));
-//                }
-//
-//                if (movimientos.size() != 0) {
-//                    Intent i = new Intent(getContext(), ModificarMovimientoActivity.class);
-//                    Bundle bundle = new Bundle();
-//                    bundle.putSerializable("movimientos", movimientos);
-//                    i.putExtras(bundle);
-//                    i.putExtra("unit", productoArrayList.get(pos).getUnit());
-//                    i.putExtra("name", productoArrayList.get(pos).getName());
-//                    i.putExtra("key", productoArrayList.get(pos).getIdKey());
-//                    startActivity(i);
-//                } else {
-//                    mtoast("No hay movimientos");
-//                }
-
             }
         });
 
         salidasAdapter2.setOnClickListener(new ProductosAdapter.OnClickListener() {
             @Override
             public void onItemClick( int pos) {
-//                mostraraActivity(pos, productoArrayList2);
+                ArrayList<Movimiento> movimientos = new ArrayList<>();
+
+                for (int i = 0; i < productoArrayList2.get(pos).getMovimientos().size(); i++) {
+                    movimientos.add(productoArrayList2.get(pos).getMovimientos().get(i));
+                }
+
+                if (movimientos.size() != 0) {
+                    Intent i = new Intent(getContext(), MovimientoSalidasActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("movimientos", movimientos);
+                    i.putExtras(bundle);
+                    i.putExtra("unit", productoArrayList2.get(pos).getUnit());
+                    i.putExtra("name", productoArrayList2.get(pos).getName());
+                    i.putExtra("key", productoArrayList2.get(pos).getIdKey());
+                    startActivity(i);
+                } else {
+                    mtoast("No hay movimientos");
+                }
             }
 
             @Override
             public void onLongItemClick(int pos) {
-                ArrayList<Movimiento> movimientos = new ArrayList<>();
 
-//                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-//                Date date = new Date();
-//                String dateToday = dateFormat.format(date);
-
-                for (int i = 0; i < productoArrayList.get(pos).getMovimientos().size(); i++) {
-                    movimientos.add(productoArrayList.get(pos).getMovimientos().get(i));
-                }
-
-                if (movimientos.size() != 0) {
-                    if (productoArrayList.get(pos).getUnit().equals("Caja")) {
-                        mostraraActivity(pos, productoArrayList);
-                    }
-//                    Intent i = new Intent(getContext(), ModificarMovimientoActivity.class);
-//                    Bundle bundle = new Bundle();
-//                    bundle.putSerializable("movimientos", movimientos);
-//                    i.putExtras(bundle);
-//                    i.putExtra("unit", productoArrayList.get(pos).getUnit());
-//                    i.putExtra("name", productoArrayList.get(pos).getName());
-//                    i.putExtra("key", productoArrayList.get(pos).getIdKey());
-//                    startActivity(i);
-                } else {
-                    mtoast("No hay movimientos");
-                }
             }
         });
 

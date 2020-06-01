@@ -43,10 +43,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="22/05/2020"
-                android:padding="@dimen/padding_5"
+                android:padding="@dimen/padding_3"
                 android:gravity="center"
-                android:textSize="@dimen/size_15"
-                android:fontFamily="@font/roboto_regular"
+                android:textSize="@dimen/size_18"
+                android:fontFamily="@font/roboto_bold"
                 android:autoSizeTextType="uniform"
                 android:autoSizeMaxTextSize="@dimen/size_15"
                 android:autoSizeMinTextSize="@dimen/size_8"/>
@@ -70,7 +70,7 @@
                        android:text="PZ"
                        android:gravity="center"
                        android:textSize="@dimen/size_15"
-                       android:fontFamily="@font/roboto_regular"/>
+                       android:fontFamily="@font/roboto_bold"/>
                    <TextView
                        android:id="@+id/txtPiezas"
                        android:layout_width="match_parent"
@@ -78,7 +78,7 @@
                        android:text="50"
                        android:gravity="center"
                        android:textSize="@dimen/size_15"
-                       android:fontFamily="@font/roboto_light"
+                       android:fontFamily="@font/roboto_regular"
                        android:autoSizeTextType="uniform"
                        android:autoSizeMaxTextSize="@dimen/size_15"
                        android:autoSizeMinTextSize="@dimen/size_8"/>
@@ -95,7 +95,7 @@
                        android:text="KG"
                        android:gravity="center"
                        android:textSize="@dimen/size_15"
-                       android:fontFamily="@font/roboto_regular"/>
+                       android:fontFamily="@font/roboto_bold"/>
                    <TextView
                        android:id="@+id/txtKilogramos"
                        android:layout_width="match_parent"
@@ -103,7 +103,7 @@
                        android:text="200"
                        android:gravity="center"
                        android:textSize="@dimen/size_15"
-                       android:fontFamily="@font/roboto_light"
+                       android:fontFamily="@font/roboto_regular"
                        android:autoSizeTextType="uniform"
                        android:autoSizeMaxTextSize="@dimen/size_15"
                        android:autoSizeMinTextSize="@dimen/size_8"/>
@@ -137,11 +137,11 @@
                 android:id="@+id/txtDateEnvasado"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="23/05/2020"
-                android:padding="@dimen/padding_5"
+                tools:text="23/05/2020"
+                android:padding="@dimen/padding_3"
                 android:gravity="center"
-                android:textSize="@dimen/size_15"
-                android:fontFamily="@font/roboto_regular"
+                android:textSize="@dimen/size_18"
+                android:fontFamily="@font/roboto_bold"
                 android:autoSizeTextType="uniform"
                 android:autoSizeMaxTextSize="@dimen/size_15"
                 android:autoSizeMinTextSize="@dimen/size_8"/>
@@ -165,15 +165,15 @@
                         android:text="PZ"
                         android:gravity="center"
                         android:textSize="@dimen/size_15"
-                        android:fontFamily="@font/roboto_regular"/>
+                        android:fontFamily="@font/roboto_bold"/>
                     <TextView
                         android:id="@+id/txtPiezasEnvasado"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="25"
+                        tools:text="25"
                         android:gravity="center"
-                        android:textSize="@dimen/size_15"
-                        android:fontFamily="@font/roboto_light"
+                        tools:textSize="@dimen/size_15"
+                        android:fontFamily="@font/roboto_regular"
                         android:autoSizeTextType="uniform"
                         android:autoSizeMaxTextSize="@dimen/size_15"
                         android:autoSizeMinTextSize="@dimen/size_8"/>
@@ -190,7 +190,7 @@
                         android:text="KG"
                         android:gravity="center"
                         android:textSize="@dimen/size_15"
-                        android:fontFamily="@font/roboto_regular"/>
+                        android:fontFamily="@font/roboto_bold"/>
                     <TextView
                         android:id="@+id/txtKilogramosEnvasado"
                         android:layout_width="match_parent"
@@ -198,7 +198,7 @@
                         android:text=""
                         android:gravity="center"
                         android:textSize="@dimen/size_15"
-                        android:fontFamily="@font/roboto_light"
+                        android:fontFamily="@font/roboto_regular"
                         android:autoSizeTextType="uniform"
                         android:autoSizeMaxTextSize="@dimen/size_15"
                         android:autoSizeMinTextSize="@dimen/size_8"/>

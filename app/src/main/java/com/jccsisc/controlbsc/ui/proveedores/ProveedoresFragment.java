@@ -76,9 +76,10 @@ public class ProveedoresFragment extends Fragment {
         rvProveedores.setAdapter(proveedorAdapter);
         rvProveedores.showShimmerAdapter();
 
-        //cambiamos el icono del floatButton
-        NodosFirebase.addContac = "addContac";
-        MainActivity.fab.setImageResource(R.drawable.ic_add_user);
+        //ocultamos el floating principal
+        MainActivity.fabAddProduct.setVisibility(View.INVISIBLE);
+        MainActivity.layoutFabGroupAddContac.setVisibility(View.VISIBLE);
+
 
         NodosFirebase.myRefProveedor.orderByChild("name").addValueEventListener(new ValueEventListener() {
             @Override
@@ -172,13 +173,6 @@ public class ProveedoresFragment extends Fragment {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        NodosFirebase.addContac = "other";
-        MainActivity.fab.setImageResource(R.drawable.ic_mas);
-    }
-
-    @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (grantResults[0] == PackageManager.PERMISSION_DENIED && requestCode == REQUEST_CALL) {
 
@@ -234,5 +228,11 @@ public class ProveedoresFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        MainActivity.fabAddProduct.setVisibility(View.VISIBLE);
+        MainActivity.layoutFabGroupAddContac.setVisibility(View.INVISIBLE);
+    }
 
 }

@@ -53,7 +53,7 @@
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activities.RegistrarProductoActivity"
+            android:name=".activities.AddProductActivity"
             android:parentActivityName=".activities.MainActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />

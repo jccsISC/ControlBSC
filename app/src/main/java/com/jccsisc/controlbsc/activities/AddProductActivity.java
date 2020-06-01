@@ -32,7 +32,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class RegistrarProductoActivity extends AppCompatActivity implements View.OnClickListener{
+public class AddProductActivity extends AppCompatActivity implements View.OnClickListener{
 
     private Boolean miclick = false;
     private TextInputLayout tilProducto;

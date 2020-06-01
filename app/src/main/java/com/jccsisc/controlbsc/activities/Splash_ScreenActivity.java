@@ -24,6 +24,6 @@ public class Splash_ScreenActivity extends AppCompatActivity {
                 Animatoo.animateFade(Splash_ScreenActivity.this);//con esta linea ejecutamos las animaciones ya con la libreria agregada
                 finish();
             }
-        }, 1500);
+        }, 1000);
     }
 }

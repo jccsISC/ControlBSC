@@ -22,8 +22,10 @@ public class ContactanosFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_contactanos, container, false);
+        MainActivity.fabAddProduct.setVisibility(View.INVISIBLE);
+        MainActivity.layoutFabGroup.setVisibility(View.VISIBLE);
 
-        MainActivity.fab.setVisibility(View.INVISIBLE);
+
 
         return v;
     }
@@ -31,6 +33,7 @@ public class ContactanosFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        MainActivity.fab.setVisibility(View.VISIBLE);
+        MainActivity.fabAddProduct.setVisibility(View.VISIBLE);
+        MainActivity.layoutFabGroup.setVisibility(View.INVISIBLE);
     }
 }

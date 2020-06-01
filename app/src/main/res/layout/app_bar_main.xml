@@ -11,21 +11,110 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
-
         <include
             android:id="@+id/toolbar"
             layout="@layout/toolbar"/>
-
     </com.google.android.material.appbar.AppBarLayout>
 
     <include layout="@layout/content_main" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+    <FrameLayout
+        android:id="@+id/frameLayout"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="300dp"
         android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        tools:background="@color/colorPrimaryLight">
 
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabAddProduct"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:visibility="visible"
+            app:fab_colorNormal="@color/colorPrimary"
+            app:fab_colorPressed="@color/colorPrimary"
+            app:fab_icon="@drawable/ic_plus" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutFabGroupAddContac"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom|end"
+            android:visibility="invisible">
+
+            <com.getbase.floatingactionbutton.FloatingActionsMenu
+                android:id="@+id/fabGroupAddContact"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:fab_addButtonColorNormal="@color/colorAccent"
+                app:fab_addButtonColorPressed="@color/colorAccent">
+
+                <com.getbase.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fabAddContactPhone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="100dp"
+                    app:fab_colorNormal="@color/colorPrimary"
+                    app:fab_colorPressed="@color/colorPrimary"
+                    app:fab_icon="@drawable/ic_cell"
+                    app:fab_size="mini" />
+
+                <com.getbase.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fabAddProveedor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:fab_colorNormal="@color/colorPrimary"
+                    app:fab_colorPressed="@color/colorPrimary"
+                    app:fab_icon="@drawable/ic_add_user"
+                    app:fab_size="mini" />
+            </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutFabGroup"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom|end"
+            android:visibility="invisible">
+
+            <com.getbase.floatingactionbutton.FloatingActionsMenu
+                android:id="@+id/fabGroup"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:fab_addButtonColorNormal="@color/colorAccent"
+                app:fab_addButtonColorPressed="@color/colorAccent"
+                app:layout_anchorGravity="center">
+
+                <com.getbase.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fabWahtsapp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:fab_colorNormal="@color/colorPrimary"
+                    app:fab_colorPressed="@color/colorPrimary"
+                    app:fab_icon="@drawable/ic_whatsapp_white"
+                    app:fab_size="mini" />
+
+                <com.getbase.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fabEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:fab_colorNormal="@color/colorPrimary"
+                    app:fab_colorPressed="@color/colorPrimary"
+                    app:fab_icon="@drawable/ic_mail"
+                    app:fab_size="mini" />
+
+                <com.getbase.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fabCall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:fab_colorNormal="@color/colorPrimary"
+                    app:fab_colorPressed="@color/colorPrimary"
+                    app:fab_icon="@drawable/ic_phone"
+                    app:fab_size="mini" />
+
+
+            </com.getbase.floatingactionbutton.FloatingActionsMenu>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

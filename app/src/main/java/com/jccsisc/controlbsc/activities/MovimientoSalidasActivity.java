@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 public class MovimientoSalidasActivity extends AppCompatActivity {
 
     Intent extras;
+    private TextView txtMensaje;
     MovimientoSalidasAdapter adapter;
     ArrayList<Movimiento> myList = new ArrayList<>();
     ArrayList<Movimiento> myListPositive = new ArrayList<>();
@@ -33,14 +35,15 @@ public class MovimientoSalidasActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modificar_movimiento);
-        myToolbar("Modificar movimiento");
+        myToolbar("Dar Salida al producto");
         extras = getIntent();
         Bundle bundle = extras.getExtras();
         myList = (ArrayList<Movimiento>)bundle.getSerializable("movimientos");
         unit   = extras.getStringExtra("unit");
         name   = extras.getStringExtra("name");
         key    = extras.getStringExtra("key");
-
+        txtMensaje = findViewById(R.id.txtMensaje);
+        txtMensaje.setText("Seleccione de qué fecha quiere darle salida al producto");
         Log.e("size", myList.size() +"");
         rvMovimientos = findViewById(R.id.recyclerViewModificarMovimiento);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -81,30 +84,32 @@ public class MovimientoSalidasActivity extends AppCompatActivity {
         //Paso 2 -> Restar todos los type negative con idMovimiento equals
         //Paso 3 -> Ponerlo dentro de l recyclerView
 
-        for(int i = 0; i < myList.size(); i++){
-            if(myList.get(i).getType().equals("positive")){
+        for (int i = 0; i < myList.size(); i++) {
+            if (myList.get(i).getType().equals("positive")) {
                myListPositive.add(myList.get(i));
             }
         }
-        for(int i = 0; i < myList.size(); i++){
-            if(myList.get(i).getType().equals("negative")){
+
+        for (int i = 0; i < myList.size(); i++) {
+            if (myList.get(i).getType().equals("negative")) {
                 myListNegative.add(myList.get(i));
             }
         }
-        for(int g = 0; g < myListPositive.size(); g++){//3
+
+        for (int g = 0; g < myListPositive.size(); g++) {//3
             boolean found = false;
             int quantity = 0;
             double weight = 0;
-            for(int h = 0; h < myListNegative.size(); h++){//3
-                if(myListPositive.get(g).getIdKey().equals(myListNegative.get(h).getIdMovimiento())){
+            for (int h = 0; h < myListNegative.size(); h++) {//3
+                if (myListPositive.get(g).getIdKey().equals(myListNegative.get(h).getIdMovimiento())) {
                     found = true;
                     quantity += myListNegative.get(h).getQuantity();
                     weight   += myListNegative.get(h).getWeight();
-
                 }
             }
-            if(found){
-                if((myListPositive.get(g).getWeight() - weight) != 0){
+
+            if (found) {
+                if ((myListPositive.get(g).getWeight() - weight) != 0) {
                     Movimiento nuevoMov = new Movimiento(myListPositive.get(g).getDate(), myListPositive.get(g).getType(),
                             myListPositive.get(g).getHour(), myListPositive.get(g).getDestiny(), myListPositive.get(g).getStatus(),
                             myListPositive.get(g).getIdKey(), myListPositive.get(g).getIdMovimiento(),
