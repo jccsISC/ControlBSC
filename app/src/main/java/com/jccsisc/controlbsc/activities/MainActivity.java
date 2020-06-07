@@ -82,8 +82,7 @@ public class MainActivity extends AppCompatActivity {
         fabEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), AddContactoActivity.class);
-                i.putExtra("type","new");
+                Intent i = new Intent(getApplicationContext(), SendEmailActivity.class);
                 startActivity(i);
                 Animatoo.animateShrink(MainActivity.this);
                 fabGroup.collapse();

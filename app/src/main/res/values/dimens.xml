@@ -63,5 +63,6 @@
     <dimen name="size_13">13sp</dimen>
     <dimen name="corner_radius_8">8dp</dimen>
     <dimen name="elevation_8">8dp</dimen>
+    <dimen name="size_22">22sp</dimen>
 
 </resources>
