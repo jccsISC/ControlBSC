@@ -39,8 +39,13 @@ public class ResumenFragment extends Fragment {
     private ProductosAdapterResumen entradasAdapter;
     private TextView txtDate;
     String dateToday;
+    String fechaCalendar;
 
     public ResumenFragment() { }
+
+    public ResumenFragment(String fecha) {
+        this.fechaCalendar = fecha;
+    }
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, final Bundle savedInstanceState) {
@@ -74,7 +79,7 @@ public class ResumenFragment extends Fragment {
                             snapshot.child("idKey").getValue(String.class));
                     for(DataSnapshot movimiento : snapshot.child("movimientos").getChildren()) {
                         Movimiento movimiento1;
-//                        if(movimiento.child("date").getValue(String.class).equals("2020-05-05")){
+//                        if(movimiento.child("date").getValue(String.class).equals("07-06-2020")) {
                             movimiento1 = new Movimiento(
                                     movimiento.child("date").getValue(String.class),
                                     movimiento.child("type").getValue(String.class),
@@ -94,7 +99,7 @@ public class ResumenFragment extends Fragment {
                             producto.addMovimiento(movimiento1);
 //                        }
                     }
-                    txtDate.setText(dateToday);
+                    txtDate.setText(fechaCalendar);
                     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
                     Date date = new Date();
                     dateToday = dateFormat.format(date);

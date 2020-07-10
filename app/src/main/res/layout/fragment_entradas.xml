@@ -9,15 +9,15 @@
     android:orientation="vertical">
 
     <EditText
-        android:id="@+id/edtBuscador"
-        android:layout_margin="@dimen/margin_10"
-        android:drawableStart="@drawable/ic_search"
-        android:hint="@string/nombre_del_expositor"
-        android:layout_width="match_parent"
-        android:padding="5dp"
-        android:textSize="14sp"
-        android:background="@drawable/border_search"
-        android:layout_height="wrap_content"/>
+            android:id="@+id/edtBuscador"
+            android:layout_margin="@dimen/margin_10"
+            android:drawableStart="@drawable/ic_search"
+            android:hint="@string/nombre_del_expositor"
+            android:layout_width="match_parent"
+            android:padding="5dp"
+            android:textSize="14sp"
+            android:background="@drawable/border_search"
+            android:layout_height="wrap_content"/>
     <cjh.reboundscrollviewlibrary.ReboundScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">

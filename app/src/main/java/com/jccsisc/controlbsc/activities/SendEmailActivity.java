@@ -48,23 +48,26 @@ public class SendEmailActivity extends AppCompatActivity {
             String enviarasunto = edtAsunto.getText().toString();
             String enviarmensaje = edtMessage.getText().toString();
 
-            // Defino mi Intent y hago uso del objeto ACTION_SEND
-            Intent intent = new Intent(Intent.ACTION_SEND);
+            if (isEmpty(enviarasunto) & isEmptyMessage(enviarmensaje)) {
+                // Defino mi Intent y hago uso del objeto ACTION_SEND
+                Intent intent = new Intent(Intent.ACTION_SEND);
 
-            // Defino los Strings Email, Asunto y Mensaje con la función putExtra
-            intent.putExtra(Intent.EXTRA_EMAIL,
-                    new String[] { enviarcorreo });
-            intent.putExtra(Intent.EXTRA_SUBJECT, enviarasunto);
-            intent.putExtra(Intent.EXTRA_TEXT, enviarmensaje);
+                // Defino los Strings Email, Asunto y Mensaje con la función putExtra
+                intent.putExtra(Intent.EXTRA_EMAIL,
+                        new String[] { enviarcorreo });
+                intent.putExtra(Intent.EXTRA_SUBJECT, enviarasunto);
+                intent.putExtra(Intent.EXTRA_TEXT, enviarmensaje);
 
-            // Establezco el tipo de Intent
-            intent.setType("message/rfc822");
+                // Establezco el tipo de Intent
+                intent.setType("message/rfc822");
 
-            // Lanzo el selector de cliente de Correo
-            startActivity(
-                    Intent.createChooser(intent,
-                                    "Elije un cliente de Correo:"));
-            return true;
+                // Lanzo el selector de cliente de Correo
+                startActivity(
+                        Intent.createChooser(intent,
+                                "Elije un cliente de Correo:"));
+                return true;
+            }
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -82,5 +85,22 @@ public class SendEmailActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private boolean isEmpty(String asunto) {
+        if (asunto.isEmpty()) {
+            edtAsunto.setHintTextColor(getResources().getColor(R.color.colorPieza));
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean isEmptyMessage(String message) {
+        if (message.isEmpty()) {
+            edtMessage.setHintTextColor(getResources().getColor(R.color.colorPieza));
+            return false;
+        }
+        return true;
     }
 }
