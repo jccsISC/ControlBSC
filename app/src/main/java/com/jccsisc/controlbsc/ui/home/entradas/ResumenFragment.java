@@ -79,7 +79,8 @@ public class ResumenFragment extends Fragment {
                             snapshot.child("idKey").getValue(String.class));
                     for(DataSnapshot movimiento : snapshot.child("movimientos").getChildren()) {
                         Movimiento movimiento1;
-//                        if(movimiento.child("date").getValue(String.class).equals("07-06-2020")) {
+//                        if(movimiento.child("date").getValue(String.class).equals("19-07-2020")) {
+                        Log.e("dato", movimiento.child("date").getValue(String.class)+"fecha");
                             movimiento1 = new Movimiento(
                                     movimiento.child("date").getValue(String.class),
                                     movimiento.child("type").getValue(String.class),
