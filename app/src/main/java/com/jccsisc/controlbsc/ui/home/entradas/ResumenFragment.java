@@ -47,7 +47,6 @@ public class ResumenFragment extends Fragment {
         this.fechaCalendar = fecha;
     }
 
-
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, final Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_resumen, container, false);
@@ -101,7 +100,7 @@ public class ResumenFragment extends Fragment {
 //                        }
                     }
                     txtDate.setText(fechaCalendar);
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
                     Date date = new Date();
                     dateToday = dateFormat.format(date);
                         for(int c = 0; c < producto.getMovimientos().size(); c++){
