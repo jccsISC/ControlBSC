@@ -10,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 public class EventCalculator {
     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
     Calendar calendar = Calendar.getInstance();
+
     public String ConvertirFecha(String fecha){
         Date fechaProceso;
         String fechita = null;
@@ -232,7 +233,7 @@ public class EventCalculator {
             mesN = String.valueOf(mes + 1);
         }
 
-        return diaN + "/" + mesN + "/" + anio;
+        return diaN + "-" + mesN + "-" + anio;
     }
 
     public String nombreSemana(String dateString){

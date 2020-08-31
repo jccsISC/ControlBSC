@@ -98,6 +98,7 @@
             <com.mikelau.views.shimmer.ShimmerRecyclerViewX
                 android:id="@+id/recyclerViewEntradasResumen"
                 android:layout_width="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/margin_10"
                 app:shimmer_demo_layout="@layout/layout_demo_grid_resumen" />

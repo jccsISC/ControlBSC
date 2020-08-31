@@ -78,8 +78,8 @@ public class ResumenFragment extends Fragment {
                             snapshot.child("idKey").getValue(String.class));
                     for(DataSnapshot movimiento : snapshot.child("movimientos").getChildren()) {
                         Movimiento movimiento1;
-//                        if(movimiento.child("date").getValue(String.class).equals("19-07-2020")) {
-                        Log.e("dato", movimiento.child("date").getValue(String.class)+"fecha");
+                        if(movimiento.child("date").getValue(String.class).equals(fechaCalendar)) {
+                        Log.e("dato", movimiento.child("date").getValue(String.class));
                             movimiento1 = new Movimiento(
                                     movimiento.child("date").getValue(String.class),
                                     movimiento.child("type").getValue(String.class),
@@ -97,16 +97,16 @@ public class ResumenFragment extends Fragment {
                                 movimiento1.addDetalles(detalle);
                             }
                             producto.addMovimiento(movimiento1);
-//                        }
+                        }
                     }
                     txtDate.setText(fechaCalendar);
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
                     Date date = new Date();
                     dateToday = dateFormat.format(date);
                         for(int c = 0; c < producto.getMovimientos().size(); c++){
-                            if(producto.getMovimientos().get(c).getDate().equals(dateToday)){
+//                            if(producto.getMovimientos().get(c).getDate().equals(dateToday)){
                                 productoArrayList.add(producto);
-                            }
+//                            }
                         }
                 }
             }
